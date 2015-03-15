@@ -9,40 +9,13 @@
 namespace TechData\AS2SecureBundle\Factories;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use TechData\AS2SecureBundle\Interfaces\PartnerProvider;
-use TechData\AS2SecureBundle\Models\AbstractBase;
 
 abstract class AbstractFactory
 {
     /**
-     * @var PartnerProvider
-     */
-    private $partnerProvider;
-    /**
      * @var EventDispatcherInterface
      */
     private $EventDispatcher;
-
-    protected function buildAbstract(AbstractBase $object)
-    {
-
-    }
-
-    /**
-     * @return PartnerProvider
-     */
-    protected function getPartnerProvider()
-    {
-        return $this->partnerProvider;
-    }
-
-    /**
-     * @param PartnerProvider $partnerProvider
-     */
-    public function setPartnerProvider(PartnerProvider $partnerProvider)
-    {
-        $this->partnerProvider = $partnerProvider;
-    }
 
     /**
      * @return EventDispatcherInterface

@@ -1,5 +1,6 @@
 <?php
 namespace TechData\AS2SecureBundle\Models;
+
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
@@ -28,12 +29,30 @@ namespace TechData\AS2SecureBundle\Models;
  * @version 0.8.2
  *
  */
+use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
+use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
 
 class Request extends AbstractBase
 {
+    // Injected Services
     protected $request = null;
+    /**
+     * @var MDNFactory
+     */
+    private $mdnFactory;
+    /**
+     * @var MessageFactory
+     */
+    private $messageFactory;
 
-    public function __construct($content, $headers)
+    function __construct(MDNFactory $mdnFactory, MessageFactory $messageFactory)
+    {
+        $this->mdnFactory = $mdnFactory;
+        $this->messageFactory = $messageFactory;
+    }
+
+
+    public function initialize($content, $headers)
     {
 
         // build params to match parent::__construct
@@ -46,7 +65,7 @@ class Request extends AbstractBase
             'is_file' => false);
 
         // content is stored into new file
-        $this->initialize($content, $params);
+        $this->initializeBase($content, $params);
 
         $message_id = $this->getHeader('message-id');
         $message_id = str_replace(array('<', '>'), '', $message_id);
@@ -198,8 +217,7 @@ class Request extends AbstractBase
                         'partner_to' => $this->getPartnerFrom(),
                         'is_file' => false,
                         'mic' => $mic);
-                    $object = new MDN($mime_part, $params);
-                    $object->setHeaders($this->getHeaders());
+                    $object = $this->mdnFactory->build($mime_part, $params);
                     return $object;
 
                 default:
@@ -207,7 +225,7 @@ class Request extends AbstractBase
                         'partner_to' => $this->getPartnerTo(),
                         'is_file' => false,
                         'mic' => $mic);
-                    $object = new Message($mime_part, $params);
+                    $object = $this->messageFactory->build($mime_part, $params);
                     $object->setHeaders($this->getHeaders());
                     return $object;
             }

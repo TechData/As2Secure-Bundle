@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Exception extends Exception
+class AS2Exception extends \Exception
 {
     /**
      * Refers to RFC 4130

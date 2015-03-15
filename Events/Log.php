@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\Event;
 class Log extends Event
 {
 
+    const EVENT = 'LOG';
     const TYPE_INFO = 'INFO';
     const TYPE_WARN = 'WARN';
     const TYPE_ERROR = 'ERROR';

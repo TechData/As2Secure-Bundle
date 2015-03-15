@@ -33,12 +33,22 @@ namespace TechData\AS2SecureBundle\Models;
 class MDN extends AbstractBase
 {
     /**
+     * Refers to RFC 4130
+     * http://rfclibrary.hosting.com/rfc/rfc4130/rfc4130-34.asp
+     */
+    const ACTION_AUTO = 'automatic-action';
+    const ACTION_MANUAL = 'manual-action';
+    const SENDING_AUTO = 'MDN-sent-automatically';
+    const SENDING_MANUAL = 'MDN-sent-manually';
+    const TYPE_PROCESSED = 'processed';
+    const TYPE_FAILED = 'failed';
+    const MODIFIER_ERROR = 'error';
+    const MODIFIER_WARNING = 'warning';
+    /**
      * Human readable message
      */
     protected $message = '';
-
     protected $url = '';
-
     /**
      * Valid tokens :
      *
@@ -52,24 +62,13 @@ class MDN extends AbstractBase
      */
     protected $attributes = null;
 
-    /**
-     * Refers to RFC 4130
-     * http://rfclibrary.hosting.com/rfc/rfc4130/rfc4130-34.asp
-     */
-    const ACTION_AUTO = 'automatic-action';
-    const ACTION_MANUAL = 'manual-action';
+    function __construct()
+    {
 
-    const SENDING_AUTO = 'MDN-sent-automatically';
-    const SENDING_MANUAL = 'MDN-sent-manually';
-
-    const TYPE_PROCESSED = 'processed';
-    const TYPE_FAILED = 'failed';
-
-    const MODIFIER_ERROR = 'error';
-    const MODIFIER_WARNING = 'warning';
+    }
 
 
-    public function __construct($data = null, $params = array())
+    public function initialize($data = null, $params = array())
     {
 
         $this->attributes = new Header(array('action-mode' => self::ACTION_AUTO,
@@ -99,7 +98,7 @@ class MDN extends AbstractBase
                 'mimetype' => 'multipart/report',
                 'partner_from' => $data->getPartnerFrom(),
                 'partner_to' => $data->getPartnerTo());
-            $this->initialize($data->getContent(), $params);
+            $this->initializeBase($data->getContent(), $params);
 
             // check requirements
             if ($this->partner_from->mdn_signed && !$data->isSigned()) {
@@ -109,7 +108,7 @@ class MDN extends AbstractBase
             $params['partner_from'] = $data->getPartnerTo();
             $params['partner_to'] = $data->getPartnerFrom();
 
-            $this->initialize(false, $params);
+            $this->initializeBase(false, $params);
         } elseif ($data instanceof Horde_MIME_Part) {
             try {
                 $this->setPartnerFrom($params['partner_from']);
@@ -125,40 +124,10 @@ class MDN extends AbstractBase
             $this->path = Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
 
-            $this->initialize(false, $params);
+            $this->initializeBase(false, $params);
         } else {
             throw new AS2Exception('Not handled case.');
         }
-    }
-
-    /**
-     * Return the human readable message
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getMessage();
-    }
-
-    /**
-     * Set the human readable message
-     *
-     * @param string $message The message to set
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * Return the human readable message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 
     /**
@@ -173,15 +142,33 @@ class MDN extends AbstractBase
     }
 
     /**
-     * Return an attribute fromcomputer readable message
-     *
-     * @param string $key Token
+     * Return the human readable message
      *
      * @return string
      */
-    public function getAttribute($key)
+    public function __toString()
     {
-        return $this->attributes->getHeader($key);
+        return $this->getMessage();
+    }
+
+    /**
+     * Return the human readable message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Set the human readable message
+     *
+     * @param string $message The message to set
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
     }
 
     /**
@@ -280,6 +267,18 @@ class MDN extends AbstractBase
             file_put_contents($this->path, $container->toCanonicalString(false));
             $content = $container->toString();
         }
+    }
+
+    /**
+     * Return an attribute fromcomputer readable message
+     *
+     * @param string $key Token
+     *
+     * @return string
+     */
+    public function getAttribute($key)
+    {
+        return $this->attributes->getHeader($key);
     }
 
     /**

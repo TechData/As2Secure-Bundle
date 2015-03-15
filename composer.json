@@ -1,48 +1,43 @@
 {
-    "name": "techdata/as2secure-bundle",
-    "type": "symfony-bundle",
-    "description": "AS2Secure (http://www.as2secure.com)_abstraction to allow use of library in Symfony2 applications.",
-    "keywords": ["symfony","as2","as2secure"],
-    "homepage":"https://github.com/TechData/As2Secure-Bundle",
-    "license":"GNU LGPL",
-    "authors": [
-        {
-            "name": "Westin Pigott",
-            "email": "westin.pigott@techdata.com"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http://pear.php.net"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.2",
-        "symfony/symfony": ">=2.3.0",
-        "pear-pear/Mail": "*"
-    },
-    "autoload": {
-        "psr-0": { "TechData\\AS2SecureBundle": "" },
-        "classmap": [
-            "lib/Horde/",
-            "Overrides/",
-            "lib/AS2Abstract.php",
-            "lib/AS2Adapter.php",
-            "lib/AS2Client.php",
-            "lib/AS2Connector.php",
-            "lib/AS2Exception.php",
-            "lib/AS2Header.php",
-            "lib/AS2MDN.php",
-            "lib/AS2Message.php",
-            "lib/AS2Request.php"
-        ]
-    },
-    "minimum-stability": "dev",
-    "target-dir": "TechData/AS2SecureBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1-dev"
-        }
+  "name": "techdata/as2secure-bundle",
+  "type": "symfony-bundle",
+  "description": "AS2Secure (http://www.as2secure.com)_abstraction to allow use of library in Symfony2 applications.",
+  "keywords": [
+    "symfony",
+    "as2",
+    "as2secure"
+  ],
+  "homepage": "https://github.com/TechData/As2Secure-Bundle",
+  "license": "GNU LGPL",
+  "authors": [
+    {
+      "name": "Westin Pigott",
+      "email": "westin.pigott@techdata.com"
     }
+  ],
+  "repositories": [
+    {
+      "type": "pear",
+      "url": "http://pear.php.net"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.2",
+    "symfony/symfony": ">=2.3.0",
+    "pear-pear/Mail": "*"
+  },
+  "autoload": {
+    "psr-0": {"TechData\\AS2SecureBundle": ""},
+    "classmap": [
+      "Models/Horde/",
+      "Models/Horde/MIME"
+    ]
+  },
+  "minimum-stability": "dev",
+  "target-dir": "TechData/AS2SecureBundle",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  }
 }

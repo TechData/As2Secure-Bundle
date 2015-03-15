@@ -1,5 +1,6 @@
 <?php
 namespace TechData\AS2SecureBundle\Models;
+
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
@@ -29,108 +30,27 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 use TechData\AS2SecureBundle\Factories\Partner as PartnerFacotry;
+
 abstract class AbstractBase
 {
     // Injected Services
-    /**
-     * @var PartnerFacotry
-     */
-    private $partnerFactory;
-
-    // Properties
     protected $adapter = null;
 
+    // Properties
     protected $filename = null;
     protected $mimetype = null;
     protected $path = null;
     protected $files = array();
     protected $headers = null;
     protected $message_id = '';
-
     protected $is_signed = false;
     protected $is_crypted = false;
-
     protected $partner_from = null;
     protected $partner_to = null;
-
-    final protected function initialize($data, $params = array())
-    {
-        if (is_null($this->headers))
-            $this->headers = new Header();
-
-        if (is_array($data)) {
-            $this->path = $data;
-        } elseif ($data) {
-            // do nothing
-            // content : default is file
-            if (isset($params['is_file']) && $params['is_file'] === false) {
-                $file = Adapter::getTempFilename();
-                file_put_contents($file, $data);
-                $this->path = $file;
-
-                // filename
-                if (isset($params['filename']))
-                    $this->filename = $params['filename'];
-            } else {
-                $this->path = $data;
-                // filename
-                $this->filename = (isset($params['filename']) ? $params['filename'] : basename($this->path));
-            }
-
-            // mimetype handle
-            $this->mimetype = (isset($params['mimetype']) ? $params['mimetype'] : Adapter::detectMimeType($this->path));
-        }
-
-        // partners
-        if (isset($params['partner_from']) && $params['partner_from']) $this->setPartnerFrom($params['partner_from']);
-        else throw new AS2Exception('No AS2 From Partner specified.');
-        if (isset($params['partner_to']) && $params['partner_to']) $this->setPartnerTo($params['partner_to']);
-        else throw new AS2Exception('NO AS2 To Partner specified.');
-
-        $this->adapter = new Adapter($this->getPartnerFrom(), $this->getPartnerTo());
-    }
-
     /**
-     * @return PartnerFacotry
+     * @var PartnerFacotry
      */
-    protrected function getPartnerFactory()
-    {
-        return $this->partnerFactory;
-    }
-
-    /**
-     * @param PartnerFacotry $partnerFactory
-     */
-    public function setPartnerFactory(PartnerFacotry $partnerFactory)
-    {
-        $this->partnerFactory = $partnerFactory;
-    }
-
-
-
-    // partner handle
-
-    public function getPartnerFrom()
-    {
-        return $this->partner_from;
-    }
-
-    public function setPartnerFrom($partner_from)
-    {
-        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_from);
-    }
-
-    public function getPartnerTo()
-    {
-        return $this->partner_to;
-    }
-
-    public function setPartnerTo($partner_to)
-    {
-        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_to);
-    }
-
-    // message properties
+    private $partnerFactory;
 
     /**
      *
@@ -153,6 +73,9 @@ abstract class AbstractBase
         $this->files[] = realpath($file);
     }
 
+
+    // partner handle
+
     public function getFiles()
     {
         return $this->files;
@@ -172,6 +95,8 @@ abstract class AbstractBase
     {
         return $this->headers;
     }
+
+    // message properties
 
     public function setHeaders($headers)
     {
@@ -223,5 +148,79 @@ abstract class AbstractBase
     public function getUrl()
     {
         // TODO
+    }
+
+    /**
+     * @return PartnerFacotry
+     */
+
+    protected function getPartnerFactory()
+    {
+        return $this->partnerFactory;
+    }
+
+    /**
+     * @param PartnerFacotry $partnerFactory
+     */
+    public function setPartnerFactory(PartnerFacotry $partnerFactory)
+    {
+        $this->partnerFactory = $partnerFactory;
+    }
+
+    final protected function initializeBase($data, $params = array())
+    {
+        if (is_null($this->headers))
+            $this->headers = new Header();
+
+        if (is_array($data)) {
+            $this->path = $data;
+        } elseif ($data) {
+            // do nothing
+            // content : default is file
+            if (isset($params['is_file']) && $params['is_file'] === false) {
+                $file = Adapter::getTempFilename();
+                file_put_contents($file, $data);
+                $this->path = $file;
+
+                // filename
+                if (isset($params['filename']))
+                    $this->filename = $params['filename'];
+            } else {
+                $this->path = $data;
+                // filename
+                $this->filename = (isset($params['filename']) ? $params['filename'] : basename($this->path));
+            }
+
+            // mimetype handle
+            $this->mimetype = (isset($params['mimetype']) ? $params['mimetype'] : Adapter::detectMimeType($this->path));
+        }
+
+        // partners
+        if (isset($params['partner_from']) && $params['partner_from']) $this->setPartnerFrom($params['partner_from']);
+        else throw new AS2Exception('No AS2 From Partner specified.');
+        if (isset($params['partner_to']) && $params['partner_to']) $this->setPartnerTo($params['partner_to']);
+        else throw new AS2Exception('NO AS2 To Partner specified.');
+
+        $this->adapter = new Adapter($this->getPartnerFrom(), $this->getPartnerTo());
+    }
+
+    public function getPartnerFrom()
+    {
+        return $this->partner_from;
+    }
+
+    public function setPartnerFrom($partner_from)
+    {
+        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_from);
+    }
+
+    public function getPartnerTo()
+    {
+        return $this->partner_to;
+    }
+
+    public function setPartnerTo($partner_to)
+    {
+        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_to);
     }
 }

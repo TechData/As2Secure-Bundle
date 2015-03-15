@@ -1,5 +1,6 @@
 <?php
 namespace TechData\AS2SecureBundle\Models;
+
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
@@ -29,6 +30,8 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
+use TechData\AS2SecureBundle\Factories\Partner as PartnerFactory;
+
 class Adapter
 {
     /**
@@ -38,25 +41,298 @@ class Adapter
     public static $ssl_adapter = 'AS2Secure.jar';
     public static $ssl_openssl = 'openssl';
     public static $javapath = 'java';
-
-    protected $partner_from = null;
-    protected $partner_to = null;
-
     /**
      * Array to store temporary files created and scheduled to unlink
      */
     protected static $tmp_files = null;
+    protected $partner_from = null;
+    protected $partner_to = null;
+    /**
+     * @var PartnerFactory
+     */
+    private $partnerFactory;
 
-    public function __construct($partner_from, $partner_to)
+    function __construct(PartnerFactory $partnerFactory)
+    {
+        $this->partnerFactory = $partnerFactory;
+    }
+
+    /**
+     * Calculate the message integrity check (MIC) using SHA1 or MD5 algo
+     *
+     * @param string $input The file to use
+     * @param string $algo The algo to use
+     *
+     * @return string                The hash calculated
+     */
+    public static function calculateMicChecksum($input, $algo = 'sha1')
+    {
+        if (strtolower($algo) == 'sha1')
+            return base64_encode(self::hex2bin(sha1_file($input))) . ', sha1';
+        else
+            return base64_encode(self::hex2bin(md5_file($input))) . ', md5';
+    }
+
+    /**
+     * Convert a string from hexadecimal format to binary format
+     *
+     * @param string $str The string in hexadecimal format.
+     *
+     * @return string       The string in binary format.
+     */
+    public static function hex2bin($str)
+    {
+        $bin = '';
+        $i = 0;
+        do {
+            $bin .= chr(hexdec($str{$i} . $str{($i + 1)}));
+            $i += 2;
+        } while ($i < strlen($str));
+        return $bin;
+    }
+
+    /**
+     * Extract the message integrity check (MIC) from the digital signature
+     *
+     * @param string $input The file containing the signed message
+     *
+     * @return string                The hash extracted
+     */
+    public static function getMicChecksum($input)
     {
         try {
-            $this->partner_from = Partner::getPartner($partner_from);
+            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+                ' checksum' .
+                ' -in ' . escapeshellarg($input) .
+                ' 2>/dev/null';
+
+            $dump = self::exec($command, true);
+
+            return $dump[0];
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Execute a command line and throw Exception if an error appends
+     *
+     * @param string $command The command line to execute
+     * @param boolean $return_output True  to return all data from standard output
+     *                                   False to return only the error code
+     *
+     * @return string    The error code or the content from standard output
+     */
+    public static function exec($command, $return_output = false)
+    {
+        $output = array();
+        $return_var = 0;
+        try {
+            exec($command, $output, $return_var);
+            $line = (isset($output[0]) ? $output[0] : 'Unexpected error in command line : ' . $command);
+            if ($return_var) throw new Exception($line, (int)$return_var);
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        if ($return_output)
+            return $output;
+        else
+            return $return_var;
+    }
+
+    /**
+     * Extract CA from a PKCS12 Certificate
+     *
+     * @param string $input The PKCS12 Certificate
+     * @param string $password The PKCS12 Certificate's password
+     *
+     * @return string            The file which contains the CA
+     */
+    public static function getCAFromPKCS12($input, $password = '')
+    {
+        return self::getDataFromPKCS12($input, 'extracerts', $password);
+    }
+
+    /**
+     * Extract Part from a PKCS12 Certificate
+     *
+     * @param string $input The PKCS12 Certificate
+     * @param string $token The Part to extract
+     * @param string $password The PKCS12 Certificate's password
+     *
+     * @return string            The file which contains the Part
+     */
+    protected static function getDataFromPKCS12($input, $token, $password = '')
+    {
+        try {
+            $pkcs12 = file_get_contents($input);
+
+            $certs = array();
+            openssl_pkcs12_read($pkcs12, $certs, $password);
+
+            if (!isset($certs[$token])) {
+                throw new AS2Exception('Unexpected error while extracting certificates from pkcs12 container.');
+            }
+
+            $output = self::getTempFilename();
+            file_put_contents($output, $certs[$token]);
+
+            return $output;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Create a temporary file into temporary directory and add it to
+     * the garbage collector at shutdown
+     *
+     * @return string       The temporary file generated
+     */
+    public static function getTempFilename()
+    {
+        if (is_null(self::$tmp_files)) {
+            self::$tmp_files = array();
+            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
+        }
+
+        $dir = sys_get_temp_dir();
+        $filename = tempnam($dir, 'as2file_');
+        self::$tmp_files[] = $filename;
+        return $filename;
+    }
+
+    /**
+     * Garbage collector to delete temp files created with 'self::getTempFilename'
+     * with shutdown function
+     *
+     */
+    public static function _deleteTempFiles()
+    {
+        foreach (self::$tmp_files as $file)
+            @unlink($file);
+    }
+
+    /**
+     * Determine the mimetype of a file (also called 'Content-Type')
+     *
+     * @param string $file The file to analyse
+     *
+     * @return string       The mimetype
+     */
+    public static function detectMimeType($file)
+    {
+        // for old PHP (deprecated)
+        if (function_exists('mime_content_type'))
+            return mime_content_type($file);
+
+        // for PHP > 5.3.0 / PECL FileInfo > 0.1.0
+        if (function_exists('finfo_file')) {
+            $finfo = finfo_open(FILEINFO_MIME);
+            $mimetype = finfo_file($finfo, $file);
+            finfo_close($finfo);
+            return $mimetype;
+        }
+
+        $os = self::detectOS();
+        // for Unix OS : command line
+        if ($os == 'UNIX') {
+            $mimetype = trim(exec('file -b -i ' . escapeshellarg($file)));
+            $parts = explode(';', $mimetype);
+            return trim($parts[0]);
+        }
+
+        // fallback for Windows and Others OS
+        // source code found at :
+        // @link http://fr2.php.net/manual/en/function.mime-content-type.php#87856
+        $mime_types = array(
+            'txt' => 'text/plain',
+            'htm' => 'text/html',
+            'html' => 'text/html',
+            'php' => 'text/html',
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+            'swf' => 'application/x-shockwave-flash',
+            'flv' => 'video/x-flv',
+
+            // images
+            'png' => 'image/png',
+            'jpe' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'bmp' => 'image/bmp',
+            'ico' => 'image/vnd.microsoft.icon',
+            'tiff' => 'image/tiff',
+            'tif' => 'image/tiff',
+            'svg' => 'image/svg+xml',
+            'svgz' => 'image/svg+xml',
+
+            // archives
+            'zip' => 'application/zip',
+            'rar' => 'application/x-rar-compressed',
+            'exe' => 'application/x-msdownload',
+            'msi' => 'application/x-msdownload',
+            'cab' => 'application/vnd.ms-cab-compressed',
+
+            // audio/video
+            'mp3' => 'audio/mpeg',
+            'qt' => 'video/quicktime',
+            'mov' => 'video/quicktime',
+
+            // adobe
+            'pdf' => 'application/pdf',
+            'psd' => 'image/vnd.adobe.photoshop',
+            'ai' => 'application/postscript',
+            'eps' => 'application/postscript',
+            'ps' => 'application/postscript',
+
+            // ms office
+            'doc' => 'application/msword',
+            'rtf' => 'application/rtf',
+            'xls' => 'application/vnd.ms-excel',
+            'ppt' => 'application/vnd.ms-powerpoint',
+
+            // open office
+            'odt' => 'application/vnd.oasis.opendocument.text',
+            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
+        );
+
+        $ext = strtolower(array_pop(explode('.', $file)));
+        if (array_key_exists($ext, $mime_types)) {
+            return $mime_types[$ext];
+        } else {
+            return 'application/octet-stream';
+        }
+    }
+
+    /**
+     * Determinate the Server OS
+     *
+     * @return string    The OS : WIN | UNIX | OTHER
+     *
+     */
+    public static function detectOS()
+    {
+        $os = php_uname('s');
+        if (stripos($os, 'win') !== false) return 'WIN';
+        if (stripos($os, 'linux') !== false || stripos($os, 'unix') !== false) return 'UNIX';
+        return 'OTHER';
+    }
+
+    public function initialize($partner_from, $partner_to)
+    {
+        try {
+            $this->partner_from = $this->partnerFactory->getPartner($partner_from);
         } catch (Exception $e) {
             throw new AS2Exception('Sender AS2 id "' . $partner_from . '" is unknown.');
         }
 
         try {
-            $this->partner_to = Partner::getPartner($partner_to);
+            $this->partner_to = $this->partnerFactory->getPartner($partner_to);
         } catch (Exception $e) {
             throw new AS2Exception('Receiver AS2 id "' . $partner_to . '" is unknown.');
         }
@@ -139,6 +415,19 @@ class Adapter
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * Schedule file for deletion
+     *
+     */
+    public static function addTempFileForDelete($file)
+    {
+        if (is_null(self::$tmp_files)) {
+            self::$tmp_files = array();
+            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
+        }
+        self::$tmp_files[] = $file;
     }
 
     /**
@@ -311,7 +600,7 @@ class Adapter
                             ($this->partner_to->sec_pkcs12_password?' -password '.escapeshellarg($this->partner_to->sec_pkcs12_password):' -nopassword');
             else
                 $security = ' -cert '.escapeshellarg($this->partner_to->sec_certificate);
-            
+
             $command = self::$javapath.' -jar '.escapeshellarg(AS2_DIR_BIN.self::$ssl_adapter).
                                        ' encrypt'.
                                        $security.
@@ -325,6 +614,40 @@ class Adapter
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * Fix the content type to match with RFC 2311
+     *
+     * @param string $file The file to fix
+     * @param string $type The type to choose to correct (crypt | sign)
+     *
+     * @return none
+     */
+    /*protected static function fixContentType($file, $type) {
+        if ($type == 'crypt') {
+            $from = 'application/x-pkcs7-mime';
+            $to = 'application/pkcs7-mime';
+        } else {
+            $from = 'application/x-pkcs7-signature';
+            $to = 'application/pkcs7-signature';
+        }
+        $content = file_get_contents($file);
+        $content = str_replace('Content-Type: ' . $from, 'Content-Type: ' . $to, $content);
+        file_put_contents($file, $content);
+    }*/
+
+    /**
+     * Extract Public certificate from a PKCS12 Certificate
+     *
+     * @param string $input The PKCS12 Certificate
+     * @param string $password The PKCS12 Certificate's password
+     *
+     * @return string            The file which contains the Public Certificate
+     */
+    public static function getPublicFromPKCS12($input, $password = '')
+    {
+        return self::getDataFromPKCS12($input, 'cert', $password);
     }
 
     /**
@@ -374,45 +697,6 @@ class Adapter
     }
 
     /**
-     * Calculate the message integrity check (MIC) using SHA1 or MD5 algo
-     *
-     * @param string $input The file to use
-     * @param string $algo The algo to use
-     *
-     * @return string                The hash calculated
-     */
-    public static function calculateMicChecksum($input, $algo = 'sha1')
-    {
-        if (strtolower($algo) == 'sha1')
-            return base64_encode(self::hex2bin(sha1_file($input))) . ', sha1';
-        else
-            return base64_encode(self::hex2bin(md5_file($input))) . ', md5';
-    }
-
-    /**
-     * Extract the message integrity check (MIC) from the digital signature
-     *
-     * @param string $input The file containing the signed message
-     *
-     * @return string                The hash extracted
-     */
-    public static function getMicChecksum($input)
-    {
-        try {
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
-                ' checksum' .
-                ' -in ' . escapeshellarg($input) .
-                ' 2>/dev/null';
-
-            $dump = self::exec($command, true);
-
-            return $dump[0];
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    /**
      * Extract Private Certificate from a PKCS12 Certificate
      *
      * @param string $input The PKCS12 Certificate
@@ -423,280 +707,6 @@ class Adapter
     public static function getPrivateFromPKCS12($input, $password = '')
     {
         return self::getDataFromPKCS12($input, 'pkey', $password);
-    }
-
-    /**
-     * Extract Public certificate from a PKCS12 Certificate
-     *
-     * @param string $input The PKCS12 Certificate
-     * @param string $password The PKCS12 Certificate's password
-     *
-     * @return string            The file which contains the Public Certificate
-     */
-    public static function getPublicFromPKCS12($input, $password = '')
-    {
-        return self::getDataFromPKCS12($input, 'cert', $password);
-    }
-
-    /**
-     * Extract CA from a PKCS12 Certificate
-     *
-     * @param string $input The PKCS12 Certificate
-     * @param string $password The PKCS12 Certificate's password
-     *
-     * @return string            The file which contains the CA
-     */
-    public static function getCAFromPKCS12($input, $password = '')
-    {
-        return self::getDataFromPKCS12($input, 'extracerts', $password);
-    }
-
-    /**
-     * Extract Part from a PKCS12 Certificate
-     *
-     * @param string $input The PKCS12 Certificate
-     * @param string $token The Part to extract
-     * @param string $password The PKCS12 Certificate's password
-     *
-     * @return string            The file which contains the Part
-     */
-    protected static function getDataFromPKCS12($input, $token, $password = '')
-    {
-        try {
-            $pkcs12 = file_get_contents($input);
-
-            $certs = array();
-            openssl_pkcs12_read($pkcs12, $certs, $password);
-
-            if (!isset($certs[$token])) {
-                throw new AS2Exception('Unexpected error while extracting certificates from pkcs12 container.');
-            }
-
-            $output = self::getTempFilename();
-            file_put_contents($output, $certs[$token]);
-
-            return $output;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Create a temporary file into temporary directory and add it to
-     * the garbage collector at shutdown
-     *
-     * @return string       The temporary file generated
-     */
-    public static function getTempFilename()
-    {
-        if (is_null(self::$tmp_files)) {
-            self::$tmp_files = array();
-            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
-        }
-
-        $dir = sys_get_temp_dir();
-        $filename = tempnam($dir, 'as2file_');
-        self::$tmp_files[] = $filename;
-        return $filename;
-    }
-
-    /**
-     * Schedule file for deletion
-     *
-     */
-    public static function addTempFileForDelete($file)
-    {
-        if (is_null(self::$tmp_files)) {
-            self::$tmp_files = array();
-            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
-        }
-        self::$tmp_files[] = $file;
-    }
-
-    /**
-     * Garbage collector to delete temp files created with 'self::getTempFilename'
-     * with shutdown function
-     *
-     */
-    public static function _deleteTempFiles()
-    {
-        foreach (self::$tmp_files as $file)
-            @unlink($file);
-    }
-
-    /**
-     * Execute a command line and throw Exception if an error appends
-     *
-     * @param string $command The command line to execute
-     * @param boolean $return_output True  to return all data from standard output
-     *                                   False to return only the error code
-     *
-     * @return string    The error code or the content from standard output
-     */
-    public static function exec($command, $return_output = false)
-    {
-        $output = array();
-        $return_var = 0;
-        try {
-            exec($command, $output, $return_var);
-            $line = (isset($output[0]) ? $output[0] : 'Unexpected error in command line : ' . $command);
-            if ($return_var) throw new Exception($line, (int)$return_var);
-        } catch (Exception $e) {
-            throw $e;
-        }
-
-        if ($return_output)
-            return $output;
-        else
-            return $return_var;
-    }
-
-    /**
-     * Fix the content type to match with RFC 2311
-     *
-     * @param string $file The file to fix
-     * @param string $type The type to choose to correct (crypt | sign)
-     *
-     * @return none
-     */
-    /*protected static function fixContentType($file, $type) {
-        if ($type == 'crypt') {
-            $from = 'application/x-pkcs7-mime';
-            $to = 'application/pkcs7-mime';
-        } else {
-            $from = 'application/x-pkcs7-signature';
-            $to = 'application/pkcs7-signature';
-        }
-        $content = file_get_contents($file);
-        $content = str_replace('Content-Type: ' . $from, 'Content-Type: ' . $to, $content);
-        file_put_contents($file, $content);
-    }*/
-
-    /**
-     * Convert a string from hexadecimal format to binary format
-     *
-     * @param string $str The string in hexadecimal format.
-     *
-     * @return string       The string in binary format.
-     */
-    public static function hex2bin($str)
-    {
-        $bin = '';
-        $i = 0;
-        do {
-            $bin .= chr(hexdec($str{$i} . $str{($i + 1)}));
-            $i += 2;
-        } while ($i < strlen($str));
-        return $bin;
-    }
-
-    /**
-     * Determine the mimetype of a file (also called 'Content-Type')
-     *
-     * @param string $file The file to analyse
-     *
-     * @return string       The mimetype
-     */
-    public static function detectMimeType($file)
-    {
-        // for old PHP (deprecated)
-        if (function_exists('mime_content_type'))
-            return mime_content_type($file);
-
-        // for PHP > 5.3.0 / PECL FileInfo > 0.1.0
-        if (function_exists('finfo_file')) {
-            $finfo = finfo_open(FILEINFO_MIME);
-            $mimetype = finfo_file($finfo, $file);
-            finfo_close($finfo);
-            return $mimetype;
-        }
-
-        $os = self::detectOS();
-        // for Unix OS : command line
-        if ($os == 'UNIX') {
-            $mimetype = trim(exec('file -b -i ' . escapeshellarg($file)));
-            $parts = explode(';', $mimetype);
-            return trim($parts[0]);
-        }
-
-        // fallback for Windows and Others OS
-        // source code found at : 
-        // @link http://fr2.php.net/manual/en/function.mime-content-type.php#87856
-        $mime_types = array(
-            'txt' => 'text/plain',
-            'htm' => 'text/html',
-            'html' => 'text/html',
-            'php' => 'text/html',
-            'css' => 'text/css',
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'xml' => 'application/xml',
-            'swf' => 'application/x-shockwave-flash',
-            'flv' => 'video/x-flv',
-
-            // images
-            'png' => 'image/png',
-            'jpe' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'bmp' => 'image/bmp',
-            'ico' => 'image/vnd.microsoft.icon',
-            'tiff' => 'image/tiff',
-            'tif' => 'image/tiff',
-            'svg' => 'image/svg+xml',
-            'svgz' => 'image/svg+xml',
-
-            // archives
-            'zip' => 'application/zip',
-            'rar' => 'application/x-rar-compressed',
-            'exe' => 'application/x-msdownload',
-            'msi' => 'application/x-msdownload',
-            'cab' => 'application/vnd.ms-cab-compressed',
-
-            // audio/video
-            'mp3' => 'audio/mpeg',
-            'qt' => 'video/quicktime',
-            'mov' => 'video/quicktime',
-
-            // adobe
-            'pdf' => 'application/pdf',
-            'psd' => 'image/vnd.adobe.photoshop',
-            'ai' => 'application/postscript',
-            'eps' => 'application/postscript',
-            'ps' => 'application/postscript',
-
-            // ms office
-            'doc' => 'application/msword',
-            'rtf' => 'application/rtf',
-            'xls' => 'application/vnd.ms-excel',
-            'ppt' => 'application/vnd.ms-powerpoint',
-
-            // open office
-            'odt' => 'application/vnd.oasis.opendocument.text',
-            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
-        );
-
-        $ext = strtolower(array_pop(explode('.', $file)));
-        if (array_key_exists($ext, $mime_types)) {
-            return $mime_types[$ext];
-        } else {
-            return 'application/octet-stream';
-        }
-    }
-
-    /**
-     * Determinate the Server OS
-     *
-     * @return string    The OS : WIN | UNIX | OTHER
-     *
-     */
-    public static function detectOS()
-    {
-        $os = php_uname('s');
-        if (stripos($os, 'win') !== false) return 'WIN';
-        if (stripos($os, 'linux') !== false || stripos($os, 'unix') !== false) return 'UNIX';
-        return 'OTHER';
     }
 }
 

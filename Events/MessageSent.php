@@ -10,6 +10,8 @@ use Symfony\Component\EventDispatcher\Event;
  * @author wpigott
  */
 class MessageSent extends Event {
+    const EVENT = 'MESSAGE_SENT';
+
     private $message;
     private $messageType;
     private $headers = array();

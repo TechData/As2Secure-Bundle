@@ -8,19 +8,37 @@
 
 namespace TechData\AS2SecureBundle\Factories;
 
+use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
+use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
 use TechData\AS2SecureBundle\Models\Request as RequestModel;
 
 class Request
 {
-    function __construct()
-    {
+    protected $request = null;
+    /**
+     * @var MDNFactory
+     */
+    private $mdnFactory;
+    /**
+     * @var MessageFactory
+     */
+    private $messageFactory;
 
+    function __construct(MDNFactory $mdnFactory, MessageFactory $messageFactory)
+    {
+        $this->mdnFactory = $mdnFactory;
+        $this->messageFactory = $messageFactory;
     }
 
+    /**
+     * @param $content
+     * @param $headers
+     * @return RequestModel
+     */
     public function build($content, $headers)
     {
-        $request = new RequestModel($data, $params);
-        $this->buildAbstract($request);
+        $request = new RequestModel($this->mdnFactory, $this->messageFactory);
+        $request->initialize($data, $params);
         return $request;
 
     }

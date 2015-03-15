@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\Event;
  *
  * @author wpigott
  */
-class Error extends Event {
-    
+class Error extends Event
+{
+    const EVENT = 'ERROR';
 }

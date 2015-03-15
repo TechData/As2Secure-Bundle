@@ -10,11 +10,17 @@ namespace TechData\AS2SecureBundle\Subscribers;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use TechData\AS2SecureBundle\Events\Error;
 use TechData\AS2SecureBundle\Events\Log;
+use TechData\AS2SecureBundle\Events\MessageReceived;
+use TechData\AS2SecureBundle\Events\MessageSent;
+use TechData\AS2SecureBundle\Interfaces\Events;
 
 
 class LogSubscriber implements EventSubscriberInterface
 {
+
+
     /**
      *
      * @var EventDispatcherInterface
@@ -30,12 +36,32 @@ class LogSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            array('log' => 'log'),
+            array(Log::EVENT => 'log'),
+            array(Error::EVENT => 'error'),
+            array(MessageReceived::EVENT => 'messageReceived'),
+            array(MessageSent::EVENT => 'messageSent'),
         );
     }
 
     public function log(Log $event)
     {
-
+        $this->eventDispatcher->dispatch(Events::LOG, $event);
     }
+
+    public function error(Error $event)
+    {
+        $this->eventDispatcher->dispatch(Events::ERROR, $event);
+    }
+
+    public function messageReceived(MessageReceived $event)
+    {
+        $this->eventDispatcher->dispatch(Events::MESSAGE_RECIEVED, $event);
+    }
+
+    public function messageSent(MessageSent $event)
+    {
+        $this->eventDispatcher->dispatch(Events::MESSAGE_SENT, $event);
+    }
+
+
 }

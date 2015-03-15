@@ -19,10 +19,16 @@ class MDN extends AbstractFactory
 
     }
 
+    /**
+     * @param null $data
+     * @param array $params
+     * @return MDNModel
+     * @throws \TechData\AS2SecureBundle\Models\AS2Exception
+     */
     public function build($data = null, $params = array())
     {
-        $mdn = new MDNModel($data, $params);
-        $this->buildAbstract($mdn);
+        $mdn = new MDNModel();
+        $mdn->initialize($data, $params);
         return $mdn;
 
     }

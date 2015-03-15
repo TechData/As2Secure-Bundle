@@ -29,14 +29,28 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
+use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
+
 class Message extends AbstractBase
 {
+    // Injected Services
+    /**
+     * @var MDNFactory
+     */
+    private $mdnFactory;
+
 
     protected $mic_checksum = false;
 
-    public function __construct($data, $params = array())
+    function __construct(MDNFactory $mdnFactory)
     {
-        $this->initialize($data, $params);
+        $this->mdnFactory = $mdnFactory;
+    }
+
+
+    public function initialize($data, $params = array())
+    {
+        $this->initializeBase($data, $params);
 
         if ($data instanceof Request) {
             $this->path = $data->getPath();
@@ -262,7 +276,7 @@ class Message extends AbstractBase
      */
     public function generateMDN($exception = null)
     {
-        $mdn = new MDN($this);
+        $mdn = $this->mdnFactory->build($this);
 
         $message_id = $this->getHeader('message-id');
         $partner = $this->getPartnerTo()->id;
