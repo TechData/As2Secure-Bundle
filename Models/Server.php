@@ -33,6 +33,7 @@ namespace TechData\AS2SecureBundle\Models;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use TechData\AS2SecureBundle\Events\Log;
 use TechData\AS2SecureBundle\Events\MessageSent;
+use TechData\AS2SecureBundle\Factories\MDN as MdnFactory;
 
 class Server
 {
@@ -45,10 +46,16 @@ class Server
      */
     private $eventDispatcher;
 
+    /**
+     * @var MdnFactory
+     */
+    private $mdnFactory;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, MdnFactory $mdnFactory)
     {
         $this->eventDispatcher = $eventDispatcher;
+        $this->mdnFactory = $mdnFactory;
     }
 
     /**
@@ -58,21 +65,14 @@ class Server
      *
      * @return request    The request handled
      */
-    public function handle($request = null)
+    public function handle(Request $request)
     {
         // handle any problem in case of SYNC MDN process
         ob_start();
 
         try {
             $error = null;
-
-            if (!$request instanceof Request) {
-                throw new AS2Exception('Unexpected error occurs while handling AS2 message : bad format');
-            }
-
             $headers = $request->getHeaders();
-
-
             $object = $request->getObject();
         } catch (Exception $e) {
             // get error while handling request
@@ -106,7 +106,7 @@ class Server
             } catch (Exception $e) {
                 $params = array('partner_from' => $headers->getHeader('as2-from'),
                     'partner_to' => $headers->getHeader('as2-to'));
-                $mdn = new MDN($e, $params);
+                $mdn = $this->mdnFactory->build($e, $params);
                 $mdn->setAttribute('original-message-id', $headers->getHeader('message-id'));
                 $mdn->encode();
             }
@@ -121,7 +121,7 @@ class Server
         if (!is_null($error) && $object_type == self::TYPE_MESSAGE) {
             $params = array('partner_from' => $headers->getHeader('as2-from'),
                 'partner_to' => $headers->getHeader('as2-to'));
-            $mdn = new MDN($e, $params);
+            $mdn = $this->mdnFactory->build($e, $params);
             $mdn->setAttribute('original-message-id', $headers->getHeader('message-id'));
             $mdn->encode();
         }

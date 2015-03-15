@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models;
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
@@ -84,19 +84,15 @@ abstract class AbstractBase
     }
 
     // partner handle
-    public function setPartnerFrom($partner_from)
-    {
-        $this->partner_from = Partner::getPartner($partner_from);
-    }
 
     public function getPartnerFrom()
     {
         return $this->partner_from;
     }
 
-    public function setPartnerTo($partner_to)
+    public function setPartnerFrom($partner_from)
     {
-        $this->partner_to = Partner::getPartner($partner_to);
+        $this->partner_from = Partner::getPartner($partner_from);
     }
 
     public function getPartnerTo()
@@ -104,7 +100,24 @@ abstract class AbstractBase
         return $this->partner_to;
     }
 
+    public function setPartnerTo($partner_to)
+    {
+        $this->partner_to = Partner::getPartner($partner_to);
+    }
+
     // message properties
+
+    /**
+     *
+     *
+     */
+    protected static function generateMessageID($partner)
+    {
+        if ($partner instanceof Partner) $id = $partner->id;
+        else $id = 'unknown';
+        return '<' . uniqid('', true) . '@' . round(microtime(true)) . '_' . str_replace(' ', '', strtolower($id) . '_' . php_uname('n')) . '>';
+    }
+
     public function getPath()
     {
         return $this->path;
@@ -130,14 +143,14 @@ abstract class AbstractBase
         return file_get_contents($this->path);
     }
 
-    public function setHeaders($headers)
-    {
-        $this->headers = $headers;
-    }
-
     public function getHeaders()
     {
         return $this->headers;
+    }
+
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
     }
 
     public function getHeader($token)
@@ -152,14 +165,14 @@ abstract class AbstractBase
             'password' => '');
     }
 
-    public function setMessageId($id)
-    {
-        $this->message_id = $id;
-    }
-
     public function getMessageId()
     {
         return $this->message_id;
+    }
+
+    public function setMessageId($id)
+    {
+        $this->message_id = $id;
     }
 
     public function isCrypted()
@@ -185,16 +198,5 @@ abstract class AbstractBase
     public function getUrl()
     {
         // TODO
-    }
-
-    /**
-     *
-     *
-     */
-    protected static function generateMessageID($partner)
-    {
-        if ($partner instanceof Partner) $id = $partner->id;
-        else $id = 'unknown';
-        return '<' . uniqid('', true) . '@' . round(microtime(true)) . '_' . str_replace(' ', '', strtolower($id) . '_' . php_uname('n')) . '>';
     }
 }

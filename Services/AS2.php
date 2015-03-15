@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use TechData\AS2SecureBundle\Interfaces\PartnerProvider;
 use Symfony\Component\HttpFoundation\Request;
 use TechData\AS2SecureBundle\Events\MessageReceived;
+use TechData\AS2SecureBundle\Models\Server;
 
 /**
  * Description of AS2
@@ -28,9 +29,15 @@ class AS2 {
      */
     private $partnerProvider;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, PartnerProvider $partnerProvider, $as2DirectoryBin) {
+    /**
+     * @var Server
+     */
+    private $as2Server;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, PartnerProvider $partnerProvider, Server $server, $as2DirectoryBin) {
         $this->eventDispatcher = $eventDispatcher;
         $this->partnerProvider = $partnerProvider;
+        $this->as2Server = $server;
 
         // Define constants which are leveraged by AS2Secure.
         define('AS2_DIR_BIN', $as2DirectoryBin);
@@ -41,7 +48,11 @@ class AS2 {
         $as2Request = new \AS2Request($request->getContent(), new \AS2Header($request->headers->all()));
 
         // Take the request and lets AS2S handle it
-        $as2Response = \AS2Server::handle($as2Request);
+        $as2Response = $this->as2Server->handle($as2Request);
+
+        // Get the partner and verify they are authorized
+        $partner = $as2Response->getPartnerFrom();
+        // @TODO Authorize the partner.
 
         // process all EDI-X12 messages contained in the AS2 payload
         $response_object = $as2Response->getObject();

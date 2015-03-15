@@ -29,14 +29,21 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
+use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
+
 class Client
 {
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
     protected $response_headers = array();
     protected $response_content = '';
     protected $response_indice = 0;
 
-    public function __construct()
+    public function __construct(RequestFactory $requestFactory)
     {
+        $this->requestFactory = $requestFactory;
     }
 
     /**
@@ -97,7 +104,7 @@ class Client
             throw new AS2Exception($error);
 
         if ($request instanceof Message && $request->getPartnerTo()->mdn_request == Partner::ACK_SYNC) {
-            $as2_response = new Request($response, new Header($this->response_headers[count($this->response_headers) - 1]));
+            $as2_response = $this->requestFactory->build($response, new Header($this->response_headers[count($this->response_headers) - 1]));
             $as2_response = $as2_response->getObject();
             $as2_response->decode();
         } else {

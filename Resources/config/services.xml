@@ -4,17 +4,53 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
+
     <parameters>
-        <parameter key="tech_data_as2_secure.example.class">TechData\AS2SecureBundle\Example</parameter>
+        <parameter key="tech_data_as2_secure.partner_provider.service_id">NULL</parameter>
+        <parameter key="tech_data_as2_secure.event_dispatcher.class">Symfony\Component\EventDispatcher\EventDispatcher</parameter>
+        <parameter key="tech_data_as2_secure.factory.abstract.class">TechData\AS2SecureBundle\Factories\AbstractFactory</parameter>
+        <parameter key="tech_data_as2_secure.factory.mdn.class">TechData\AS2SecureBundle\Factories\MDN</parameter>
+        <parameter key="tech_data_as2_secure.factory.message.class">TechData\AS2SecureBundle\Factories\Message</parameter>
+        <parameter key="tech_data_as2_secure.factory.request.class">TechData\AS2SecureBundle\Factories\Request</parameter>
+        <parameter key="tech_data_as2_secure.subscriber.log.class">TechData\AS2SecureBundle\Factories\Request</parameter>
+        <parameter key="tech_data_as2_secure.model.server.class">TechData\AS2SecureBundle\Models\Server</parameter>
+        <parameter key="tech_data_as2_secure.model.client.class">TechData\AS2SecureBundle\Models\Client</parameter>
     </parameters>
 
     <services>
-        <service id="tech_data_as2_secure.example" class="%tech_data_as2_secure.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <!-- Factories -->
+        <service id="tech_data_as2_secure.factory.abstract" class="%tech_data_as2_secure.factory.abstract.class%" abstract="true" public="false">
+            <call method="setEventDispatcher">
+                <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
+            </call>
         </service>
+        <service id="tech_data_as2_secure.factory.mdn" class="%tech_data_as2_secure.factory.mdn.class%" parent="tech_data_as2_secure.factory.abstract" public="false"/>
+        <service id="tech_data_as2_secure.factory.message" class="%tech_data_as2_secure.factory.message.class%" parent="tech_data_as2_secure.factory.abstract" public="false"/>
+        <service id="tech_data_as2_secure.factory.request" class="%tech_data_as2_secure.factory.request.class%" parent="tech_data_as2_secure.factory.abstract" public="false"/>
+
+
+        <!-- Event Dispatcher -->
+        <service id="tech_data_as2_secure.event_dispatcher" class="%tech_data_as2_secure.event_dispatcher.class%" public="false">
+            <call method="addSubscriber">
+                <argument type="service" id="tech_data_as2_secure.subscriber.log" />
+            </call>
+        </service>
+
+        <!-- Event Subscribers -->
+        <service id="tech_data_as2_secure.subscriber.log" class="%tech_data_as2_secure.subscriber.log.class%">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <!-- Models -->
+        <service id="tech_data_as2_secure.model.server" class="%tech_data_as2_secure.model.server.class%">
+            <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
+            <argument type="service" id="tech_data_as2_secure.factory.mdn" />
+        </service>
+
+        <service id="tech_data_as2_secure.model.client" class="%tech_data_as2_secure.model.client.class%">
+            <argument type="service" id="tech_data_as2_secure.factory.request" />
+        </service>
+
     </services>
-    -->
+
 </container>
