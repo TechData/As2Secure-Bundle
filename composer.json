@@ -4,7 +4,7 @@
     "description": "AS2Secure (http://www.as2secure.com)_abstraction to allow use of library in Symfony2 applications.",
     "keywords": ["symfony","as2","as2secure"],
     "homepage":"https://github.com/TechData/As2Secure-Bundle",
-    "license":"MIT",
+    "license":"GNU LGPL",
     "authors": [
         {
             "name": "Westin Pigott",
