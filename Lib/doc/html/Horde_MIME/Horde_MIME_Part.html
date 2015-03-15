@@ -1,0 +1,2905 @@
+<html>
+<head>
+<title>Docs For Class Horde_MIME_Part</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Horde_MIME</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                                                            
+                                                  		  [ <a href="../classtrees_Horde_MIME.html" class="menu">class tree: Horde_MIME</a> ]
+		  [ <a href="../elementindex_Horde_MIME.html" class="menu">index: Horde_MIME</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_AS2Secure.html">AS2Secure</a><br />
+              <a href="../li_Horde_Horde_Util.html">Horde_Horde_Util</a><br />
+              <a href="../li_Horde_MIME.html">Horde_MIME</a><br />
+              <a href="../li_Horde_Util.html">Horde_Util</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Horde_MIME/_Horde---MIME---Message.php.html">		Message.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME.php.html">		MIME.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME---Part.php.html">		Part.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME---Structure.php.html">		Structure.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Horde_MIME/Horde_MIME.html">Horde_MIME</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Message.html">Horde_MIME_Message</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Part.html">Horde_MIME_Part</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Structure.html">Horde_MIME_Structure</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Horde_MIME_Part</h1>
+Source Location: /Horde/MIME/Part.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">The MIME_Part:: class provides a wrapper around MIME parts and methods  for dealing with them.</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</li>
+              <li>Michael Slusarz &lt;<a href="mailto:slusarz@horde.org">slusarz@horde.org</a>&gt;</li>
+      </ul>
+
+
+
+
+        
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_boundary">$_boundary</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_bytes">$_bytes</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_cids">$_cids</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_contentid">$_contentid</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_contents">$_contents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_contentTypeParameters">$_contentTypeParameters</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_currentEncoding">$_currentEncoding</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_description">$_description</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_disposition">$_disposition</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_dispositionParameters">$_dispositionParameters</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_encode7bit">$_encode7bit</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_eol">$_eol</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_flags">$_flags</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_idmap">$_idmap</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_information">$_information</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_mimeid">$_mimeid</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_parts">$_parts</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_subtype">$_subtype</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_transferEncoding">$_transferEncoding</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#var$_type">$_type</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#method__construct">__construct</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodaddCID">addCID</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodaddPart">addPart</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodalterPart">alterPart</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodappendContents">appendContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodclearContents">clearContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodclearContentTypeParameter">clearContentTypeParameter</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodcontentTypeMap">contentTypeMap</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetAllContentTypeParameters">getAllContentTypeParameters</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetAllDispositionParameters">getAllDispositionParameters</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetBytes">getBytes</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetCanonicalContents">getCanonicalContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetCharset">getCharset</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetCIDList">getCIDList</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetContentID">getContentID</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetContents">getContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetContentTypeParameter">getContentTypeParameter</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetCurrentEncoding">getCurrentEncoding</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetDefaultType">getDefaultType</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetDescription">getDescription</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetDisposition">getDisposition</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetDispositionParameter">getDispositionParameter</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetEOL">getEOL</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetInformation">getInformation</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetMIMEId">getMIMEId</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetName">getName</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetPart">getPart</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetParts">getParts</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetPrimaryType">getPrimaryType</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetRelativeMIMEId">getRelativeMIMEId</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetSubType">getSubType</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetTransferEncoding">getTransferEncoding</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetType">getType</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodgetUniqueID">getUniqueID</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodheader">header</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodremovePart">removePart</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodreplaceEOL">replaceEOL</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetBytes">setBytes</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetCharset">setCharset</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetContentID">setContentID</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetContents">setContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetContentTypeParameter">setContentTypeParameter</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetDescription">setDescription</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetDisposition">setDisposition</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetDispositionParameter">setDispositionParameter</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetEOL">setEOL</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetInformation">setInformation</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetMIMEId">setMIMEId</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetName">setName</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetTransferEncoding">setTransferEncoding</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsetType">setType</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodsplitContents">splitContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodstrict7bit">strict7bit</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtoCanonicalString">toCanonicalString</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtoString">toString</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtransferDecode">transferDecode</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtransferDecodeContents">transferDecodeContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtransferEncode">transferEncode</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#methodtransferEncodeContents">transferEncodeContents</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#method_generateBoundary">_generateBoundary</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#method_generateIdMap">_generateIdMap</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Part.html#method_partFind">_partFind</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+<td valign="top">
+<h3>Child classes:</h3>
+<div class="tags">
+<dl>
+<dt><a href="../Horde_MIME/Horde_MIME_Message.html">Horde_MIME_Message</a></dt>
+	<dd>The MIME_Message:: class provides methods for creating and manipulating  MIME email messages.</dd>
+</dl>
+</div>
+</td>
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line 51]<br />
+The MIME_Part:: class provides a wrapper around MIME parts and methods  for dealing with them.<br /><br /><p>$Horde: framework/MIME/MIME/Part.php,v 1.177.4.27 2009/06/17 19:49:13 slusarz Exp $</p><p>Copyright 1999-2009 The Horde Project (http://www.horde.org/)</p><p>See the enclosed file COPYING for license information (LGPL). If you  did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Michael Slusarz &lt;<a href="mailto:slusarz@horde.org">slusarz@horde.org</a>&gt;</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$_boundary"></a>
+	<p></p>
+	<h4>$_boundary = <span class="value">&nbsp;null</span></h4>
+	<p>[line 183]</p>
+  Unique MIME_Part boundary string.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_bytes"></a>
+	<p></p>
+	<h4>$_bytes = <span class="value">&nbsp;0</span></h4>
+	<p>[line 190]</p>
+  Default value for this Part's size.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>integer</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_cids"></a>
+	<p></p>
+	<h4>$_cids = <span class="value">array()</span></h4>
+	<p>[line 144]</p>
+  The list of CIDs for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_contentid"></a>
+	<p></p>
+	<h4>$_contentid = <span class="value">&nbsp;null</span></h4>
+	<p>[line 197]</p>
+  The content-ID for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_contents"></a>
+	<p></p>
+	<h4>$_contents = <span class="value">&nbsp;''</span></h4>
+	<p>[line 74]</p>
+  The body of the part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_contentTypeParameters"></a>
+	<p></p>
+	<h4>$_contentTypeParameters = <span class="value">array()</span></h4>
+	<p>[line 123]</p>
+  The content type parameters of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_currentEncoding"></a>
+	<p></p>
+	<h4>$_currentEncoding = <span class="value">&nbsp;null</span></h4>
+	<p>[line 88]</p>
+  The current transfer encoding of the contents of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_description"></a>
+	<p></p>
+	<h4>$_description = <span class="value">&nbsp;''</span></h4>
+	<p>[line 102]</p>
+  The description of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_disposition"></a>
+	<p></p>
+	<h4>$_disposition = <span class="value">&nbsp;MIME_DEFAULT_DISPOSITION</span></h4>
+	<p>[line 109]</p>
+  The disposition of this part (inline or attachment).<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_dispositionParameters"></a>
+	<p></p>
+	<h4>$_dispositionParameters = <span class="value">array()</span></h4>
+	<p>[line 116]</p>
+  The disposition parameters of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_encode7bit"></a>
+	<p></p>
+	<h4>$_encode7bit = <span class="value">&nbsp;true</span></h4>
+	<p>[line 95]</p>
+  Should the message be encoded via 7-bit?<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>boolean</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_eol"></a>
+	<p></p>
+	<h4>$_eol = <span class="value">&nbsp;MIME_PART_EOL</span></h4>
+	<p>[line 162]</p>
+  The sequence to use as EOL for this part.<br /><br /><p>The default is currently to output the EOL sequence internally as  just &quot;\n&quot; instead of the canonical &quot;\r\n&quot; required in RFC 822 &amp; 2045.  To be RFC complaint, the full &lt;CR&gt;&lt;LF&gt; EOL combination should be used  when sending a message.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_flags"></a>
+	<p></p>
+	<h4>$_flags = <span class="value">array()</span></h4>
+	<p>[line 169]</p>
+  Internal class flags.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_idmap"></a>
+	<p></p>
+	<h4>$_idmap = <span class="value">array()</span></h4>
+	<p>[line 176]</p>
+  Part -&gt; ID mapping cache.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_information"></a>
+	<p></p>
+	<h4>$_information = <span class="value">array()</span></h4>
+	<p>[line 137]</p>
+  Information/Statistics on the subpart.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_mimeid"></a>
+	<p></p>
+	<h4>$_mimeid = <span class="value">&nbsp;null</span></h4>
+	<p>[line 151]</p>
+  The MIME ID of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_parts"></a>
+	<p></p>
+	<h4>$_parts = <span class="value">array()</span></h4>
+	<p>[line 130]</p>
+  The subparts of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>array</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_subtype"></a>
+	<p></p>
+	<h4>$_subtype = <span class="value">&nbsp;'octet-stream'</span></h4>
+	<p>[line 67]</p>
+  The subtype (ex.: plain) of this part.<br /><br /><p>Per RFC 2045, the default is 'octet-stream'.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_transferEncoding"></a>
+	<p></p>
+	<h4>$_transferEncoding = <span class="value">&nbsp;MIME_DEFAULT_ENCODING</span></h4>
+	<p>[line 81]</p>
+  The desired transfer encoding of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$_type"></a>
+	<p></p>
+	<h4>$_type = <span class="value">&nbsp;'application'</span></h4>
+	<p>[line 59]</p>
+  The type (ex.: text) of this part.<br /><br /><p>Per RFC 2045, the default is 'application'.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>string</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+
+  <hr />
+	<a name="method__construct"></a>
+	<h3>constructor __construct <span class="smalllinenumber">[line 208]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>Horde_MIME_Part __construct(
+[string
+$mimetype = null], [string
+$contents = null], [string
+$charset = MIME_DEFAULT_CHARSET], [string
+$disposition = null], [string
+$encoding = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		MIME_Part constructor.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Horde_MIME/Horde_MIME_Message.html#method__construct">Horde_MIME_Message::__construct()</a></dt>
+		<dd>Constructor - creates a new MIME email message.</dd>
+	</dl>
+	</p>
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$mimetype</b>&nbsp;&nbsp;</td>
+        <td>The content type of the part.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$contents</b>&nbsp;&nbsp;</td>
+        <td>The body of the part.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The character set of the part.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$disposition</b>&nbsp;&nbsp;</td>
+        <td>The content disposition of the part.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$encoding</b>&nbsp;&nbsp;</td>
+        <td>The content encoding of the contents.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodaddCID"></a>
+	<h3>method addCID <span class="smalllinenumber">[line 1336]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void addCID(
+[array
+$cids = array()])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add to the list of CIDs for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$cids</b>&nbsp;&nbsp;</td>
+        <td>A list of MIME IDs of the part.                      Key - MIME ID                      Value - CID for the part</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodaddPart"></a>
+	<h3>method addPart <span class="smalllinenumber">[line 569]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void addPart(
+MIME_Part
+$mime_part, [string
+$index = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add a MIME subpart.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">MIME_Part&nbsp;&nbsp;</td>
+        <td><b>$mime_part</b>&nbsp;&nbsp;</td>
+        <td>Add a MIME_Part subpart to the current                               MIME_Part.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$index</b>&nbsp;&nbsp;</td>
+        <td>The index of the added MIME_Part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodalterPart"></a>
+	<h3>method alterPart <span class="smalllinenumber">[line 669]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void alterPart(
+string
+$id, MIME_Part
+$mime_part)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Alter a current MIME subpart.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>The MIME Part ID to alter.</td>
+      </tr>
+          <tr>
+        <td class="type">MIME_Part&nbsp;&nbsp;</td>
+        <td><b>$mime_part</b>&nbsp;&nbsp;</td>
+        <td>The MIME Part to store.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodappendContents"></a>
+	<h3>method appendContents <span class="smalllinenumber">[line 314]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void appendContents(
+string
+$contents, [string
+$encoding = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add to the body contents of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$contents</b>&nbsp;&nbsp;</td>
+        <td>The contents to append to the current part                           body.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$encoding</b>&nbsp;&nbsp;</td>
+        <td>The current encoding of the contents. If not                           specified, will try to auto determine the                           encoding.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodclearContents"></a>
+	<h3>method clearContents <span class="smalllinenumber">[line 322]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void clearContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Clears the body contents of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodclearContentTypeParameter"></a>
+	<h3>method clearContentTypeParameter <span class="smalllinenumber">[line 810]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void clearContentTypeParameter(
+string
+$label, string
+$data)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Clears a content type parameter from this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter label.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$data</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter data.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodcontentTypeMap"></a>
+	<h3>method contentTypeMap <span class="smalllinenumber">[line 1416]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array contentTypeMap(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns a mapping of all MIME IDs to their content-types.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>KEY: MIME ID, VALUE: Content type</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetAllContentTypeParameters"></a>
+	<h3>method getAllContentTypeParameters <span class="smalllinenumber">[line 834]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array getAllContentTypeParameters(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get all parameters from the Content-Type header.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of all the parameters                 Returns the empty array if no parameters set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetAllDispositionParameters"></a>
+	<h3>method getAllDispositionParameters <span class="smalllinenumber">[line 788]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array getAllDispositionParameters(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get all parameters from the Content-Disposition header.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of all the parameters                 Returns the empty array if no parameters set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetBytes"></a>
+	<h3>method getBytes <span class="smalllinenumber">[line 1288]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>integer getBytes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Determine the size of a MIME_Part and its child members.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Size of the MIME_Part, in bytes.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCanonicalContents"></a>
+	<h3>method getCanonicalContents <span class="smalllinenumber">[line 345]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getCanonicalContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the contents in strict RFC 822 &amp; 2045 output - namely, all  newlines end with the canonical &lt;CR&gt;&lt;LF&gt; sequence.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The entire MIME part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCharset"></a>
+	<h3>method getCharset <span class="smalllinenumber">[line 500]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getCharset(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the character set to use for of this part.  Returns a charset for  all types (not just 'text/*') since we use this charset to determine  how to encode text in MIME headers.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The character set of this part.  Returns null if there                  is no character set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCIDList"></a>
+	<h3>method getCIDList <span class="smalllinenumber">[line 1346]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array getCIDList(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the list of CIDs for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The list of CIDs for this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetContentID"></a>
+	<h3>method getContentID <span class="smalllinenumber">[line 1371]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getContentID(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the Content-ID for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The Content-ID for this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetContents"></a>
+	<h3>method getContents <span class="smalllinenumber">[line 334]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the body of the part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The raw body of the part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetContentTypeParameter"></a>
+	<h3>method getContentTypeParameter <span class="smalllinenumber">[line 823]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getContentTypeParameter(
+string
+$label)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get a content type parameter from this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The data requested.                  Returns false if $label is not set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The content type parameter label.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCurrentEncoding"></a>
+	<h3>method getCurrentEncoding <span class="smalllinenumber">[line 1085]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getCurrentEncoding(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieves the current encoding of the contents in the object.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The current encoding.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetDefaultType"></a>
+	<h3>method getDefaultType <span class="smalllinenumber">[line 444]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getDefaultType(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		If the subtype of a MIME part is unrecognized by an application, the  default type should be used instead (See RFC 2046).  This method  returns the default subtype for a particular primary MIME Type.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The default mimetype of this part (ex.: text/plain).</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetDescription"></a>
+	<h3>method getDescription <span class="smalllinenumber">[line 526]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getDescription(
+[boolean
+$decode = false], [boolean
+$default = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the description of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The description of this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$decode</b>&nbsp;&nbsp;</td>
+        <td>MIME decode description?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$default</b>&nbsp;&nbsp;</td>
+        <td>If the name parameter doesn't exist, should we                           use the default name from the description                           parameter?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetDisposition"></a>
+	<h3>method getDisposition <span class="smalllinenumber">[line 250]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getDisposition(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the content-disposition of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The part's content-disposition.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetDispositionParameter"></a>
+	<h3>method getDispositionParameter <span class="smalllinenumber">[line 777]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getDispositionParameter(
+string
+$label)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get a disposition parameter from this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The data requested.                  Returns false if $label is not set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter label.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetEOL"></a>
+	<h3>method getEOL <span class="smalllinenumber">[line 854]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getEOL(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the string to use for EOLs.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The string to use for EOLs.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetInformation"></a>
+	<h3>method getInformation <span class="smalllinenumber">[line 753]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>mixed getInformation(
+string
+$label)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve information about the MIME_Part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The information requested.                 Returns false if $label is not set.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The information label.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetMIMEId"></a>
+	<h3>method getMIMEId <span class="smalllinenumber">[line 1391]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getMIMEId(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the MIME ID of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The MIME ID.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetName"></a>
+	<h3>method getName <span class="smalllinenumber">[line 277]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getName(
+[boolean
+$decode = false], [boolean
+$default = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the name of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The name of the part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$decode</b>&nbsp;&nbsp;</td>
+        <td>MIME decode description?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$default</b>&nbsp;&nbsp;</td>
+        <td>If the name parameter doesn't exist, should we                           use the default name from the description                           parameter?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetPart"></a>
+	<h3>method getPart <span class="smalllinenumber">[line 615]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>MIME_Part getPart(
+string
+$id)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Retrieve a specific MIME part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The MIME_Part requested, or false if the part                     doesn't exist.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Horde_MIME/Horde_MIME_Message.html#methodgetPart">Horde_MIME_Message::getPart()</a></dt>
+		<dd>Retrieve a specific MIME part.</dd>
+	</dl>
+	</p>
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>The MIME_Part ID string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetParts"></a>
+	<h3>method getParts <span class="smalllinenumber">[line 602]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array getParts(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get a list of all MIME subparts.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of the MIME_Part subparts.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Horde_MIME/Horde_MIME_Message.html#methodgetParts">Horde_MIME_Message::getParts()</a></dt>
+		<dd>Get a list of all MIME subparts.</dd>
+	</dl>
+	</p>
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetPrimaryType"></a>
+	<h3>method getPrimaryType <span class="smalllinenumber">[line 467]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getPrimaryType(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the primary type of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The primary MIME type of this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetRelativeMIMEId"></a>
+	<h3>method getRelativeMIMEId <span class="smalllinenumber">[line 1405]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getRelativeMIMEId(
+string
+$id)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the relative MIME ID of this part.<br /><br /><p>e.g., if the base part has MIME ID of 2, and you want the first  subpart of the base part, the relative MIME ID is 2.1.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The relative MIME ID.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>The relative part ID.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetSubType"></a>
+	<h3>method getSubType <span class="smalllinenumber">[line 477]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getSubType(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the subtype of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The MIME subtype of this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetTransferEncoding"></a>
+	<h3>method getTransferEncoding <span class="smalllinenumber">[line 1026]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getTransferEncoding(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the transfer encoding for the part based on the user requested  transfer encoding and the current contents of the part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The transfer-encoding of this part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetType"></a>
+	<h3>method getType <span class="smalllinenumber">[line 424]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getType(
+[boolean
+$charset = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get the full MIME Content-Type of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The mimetype of this part                  (ex.: text/plain; charset=us-ascii).</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>Append character set information to the end of                           the content type if this is a text/* part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetUniqueID"></a>
+	<h3>method getUniqueID <span class="smalllinenumber">[line 1278]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getUniqueID(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the unique MIME_Part boundary string generated for this object.<br /><br /><p>This may not be the boundary string used when building the message  since a user defined 'boundary' Content-Type parameter will override  this value.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The unique boundary string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodheader"></a>
+	<h3>method header <span class="smalllinenumber">[line 866]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array header(
+[array
+$headers = array()])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add the appropriate MIME headers for this part to an existing array.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The headers, with the MIME headers added.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Horde_MIME/Horde_MIME_Message.html#methodheader">Horde_MIME_Message::header()</a></dt>
+		<dd>Add the proper set of MIME headers for this message to an array.</dd>
+	</dl>
+	</p>
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$headers</b>&nbsp;&nbsp;</td>
+        <td>An array of any other headers for the part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodremovePart"></a>
+	<h3>method removePart <span class="smalllinenumber">[line 655]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void removePart(
+string
+$id)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Remove a MIME_Part subpart.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>The MIME Part to delete.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodreplaceEOL"></a>
+	<h3>method replaceEOL <span class="smalllinenumber">[line 1262]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string replaceEOL(
+string
+$text, [string
+$eol = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Replace newlines in this part's contents with those specified by either  the given newline sequence or the part's current EOL setting.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The text with the newlines replaced by the desired                  newline sequence.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$text</b>&nbsp;&nbsp;</td>
+        <td>The text to replace.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$eol</b>&nbsp;&nbsp;</td>
+        <td>The EOL sequence to use. If not present, uses the                       part's current EOL setting.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetBytes"></a>
+	<h3>method setBytes <span class="smalllinenumber">[line 1324]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setBytes(
+integer
+$bytes)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Explicitly set the size (in bytes) of this part. This value will only  be returned (via getBytes()) if there are no contents currently set.<br /><br /><p>This public function is useful for setting the size of the part when the  contents of the part are not fully loaded (i.e. creating a MIME_Part  object from IMAP header information without loading the data of the  part).</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$bytes</b>&nbsp;&nbsp;</td>
+        <td>The size of this part in bytes.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetCharset"></a>
+	<h3>method setCharset <span class="smalllinenumber">[line 487]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setCharset(
+string
+$charset)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the character set of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The character set of this part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetContentID"></a>
+	<h3>method setContentID <span class="smalllinenumber">[line 1358]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setContentID(
+[string
+$cid = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Sets the Content-ID header for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$cid</b>&nbsp;&nbsp;</td>
+        <td>Use this CID (if not already set).  Else, generate a                      random CID.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetContents"></a>
+	<h3>method setContents <span class="smalllinenumber">[line 298]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setContents(
+string
+$contents, [string
+$encoding = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the body contents of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$contents</b>&nbsp;&nbsp;</td>
+        <td>The part body.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$encoding</b>&nbsp;&nbsp;</td>
+        <td>The current encoding of the contents.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetContentTypeParameter"></a>
+	<h3>method setContentTypeParameter <span class="smalllinenumber">[line 799]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setContentTypeParameter(
+string
+$label, string
+$data)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add a content type parameter to this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter label.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$data</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter data.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetDescription"></a>
+	<h3>method setDescription <span class="smalllinenumber">[line 511]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setDescription(
+string
+$description)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the description of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$description</b>&nbsp;&nbsp;</td>
+        <td>The description of this part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetDisposition"></a>
+	<h3>method setDisposition <span class="smalllinenumber">[line 236]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setDisposition(
+string
+$disposition)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the content-disposition of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$disposition</b>&nbsp;&nbsp;</td>
+        <td>The content-disposition to set (inline or                              attachment).</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetDispositionParameter"></a>
+	<h3>method setDispositionParameter <span class="smalllinenumber">[line 764]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setDispositionParameter(
+string
+$label, string
+$data)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add a disposition parameter to this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter label.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$data</b>&nbsp;&nbsp;</td>
+        <td>The disposition parameter data.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetEOL"></a>
+	<h3>method setEOL <span class="smalllinenumber">[line 844]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setEOL(
+string
+$eol)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Sets a new string to use for EOLs.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$eol</b>&nbsp;&nbsp;</td>
+        <td>The string to use for EOLs.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetInformation"></a>
+	<h3>method setInformation <span class="smalllinenumber">[line 740]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setInformation(
+string
+$label, mixed
+$data)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Add information about the MIME_Part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$label</b>&nbsp;&nbsp;</td>
+        <td>The information label.</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$data</b>&nbsp;&nbsp;</td>
+        <td>The information to store.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetMIMEId"></a>
+	<h3>method setMIMEId <span class="smalllinenumber">[line 1381]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setMIMEId(
+string
+$mimeid)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Alter the MIME ID of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$mimeid</b>&nbsp;&nbsp;</td>
+        <td>The MIME ID.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetName"></a>
+	<h3>method setName <span class="smalllinenumber">[line 262]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setName(
+string
+$name)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the name of this part.<br /><br /><p>TODO: MIME encode here instead of in header() - add a charset  parameter.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$name</b>&nbsp;&nbsp;</td>
+        <td>The name to set.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetTransferEncoding"></a>
+	<h3>method setTransferEncoding <span class="smalllinenumber">[line 549]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setTransferEncoding(
+string
+$encoding)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the transfer encoding to use for this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$encoding</b>&nbsp;&nbsp;</td>
+        <td>The transfer encoding to use.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetType"></a>
+	<h3>method setType <span class="smalllinenumber">[line 385]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setType(
+string
+$mimetype)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the mimetype of this part.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$mimetype</b>&nbsp;&nbsp;</td>
+        <td>The mimetype to set (ex.: text/plain).</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsplitContents"></a>
+	<h3>method splitContents <span class="smalllinenumber">[line 1202]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean splitContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Split the contents of the current Part into its respective subparts,  if it is multipart MIME encoding. Unlike the imap_*() public functions, this  will preserve all MIME header information.<br /><br /><p>The boundary content-type parameter must be set for this public function to  work correctly.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>True if the contents were successfully split.                   False if any error occurred.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodstrict7bit"></a>
+	<h3>method strict7bit <span class="smalllinenumber">[line 1015]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void strict7bit(
+boolean
+$use7bit)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Should we make sure the message is encoded via 7-bit (e.g. to adhere  to mail delivery standards such as RFC 2821)?<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$use7bit</b>&nbsp;&nbsp;</td>
+        <td>Use 7-bit encoding?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtoCanonicalString"></a>
+	<h3>method toCanonicalString <span class="smalllinenumber">[line 1003]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string toCanonicalString(
+[boolean
+$headers = true])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the encoded part in strict RFC 822 &amp; 2045 output - namely, all  newlines end with the canonical &lt;CR&gt;&lt;LF&gt; sequence.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The entire MIME part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$headers</b>&nbsp;&nbsp;</td>
+        <td>Include the MIME headers?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtoString"></a>
+	<h3>method toString <span class="smalllinenumber">[line 945]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string toString(
+[boolean
+$headers = true])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the entire part in MIME format. Includes headers on request.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The MIME string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../Horde_MIME/Horde_MIME_Message.html#methodtoString">Horde_MIME_Message::toString()</a></dt>
+		<dd>Return the entire message contents, including headers, as a string.</dd>
+	</dl>
+	</p>
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$headers</b>&nbsp;&nbsp;</td>
+        <td>Include the MIME headers?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtransferDecode"></a>
+	<h3>method transferDecode <span class="smalllinenumber">[line 1140]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string transferDecode(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Decodes the contents of the part to either a 7bit or 8bit encoding.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The decoded text.                  Returns the empty string if there is no text to decode.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtransferDecodeContents"></a>
+	<h3>method transferDecodeContents <span class="smalllinenumber">[line 365]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void transferDecodeContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Transfer decode the contents and set them as the new contents.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtransferEncode"></a>
+	<h3>method transferEncode <span class="smalllinenumber">[line 1095]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string transferEncode(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Encodes the contents with the part's transfer encoding.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The encoded text.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodtransferEncodeContents"></a>
+	<h3>method transferEncodeContents <span class="smalllinenumber">[line 354]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void transferEncodeContents(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Transfer encode the contents (to the transfer encoding identified via  getTransferEncoding()) and set as the part's new contents.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_generateBoundary"></a>
+	<h3>method _generateBoundary <span class="smalllinenumber">[line 1432]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string _generateBoundary(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Generate the unique boundary string (if not already done).<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The boundary string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_generateIdMap"></a>
+	<h3>method _generateIdMap <span class="smalllinenumber">[line 723]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void _generateIdMap(
+array
+&$parts)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Generates a mapping of MIME_Parts with their MIME IDs.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>&$parts</b>&nbsp;&nbsp;</td>
+        <td>An array of MIME_Parts to map.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_partFind"></a>
+	<h3>method _partFind <span class="smalllinenumber">[line 688]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void &amp;_partFind(
+string
+$id, array
+&$parts, [boolean
+$retarray = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Function used to find a specific MIME Part by ID.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$id</b>&nbsp;&nbsp;</td>
+        <td>The MIME_Part ID string.</td>
+      </tr>
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>&$parts</b>&nbsp;&nbsp;</td>
+        <td>A list of MIME_Part objects.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$retarray</b>&nbsp;&nbsp;</td>
+        <td>Return a pointer to the array that stores                            (would store) the part rather than the part                            itself?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 03 Nov 2010 22:51:31 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,497 @@
+<html>
+<head>
+<title>Docs For Class Horde_MIME_Structure</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Horde_MIME</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                                                            
+                                                  		  [ <a href="../classtrees_Horde_MIME.html" class="menu">class tree: Horde_MIME</a> ]
+		  [ <a href="../elementindex_Horde_MIME.html" class="menu">index: Horde_MIME</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_AS2Secure.html">AS2Secure</a><br />
+              <a href="../li_Horde_Horde_Util.html">Horde_Horde_Util</a><br />
+              <a href="../li_Horde_MIME.html">Horde_MIME</a><br />
+              <a href="../li_Horde_Util.html">Horde_Util</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Horde_MIME/_Horde---MIME---Message.php.html">		Message.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME.php.html">		MIME.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME---Part.php.html">		Part.php
+		</a><br>
+			<a href="../Horde_MIME/_Horde---MIME---Structure.php.html">		Structure.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Horde_MIME/Horde_MIME.html">Horde_MIME</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Message.html">Horde_MIME_Message</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Part.html">Horde_MIME_Part</a><br />
+	    		<a href="../Horde_MIME/Horde_MIME_Structure.html">Horde_MIME_Structure</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Horde_MIME_Structure</h1>
+Source Location: /Horde/MIME/Structure.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">$Horde: framework/MIME/MIME/Structure.php,v 1.87.10.31 2009/01/06 15:23:20 jan Exp $</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</li>
+              <li>Michael Slusarz &lt;<a href="mailto:slusarz@horde.org">slusarz@horde.org</a>&gt;</li>
+      </ul>
+
+
+
+
+        
+
+        
+</td>
+
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#methodaddMultipartInfo">addMultipartInfo</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#methodparse">parse</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#methodparseMIMEHeaders">parseMIMEHeaders</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#methodparseTextMIMEMessage">parseTextMIMEMessage</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#method_convertMimeDecodeData">_convertMimeDecodeData</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#method_getParameters">_getParameters</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#method_parse">_parse</a></li>
+    <li><a href="../Horde_MIME/Horde_MIME_Structure.html#method_setInfo">_setInfo</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line 23]<br />
+$Horde: framework/MIME/MIME/Structure.php,v 1.87.10.31 2009/01/06 15:23:20 jan Exp $<br /><br /><p>The MIME_Structure:: class provides methods for dealing with MIME mail.</p><p>The default character set to use for messages should be defined in the  variable $GLOBALS['mime_structure']['default_charset'] (defaults to US-ASCII  per RFC 2045).</p><p>TODO: Convert to OO</p><p>Copyright 1999-2009 The Horde Project (http://www.horde.org/)</p><p>See the enclosed file COPYING for license information (LGPL). If you  did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Michael Slusarz &lt;<a href="mailto:slusarz@horde.org">slusarz@horde.org</a>&gt;</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+  <hr />
+	<a name="methodaddMultipartInfo"></a>
+	<h3>static method addMultipartInfo <span class="smalllinenumber">[line 247]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void addMultipartInfo(
+array
+&$parts, [array
+$info = array()])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set the special information for certain MIME types.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>since:</b>&nbsp;&nbsp;</td><td>Horde 3.2</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>&$parts</b>&nbsp;&nbsp;</td>
+        <td>The list of parts contained within the multipart                        object.</td>
+      </tr>
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$info</b>&nbsp;&nbsp;</td>
+        <td>Information about the multipart structure.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodparse"></a>
+	<h3>static method parse <span class="smalllinenumber">[line 33]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static &MIME_Message &amp;parse(
+stdClass
+$body)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Given the results of imap_fetchstructure(), parse the structure  of the message, figuring out correct bodypart numbers, etc.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The message parsed into a MIME_Message object.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">stdClass&nbsp;&nbsp;</td>
+        <td><b>$body</b>&nbsp;&nbsp;</td>
+        <td>The result of imap_fetchstructure().</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodparseMIMEHeaders"></a>
+	<h3>static method parseMIMEHeaders <span class="smalllinenumber">[line 415]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static array parseMIMEHeaders(
+string
+$headers, [boolean
+$decode = true], [boolean
+$lowercase = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Builds an array consisting of MIME header/value pairs.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array consisting of the header name as the key and                 the header value as the value.                 A header with multiple entries will be stored in                 'value' as an array.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$headers</b>&nbsp;&nbsp;</td>
+        <td>A text string containing the headers (e.g.                             output from imap_fetchheader()).</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$decode</b>&nbsp;&nbsp;</td>
+        <td>Should the headers be decoded?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$lowercase</b>&nbsp;&nbsp;</td>
+        <td>Should the keys be in lowercase?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodparseTextMIMEMessage"></a>
+	<h3>static method parseTextMIMEMessage <span class="smalllinenumber">[line 297]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static MIME_Message &amp;parseTextMIMEMessage(
+string
+$text)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Attempts to build a MIME_Message object from a text message.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>A MIME_Message object, or false on error.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$text</b>&nbsp;&nbsp;</td>
+        <td>The text of the MIME message.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_convertMimeDecodeData"></a>
+	<h3>static method _convertMimeDecodeData <span class="smalllinenumber">[line 326]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void _convertMimeDecodeData(
+stdClass
+&$ob)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Convert the output from mimeDecode::decode() into a structure that  matches imap_fetchstructure() output.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">stdClass&nbsp;&nbsp;</td>
+        <td><b>&$ob</b>&nbsp;&nbsp;</td>
+        <td>The output from mimeDecode::decode().</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_getParameters"></a>
+	<h3>static method _getParameters <span class="smalllinenumber">[line 194]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static array _getParameters(
+stdClass
+$part, integer
+$type)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Get all parameters for a given portion of a message.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>An array of parameter key/value pairs.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">stdClass&nbsp;&nbsp;</td>
+        <td><b>$part</b>&nbsp;&nbsp;</td>
+        <td>The original part info.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$type</b>&nbsp;&nbsp;</td>
+        <td>The parameter type to retrieve. <ol><li>= content</li><li>= disposition</li></ol></td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_parse"></a>
+	<h3>static method _parse <span class="smalllinenumber">[line 56]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static MIME_Part &amp;_parse(
+stdClass
+$body, [string
+$ref = 0])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Given the results of imap_fetchstructure(), parse the structure  of the message, figuring out correct bodypart numbers, etc.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>A MIME_Part object.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">stdClass&nbsp;&nbsp;</td>
+        <td><b>$body</b>&nbsp;&nbsp;</td>
+        <td>The result of imap_fetchstructure().</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$ref</b>&nbsp;&nbsp;</td>
+        <td>The current bodypart.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_setInfo"></a>
+	<h3>static method _setInfo <span class="smalllinenumber">[line 115]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void _setInfo(
+stdClass
+$part, MIME_Part
+&$ob, string
+$ref)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Given a mime part from imap_fetchstructure(), munge it into a  useful form and make sure that any parameters which are missing  are given default values.<br /><br /><p>To specify the default character set, define the global variable  $GLOBALS['mime_strucutre']['default_charset'].</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">stdClass&nbsp;&nbsp;</td>
+        <td><b>$part</b>&nbsp;&nbsp;</td>
+        <td>The original part info.</td>
+      </tr>
+          <tr>
+        <td class="type">MIME_Part&nbsp;&nbsp;</td>
+        <td><b>&$ob</b>&nbsp;&nbsp;</td>
+        <td>A MIME_Part object.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$ref</b>&nbsp;&nbsp;</td>
+        <td>The ID of this part.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 03 Nov 2010 22:51:32 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

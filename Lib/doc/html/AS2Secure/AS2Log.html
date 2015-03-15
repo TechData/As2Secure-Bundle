@@ -1,0 +1,956 @@
+<html>
+<head>
+<title>Docs For Class AS2Log</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">AS2Secure</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                    
+                                                                                          		  [ <a href="../classtrees_AS2Secure.html" class="menu">class tree: AS2Secure</a> ]
+		  [ <a href="../elementindex_AS2Secure.html" class="menu">index: AS2Secure</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_AS2Secure.html">AS2Secure</a><br />
+              <a href="../li_Horde_Horde_Util.html">Horde_Horde_Util</a><br />
+              <a href="../li_Horde_MIME.html">Horde_MIME</a><br />
+              <a href="../li_Horde_Util.html">Horde_Util</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../AS2Secure/_AS2Abstract.php.html">		AS2Abstract.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Adapter.php.html">		AS2Adapter.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Client.php.html">		AS2Client.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Connector.php.html">		AS2Connector.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Exception.php.html">		AS2Exception.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Header.php.html">		AS2Header.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Log.php.html">		AS2Log.php
+		</a><br>
+			<a href="../AS2Secure/_AS2MDN.php.html">		AS2MDN.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Message.php.html">		AS2Message.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Partner.php.html">		AS2Partner.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Request.php.html">		AS2Request.php
+		</a><br>
+			<a href="../AS2Secure/_AS2Server.php.html">		AS2Server.php
+		</a><br>
+			<a href="../AS2Secure/_test.php.html">		test.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../AS2Secure/AS2Abstract.html">AS2Abstract</a><br />
+	    		<a href="../AS2Secure/AS2Adapter.html">AS2Adapter</a><br />
+	    		<a href="../AS2Secure/AS2Client.html">AS2Client</a><br />
+	    		<a href="../AS2Secure/AS2Connector.html">AS2Connector</a><br />
+	    		<a href="../AS2Secure/AS2Exception.html">AS2Exception</a><br />
+	    		<a href="../AS2Secure/AS2Header.html">AS2Header</a><br />
+	    		<a href="../AS2Secure/AS2Log.html">AS2Log</a><br />
+	    		<a href="../AS2Secure/AS2MDN.html">AS2MDN</a><br />
+	    		<a href="../AS2Secure/AS2Message.html">AS2Message</a><br />
+	    		<a href="../AS2Secure/AS2Partner.html">AS2Partner</a><br />
+	    		<a href="../AS2Secure/AS2Request.html">AS2Request</a><br />
+	    		<a href="../AS2Secure/AS2Server.html">AS2Server</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: AS2Log</h1>
+Source Location: /AS2Log.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">AS2Secure - PHP Lib for AS2 message encoding / decoding</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Sebastien MALOT &lt;<a href="mailto:contact@as2secure.com">contact@as2secure.com</a>&gt;</li>
+                        </ul>
+
+
+
+
+        
+          
+      
+<h4>Version:</h4>
+<ul>
+  <li>0.9.0</li>
+</ul>
+
+<h4>Copyright:</h4>
+<ul>
+  <li><p>Copyright (c) 2010, Sebastien MALOT</p><p>Last release at : <a href="http://www.as2secure.com">http://www.as2secure.com</a></p><p>This file is part of AS2Secure Project.</p><p>AS2Secure is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  (at your option) any later version.</p><p>AS2Secure is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License  along with AS2Secure.</p></li>
+</ul>
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../AS2Secure/AS2Log.html#var$code">$code</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$current_message_id">$current_message_id</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$filename">$filename</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$level">$level</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$message">$message</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$message_id">$message_id</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#var$stack">$stack</a></li>
+  </ul>
+</td>
+
+<td valign="top">
+<h3><a href="#class_consts">Constants</a></h3>
+<ul>
+    <li><a href="../AS2Secure/AS2Log.html#constERROR">ERROR</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#constFAILURE">FAILURE</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#constINFO">INFO</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#constWARNING">WARNING</a></li>
+  </ul>
+</td>
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../AS2Secure/AS2Log.html#method__construct">__construct</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methoderror">error</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetCode">getCode</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetCount">getCount</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetLastLogEvents">getLastLogEvents</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetLevel">getLevel</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetMessage">getMessage</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetMessageId">getMessageId</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodgetStack">getStack</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodhandleLevel">handleLevel</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodhasError">hasError</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodinfo">info</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodlogEvent">logEvent</a></li>
+    <li><a href="../AS2Secure/AS2Log.html#methodwarning">warning</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line 32]<br />
+AS2Secure - PHP Lib for AS2 message encoding / decoding<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Sebastien MALOT &lt;<a href="mailto:contact@as2secure.com">contact@as2secure.com</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>version:</b>&nbsp;&nbsp;</td><td>0.9.0</td>
+  </tr>
+  <tr>
+    <td><b>copyright:</b>&nbsp;&nbsp;</td><td><p>Copyright (c) 2010, Sebastien MALOT</p><p>Last release at : <a href="http://www.as2secure.com">http://www.as2secure.com</a></p><p>This file is part of AS2Secure Project.</p><p>AS2Secure is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  (at your option) any later version.</p><p>AS2Secure is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License  along with AS2Secure.</p></td>
+  </tr>
+  <tr>
+    <td><b>license:</b>&nbsp;&nbsp;</td><td><a href="http://www.gnu.org/licenses/lgpl-3.0.html">GNU General Public License</a></td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$current_message_id"></a>
+	<p></p>
+	<h4>static $current_message_id = <span class="value">&nbsp;''</span></h4>
+	<p>[line 43]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$filename"></a>
+	<p></p>
+	<h4>static $filename = <span class="value">&nbsp;'events.log'</span></h4>
+	<p>[line 33]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$stack"></a>
+	<p></p>
+	<h4>static $stack = <span class="value">array()</span></h4>
+	<p>[line 35]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$code"></a>
+	<p></p>
+	<h4>$code = <span class="value">&nbsp;0</span></h4>
+	<p>[line 47]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$level"></a>
+	<p></p>
+	<h4>$level = <span class="value">&nbsp;self::INFO</span></h4>
+	<p>[line 48]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$message"></a>
+	<p></p>
+	<h4>$message = <span class="value">&nbsp;''</span></h4>
+	<p>[line 46]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$message_id"></a>
+	<p></p>
+	<h4>$message_id = <span class="value">&nbsp;''</span></h4>
+	<p>[line 45]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+  <hr />
+	<a name="methoderror"></a>
+	<h3>static method error <span class="smalllinenumber">[line 147]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void error(
+string
+$message_id, string
+$message, [int
+$code = 0])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Static handler for error level<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message_id</b>&nbsp;&nbsp;</td>
+        <td>The current message id (from mime message)</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message</b>&nbsp;&nbsp;</td>
+        <td>The message to log</td>
+      </tr>
+          <tr>
+        <td class="type">int&nbsp;&nbsp;</td>
+        <td><b>$code</b>&nbsp;&nbsp;</td>
+        <td>The code number</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCount"></a>
+	<h3>static method getCount <span class="smalllinenumber">[line 191]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static array getCount(
+[string
+$level = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the stack of log for a specific level (or not)<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The current stack of logs</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$level</b>&nbsp;&nbsp;</td>
+        <td>The level to search for</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetLastLogEvents"></a>
+	<h3>static method getLastLogEvents <span class="smalllinenumber">[line 215]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static string getLastLogEvents(
+[int
+$count = 40], [boolean
+$reverse = true])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the lasts logs from logfile (work only on unix systems)<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">int&nbsp;&nbsp;</td>
+        <td><b>$count</b>&nbsp;&nbsp;</td>
+        <td>The count of log lines</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$reverse</b>&nbsp;&nbsp;</td>
+        <td>To reverse order of log lines</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetStack"></a>
+	<h3>static method getStack <span class="smalllinenumber">[line 173]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static array getStack(
+[string
+$level = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the stack of log for a specific level (or not)<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The current stack of logs</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$level</b>&nbsp;&nbsp;</td>
+        <td>The level to search for</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodhandleLevel"></a>
+	<h3>static method handleLevel <span class="smalllinenumber">[line 159]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void handleLevel(
+string
+$level, string
+$message_id, string
+$message, [int
+$code = 0])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Static and generic handler<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$level</b>&nbsp;&nbsp;</td>
+        <td>The level</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message_id</b>&nbsp;&nbsp;</td>
+        <td>The current message id (from mime message)</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message</b>&nbsp;&nbsp;</td>
+        <td>The message to log</td>
+      </tr>
+          <tr>
+        <td class="type">int&nbsp;&nbsp;</td>
+        <td><b>$code</b>&nbsp;&nbsp;</td>
+        <td>The code number</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodhasError"></a>
+	<h3>static method hasError <span class="smalllinenumber">[line 200]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static boolean hasError(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Indicate if there is errors into the stack<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodinfo"></a>
+	<h3>static method info <span class="smalllinenumber">[line 125]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void info(
+string
+$message_id, string
+$message, [int
+$code = 0])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Static handler for info level<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message_id</b>&nbsp;&nbsp;</td>
+        <td>The current message id (from mime message)</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message</b>&nbsp;&nbsp;</td>
+        <td>The message to log</td>
+      </tr>
+          <tr>
+        <td class="type">int&nbsp;&nbsp;</td>
+        <td><b>$code</b>&nbsp;&nbsp;</td>
+        <td>The code number</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodwarning"></a>
+	<h3>static method warning <span class="smalllinenumber">[line 136]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>static void warning(
+string
+$message_id, string
+$message, [int
+$code = 0])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Static handler for warning level<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message_id</b>&nbsp;&nbsp;</td>
+        <td>The current message id (from mime message)</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$message</b>&nbsp;&nbsp;</td>
+        <td>The message to log</td>
+      </tr>
+          <tr>
+        <td class="type">int&nbsp;&nbsp;</td>
+        <td><b>$code</b>&nbsp;&nbsp;</td>
+        <td>The code number</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+
+  <hr />
+	<a name="method__construct"></a>
+	<h3>constructor __construct <span class="smalllinenumber">[line 55]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>AS2Log __construct(
+
+$message, [
+$code = 0], [
+$level = self::INFO])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Contructor<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$message</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$code</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$level</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetCode"></a>
+	<h3>method getCode <span class="smalllinenumber">[line 105]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>int getCode(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the code<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetLevel"></a>
+	<h3>method getLevel <span class="smalllinenumber">[line 114]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getLevel(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the level<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetMessage"></a>
+	<h3>method getMessage <span class="smalllinenumber">[line 96]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getMessage(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the message<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetMessageId"></a>
+	<h3>method getMessageId <span class="smalllinenumber">[line 87]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getMessageId(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Return the message id (from mime part)<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodlogEvent"></a>
+	<h3>method logEvent <span class="smalllinenumber">[line 69]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void logEvent(
+object
+$event, [
+$log_message_id = true])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Log event into a file<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">object&nbsp;&nbsp;</td>
+        <td><b>$event</b>&nbsp;&nbsp;</td>
+        <td>The event to log into file</td>
+      </tr>
+          <tr>
+        <td class="type">&nbsp;&nbsp;</td>
+        <td><b>$log_message_id</b>&nbsp;&nbsp;</td>
+        <td></td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+<hr />
+<a name="class_consts"></a>
+<h3>Class Constants</h3>
+<div class="tags">
+	<a name="constERROR"></a>
+	<p></p>
+	<h4>ERROR = <span class="value">&nbsp;'error'</span></h4>
+	<p>[line 38]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constFAILURE"></a>
+	<p></p>
+	<h4>FAILURE = <span class="value">&nbsp;'failure'</span></h4>
+	<p>[line 40]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constINFO"></a>
+	<p></p>
+	<h4>INFO = <span class="value">&nbsp;'info'</span></h4>
+	<p>[line 37]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="constWARNING"></a>
+	<p></p>
+	<h4>WARNING = <span class="value">&nbsp;'warning'</span></h4>
+	<p>[line 39]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 03 Nov 2010 22:51:30 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

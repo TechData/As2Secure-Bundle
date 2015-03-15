@@ -1,0 +1,433 @@
+<html>
+<head>
+<title>Docs For Class Horde_Util</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Horde_Horde_Util</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                                        
+                                                                      		  [ <a href="../classtrees_Horde_Horde_Util.html" class="menu">class tree: Horde_Horde_Util</a> ]
+		  [ <a href="../elementindex_Horde_Horde_Util.html" class="menu">index: Horde_Horde_Util</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_AS2Secure.html">AS2Secure</a><br />
+              <a href="../li_Horde_Horde_Util.html">Horde_Horde_Util</a><br />
+              <a href="../li_Horde_MIME.html">Horde_MIME</a><br />
+              <a href="../li_Horde_Util.html">Horde_Util</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Horde_Horde_Util/_Horde---Util.php.html">		Util.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Horde_Horde_Util/Horde_Util.html">Horde_Util</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Horde_Util</h1>
+Source Location: /Horde/Util.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">The Horde_Util:: class provides generally useful methods of different kinds.</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Jon Parise &lt;<a href="mailto:jon@horde.org">jon@horde.org</a>&gt;</li>
+              <li>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</li>
+            </ul>
+
+
+
+
+            
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#var$cache">$cache</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#var$files">$files</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#var$securedel">$securedel</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#methodcloneObject">cloneObject</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#methoddeleteAtShutdown">deleteAtShutdown</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#methodextensionExists">extensionExists</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#methodgetTempFile">getTempFile</a></li>
+    <li><a href="../Horde_Horde_Util/Horde_Util.html#method_deleteAtShutdown">_deleteAtShutdown</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line 28]<br />
+The Horde_Util:: class provides generally useful methods of different kinds.<br /><br /><p>$Horde: framework/Horde_Util/Horde_Util.php,v 1.384.6.37 2009/07/21 18:17:23 slusarz Exp $</p><p>Copyright 1999-2009 The Horde Project (http://www.horde.org/)</p><p>See the enclosed file COPYING for license information (LGPL). If you  did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Jon Parise &lt;<a href="mailto:jon@horde.org">jon@horde.org</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Chuck Hagenbuch &lt;<a href="mailto:chuck@horde.org">chuck@horde.org</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>since:</b>&nbsp;&nbsp;</td><td>Horde 3.0</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$cache"></a>
+	<p></p>
+	<h4>static $cache = <span class="value">array()</span></h4>
+	<p>[line 32]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$files"></a>
+	<p></p>
+	<h4>static $files = <span class="value">&nbsp;null</span></h4>
+	<p>[line 29]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+	<a name="var$securedel"></a>
+	<p></p>
+	<h4>static $securedel = <span class="value">&nbsp;null</span></h4>
+	<p>[line 30]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+
+  <hr />
+	<a name="methodcloneObject"></a>
+	<h3>method cloneObject <span class="smalllinenumber">[line 41]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>object The &amp;cloneObject(
+object
+&$obj)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns an object's clone.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>cloned object.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">object&nbsp;&nbsp;</td>
+        <td><b>&$obj</b>&nbsp;&nbsp;</td>
+        <td>The object to clone.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methoddeleteAtShutdown"></a>
+	<h3>method deleteAtShutdown <span class="smalllinenumber">[line 126]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void deleteAtShutdown(
+[string
+$filename = false], [boolean
+$register = true], [boolean
+$secure = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Removes given elements at request shutdown.<br /><br /><p>If called with a filename will delete that file at request shutdown; if  called with a directory will remove that directory and all files in that  directory at request shutdown.</p><p>If called with no arguments, return all elements to be deleted (this  should only be done by Horde_Util::_deleteAtShutdown).</p><p>The first time it is called, it initializes the array and registers  Horde_Util::_deleteAtShutdown() as a shutdown public function - no need to do so  manually.</p><p>The second parameter allows the unregistering of previously registered  elements.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$filename</b>&nbsp;&nbsp;</td>
+        <td>The filename to be deleted at the end of the                            request.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$register</b>&nbsp;&nbsp;</td>
+        <td>If true, then register the element for                            deletion, otherwise, unregister it.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$secure</b>&nbsp;&nbsp;</td>
+        <td>If deleting file, should we securely delete                            the file?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodextensionExists"></a>
+	<h3>method extensionExists <span class="smalllinenumber">[line 197]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean extensionExists(
+string
+$ext)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Caches the result of extension_loaded() calls.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Is the extension loaded?</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$ext</b>&nbsp;&nbsp;</td>
+        <td>The extension name.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodgetTempFile"></a>
+	<h3>method getTempFile <span class="smalllinenumber">[line 77]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string getTempFile(
+[string
+$prefix = ''], [boolean
+$delete = true], [string
+$dir = ''], [boolean
+$secure = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Creates a temporary filename for the lifetime of the script, and  (optionally) register it to be deleted at request shutdown.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Returns the full path-name to the temporary file.                   Returns false if a temp file could not be created.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$prefix</b>&nbsp;&nbsp;</td>
+        <td>Prefix to make the temporary name more                          recognizable.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$delete</b>&nbsp;&nbsp;</td>
+        <td>Delete the file at the end of the request?</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$dir</b>&nbsp;&nbsp;</td>
+        <td>Directory to create the temporary file in.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$secure</b>&nbsp;&nbsp;</td>
+        <td>If deleting file, should we securely delete the                          file?</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_deleteAtShutdown"></a>
+	<h3>method _deleteAtShutdown <span class="smalllinenumber">[line 163]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void _deleteAtShutdown(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Deletes registered files at request shutdown.<br /><br /><p>This public function should never be called manually; it is registered as a  shutdown public function by Horde_Util::deleteAtShutdown() and called automatically  at the end of the request. It will retrieve the list of folders and  files to delete from Horde_Util::deleteAtShutdown()'s static array, and then  iterate through, deleting folders recursively.</p><p>Contains code from gpg_public functions.php.  Copyright 2002-2003 Braverock Ventures</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 03 Nov 2010 22:51:32 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<html>
+<head>
+<title>Docs For Class Horde_String</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">Horde_Util</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+        
+                                                                                                
+                              		  [ <a href="../classtrees_Horde_Util.html" class="menu">class tree: Horde_Util</a> ]
+		  [ <a href="../elementindex_Horde_Util.html" class="menu">index: Horde_Util</a> ]
+		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_AS2Secure.html">AS2Secure</a><br />
+              <a href="../li_Horde_Horde_Util.html">Horde_Horde_Util</a><br />
+              <a href="../li_Horde_MIME.html">Horde_MIME</a><br />
+              <a href="../li_Horde_Util.html">Horde_Util</a><br />
+            <br /><br />
+                        <b>Files:</b><br />
+      	  <div class="package">
+			<a href="../Horde_Util/_Horde---String.php.html">		String.php
+		</a><br>
+	  </div><br />
+      
+      
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../Horde_Util/Horde_String.html">Horde_String</a><br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: Horde_String</h1>
+Source Location: /Horde/String.php<br /><br />
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details">Class Overview</a></h3>
+<pre></pre><br />
+<div class="description">The Horde_String:: class provides static methods for charset and locale safe  string manipulation.</div><br /><br />
+<h4>Author(s):</h4>
+<ul>
+          <li>Jan Schneider &lt;<a href="mailto:jan@horde.org">jan@horde.org</a>&gt;</li>
+            </ul>
+
+
+
+
+        
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Variables</a></h3>
+<ul>
+    <li><a href="../Horde_Util/Horde_String.html#var$charset">$charset</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Methods</a></h3>
+<ul>
+    <li><a href="../Horde_Util/Horde_String.html#methodconvertCharset">convertCharset</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodextensionExists">extensionExists</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodisAlpha">isAlpha</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodisLower">isLower</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodisUpper">isUpper</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodlength">length</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodlower">lower</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodpad">pad</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodpos">pos</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodregexMatch">regexMatch</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodsetDefaultCharset">setDefaultCharset</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodsubstr">substr</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methoducfirst">ucfirst</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodupper">upper</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodwordwrap">wordwrap</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#methodwrap">wrap</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#method_convertCharset">_convertCharset</a></li>
+    <li><a href="../Horde_Util/Horde_String.html#method_mbstringCharset">_mbstringCharset</a></li>
+  </ul>
+</td>
+
+</tr></table>
+<hr />
+
+<table width="100%" border="0"><tr>
+
+
+
+
+
+
+</tr></table>
+<hr />
+
+<a name="class_details"></a>
+<h3>Class Details</h3>
+<div class="tags">
+[line 18]<br />
+The Horde_String:: class provides static methods for charset and locale safe  string manipulation.<br /><br /><p>$Horde: framework/Util/Horde_String.php,v 1.43.6.37 2009/03/30 15:31:38 jan Exp $</p><p>Copyright 2003-2009 The Horde Project (http://www.horde.org/)</p><p>See the enclosed file COPYING for license information (LGPL). If you  did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Jan Schneider &lt;<a href="mailto:jan@horde.org">jan@horde.org</a>&gt;</td>
+  </tr>
+  <tr>
+    <td><b>since:</b>&nbsp;&nbsp;</td><td>Horde 3.0</td>
+  </tr>
+</table>
+</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="var$charset"></a>
+	<p></p>
+	<h4>static $charset = <span class="value">&nbsp;'UTF-8'</span></h4>
+	<p>[line 20]</p>
+  <br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+
+  <br />
+	<div class="tags">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><b>Type:</b>&nbsp;&nbsp;</td>
+      <td>mixed</td>
+    </tr>
+      </table>
+	</div><br /><br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+
+  <hr />
+	<a name="methodconvertCharset"></a>
+	<h3>method convertCharset <span class="smalllinenumber">[line 76]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>mixed convertCharset(
+mixed
+$input, string
+$from, [string
+$to = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Converts a string from one charset to another.<br /><br /><p>Works only if either the iconv or the mbstring extension  are present and best if both are available.  The original string is returned if conversion failed or none  of the extensions were available.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The converted input data.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$input</b>&nbsp;&nbsp;</td>
+        <td>The data to be converted. If $input is an an array,                       the array's values get converted recursively.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$from</b>&nbsp;&nbsp;</td>
+        <td>The string's current charset.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$to</b>&nbsp;&nbsp;</td>
+        <td>The charset to convert the string to. If not                       specified, the global variable                       $_HORDE_STRING_CHARSET will be used.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodextensionExists"></a>
+	<h3>method extensionExists <span class="smalllinenumber">[line 31]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean extensionExists(
+string
+$ext)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Caches the result of extension_loaded() calls.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Is the extension loaded?</td>
+  </tr>
+  <tr>
+    <td><b>see:</b>&nbsp;&nbsp;</td><td>Util::extensionExists()</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$ext</b>&nbsp;&nbsp;</td>
+        <td>The extension name.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodisAlpha"></a>
+	<h3>method isAlpha <span class="smalllinenumber">[line 586]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean isAlpha(
+$string
+$string, [$charset
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns true if the every character in the parameter is an alphabetic  character.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>True if the parameter was alphabetic only.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">$string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to test.</td>
+      </tr>
+          <tr>
+        <td class="type">$charset&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when testing the string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodisLower"></a>
+	<h3>method isLower <span class="smalllinenumber">[line 618]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean isLower(
+$string
+$string, [$charset
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns true if ever character in the parameter is a lowercase letter in  the current locale.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>True if the parameter was lowercase.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">$string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to test.</td>
+      </tr>
+          <tr>
+        <td class="type">$charset&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when testing the string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodisUpper"></a>
+	<h3>method isUpper <span class="smalllinenumber">[line 633]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>boolean isUpper(
+string
+$string, [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns true if every character in the parameter is an uppercase letter  in the current locale.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>True if the parameter was uppercase.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to test.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when testing the string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodlength"></a>
+	<h3>method length <span class="smalllinenumber">[line 359]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string length(
+string
+$string, [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the character (not byte) length of a string.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The string's part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to return the length of.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when calculating the string's                         length.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodlower"></a>
+	<h3>method lower <span class="smalllinenumber">[line 193]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string lower(
+string
+$string, [boolean
+$locale = false], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Makes a string lowercase.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The string with lowercase characters</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to be converted.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$locale</b>&nbsp;&nbsp;</td>
+        <td>If true the string will be converted based on a                           given charset, locale independent else.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>If $locale is true, the charset to use when                           converting. If not provided the current charset.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodpad"></a>
+	<h3>method pad <span class="smalllinenumber">[line 426]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string pad(
+string
+$input, integer
+$length, [string
+$pad = ' '], [const
+$type = STR_PAD_RIGHT], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns a string padded to a certain length with another string.<br /><br /><p>This method behaves exactly like str_pad but is multibyte safe.</p><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The padded string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$input</b>&nbsp;&nbsp;</td>
+        <td>The string to be padded.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$length</b>&nbsp;&nbsp;</td>
+        <td>The length of the resulting string.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$pad</b>&nbsp;&nbsp;</td>
+        <td>The string to pad the input string with. Must                          be in the same charset like the input string.</td>
+      </tr>
+          <tr>
+        <td class="type">const&nbsp;&nbsp;</td>
+        <td><b>$type</b>&nbsp;&nbsp;</td>
+        <td>The padding type. One of STR_PAD_LEFT,                          STR_PAD_RIGHT, or STR_PAD_BOTH.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset of the input and the padding                          strings.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodpos"></a>
+	<h3>method pos <span class="smalllinenumber">[line 392]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>integer pos(
+string
+$haystack, string
+$needle, [integer
+$offset = 0], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns the numeric position of the first occurrence of $needle  in the $haystack string.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The position of first occurrence.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$haystack</b>&nbsp;&nbsp;</td>
+        <td>The string to search through.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$needle</b>&nbsp;&nbsp;</td>
+        <td>The string to search for.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$offset</b>&nbsp;&nbsp;</td>
+        <td>Allows to specify which character in haystack                           to start searching.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when searching for the                           $needle string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodregexMatch"></a>
+	<h3>method regexMatch <span class="smalllinenumber">[line 651]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array regexMatch(
+string
+$text, array
+$regex, [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Performs a multibyte safe regex match search on the text provided.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The matches array from the first regex that matches.</td>
+  </tr>
+  <tr>
+    <td><b>since:</b>&nbsp;&nbsp;</td><td>Horde 3.1</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$text</b>&nbsp;&nbsp;</td>
+        <td>The text to search.</td>
+      </tr>
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$regex</b>&nbsp;&nbsp;</td>
+        <td>The regular expressions to use, without perl                          regex delimiters (e.g. '/' or '|').</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The character set of the text.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsetDefaultCharset"></a>
+	<h3>method setDefaultCharset <span class="smalllinenumber">[line 48]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>void setDefaultCharset(
+string
+$charset)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Sets a default charset that the Horde_String:: methods will use if none is  explicitly specified.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use as the default one.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodsubstr"></a>
+	<h3>method substr <span class="smalllinenumber">[line 308]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string substr(
+string
+$string, integer
+$start, [integer
+$length = null], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns part of a string.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The string's part.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to be converted.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$start</b>&nbsp;&nbsp;</td>
+        <td>The part's start position, zero based.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$length</b>&nbsp;&nbsp;</td>
+        <td>The part's length.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use when calculating the part's                          position and length, defaults to current                          charset.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methoducfirst"></a>
+	<h3>method ucfirst <span class="smalllinenumber">[line 283]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string ucfirst(
+string
+$string, [boolean
+$locale = false], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Returns a string with the first letter capitalized if it is  alphabetic.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The capitalized string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to be capitalized.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$locale</b>&nbsp;&nbsp;</td>
+        <td>If true the string will be converted based on a                           given charset, locale independent else.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The charset to use, defaults to current charset.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodupper"></a>
+	<h3>method upper <span class="smalllinenumber">[line 238]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string upper(
+string
+$string, [boolean
+$locale = false], [string
+$charset = null])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Makes a string uppercase.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The string with uppercase characters</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>The string to be converted.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$locale</b>&nbsp;&nbsp;</td>
+        <td>If true the string will be converted based on a                           given charset, locale independent else.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>If $locale is true, the charset to use when                           converting. If not provided the current charset.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodwordwrap"></a>
+	<h3>method wordwrap <span class="smalllinenumber">[line 483]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string wordwrap(
+string
+$string, [integer
+$width = 75], [string
+$break = &quot;\n&quot;], [boolean
+$cut = false], [string
+$charset = null], [boolean
+$line_folding = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Wraps the text of a message.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Horde_String containing the wrapped text.</td>
+  </tr>
+  <tr>
+    <td><b>since:</b>&nbsp;&nbsp;</td><td>Horde 3.2</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$string</b>&nbsp;&nbsp;</td>
+        <td>Horde_String containing the text to wrap.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$width</b>&nbsp;&nbsp;</td>
+        <td>Wrap the string at this number of                                characters.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$break</b>&nbsp;&nbsp;</td>
+        <td>Character(s) to use when breaking lines.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$cut</b>&nbsp;&nbsp;</td>
+        <td>Whether to cut inside words if a line                                can't be wrapped.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>Character set to use when breaking lines.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$line_folding</b>&nbsp;&nbsp;</td>
+        <td>Whether to apply line folding rules per                                RFC 822 or similar. The correct break                                characters including leading whitespace                                have to be specified too.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="methodwrap"></a>
+	<h3>method wrap <span class="smalllinenumber">[line 553]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string wrap(
+string
+$text, [integer
+$length = 80], [string
+$break_char = &quot;\n&quot;], [string
+$charset = null], [boolean
+$quote = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Wraps the text of a message.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>Horde_String containing the wrapped text.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$text</b>&nbsp;&nbsp;</td>
+        <td>Horde_String containing the text to wrap.</td>
+      </tr>
+          <tr>
+        <td class="type">integer&nbsp;&nbsp;</td>
+        <td><b>$length</b>&nbsp;&nbsp;</td>
+        <td>Wrap $text at this number of characters.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$break_char</b>&nbsp;&nbsp;</td>
+        <td>Character(s) to use when breaking lines.</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>Character set to use when breaking lines.</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$quote</b>&nbsp;&nbsp;</td>
+        <td>Ignore lines that are wrapped with the '&gt;'                             character (RFC 2646)? If true, we don't                             remove any padding whitespace at the end of                             the string.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_convertCharset"></a>
+	<h3>method _convertCharset <span class="smalllinenumber">[line 129]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string _convertCharset(
+string
+$input, string
+$from, string
+$to)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Internal public function used to do charset conversion.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The converted string.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$input</b>&nbsp;&nbsp;</td>
+        <td>See Horde_String::convertCharset().</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$from</b>&nbsp;&nbsp;</td>
+        <td>See Horde_String::convertCharset().</td>
+      </tr>
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$to</b>&nbsp;&nbsp;</td>
+        <td>See Horde_String::convertCharset().</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
+	<a name="method_mbstringCharset"></a>
+	<h3>method _mbstringCharset <span class="smalllinenumber">[line 681]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>string _mbstringCharset(
+string
+$charset)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Workaround charsets that don't work with mbstring public functions.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>return:</b>&nbsp;&nbsp;</td><td>The charset to use with mbstring public functions.</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$charset</b>&nbsp;&nbsp;</td>
+        <td>The original charset.</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 03 Nov 2010 22:51:32 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
