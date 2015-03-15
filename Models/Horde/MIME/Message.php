@@ -15,7 +15,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_MIME
  */
-class Horde_MIME_Message extends Horde_MIME_Part {
+class Horde_MIME_Message extends Horde_MIME_Part
+{
 
     /**
      * Has the message been parsed via buildMessage()?
@@ -34,7 +35,7 @@ class Horde_MIME_Message extends Horde_MIME_Part {
     /**
      * Constructor - creates a new MIME email message.
      *
-     * @param string $defaultServer  The server to default unqualified
+     * @param string $defaultServer The server to default unqualified
      *                               addresses to.
      */
     public function __construct($defaultServer = null)
@@ -51,8 +52,8 @@ class Horde_MIME_Message extends Horde_MIME_Part {
      * This public function can be called statically via:
      *    MIME_Message::convertMIMEPart();
      *
-     * @param MIME_Part &$mime_part  The MIME_Part object.
-     * @param string $server         The server to default unqualified
+     * @param MIME_Part &$mime_part The MIME_Part object.
+     * @param string $server The server to default unqualified
      *                               addresses to.
      *
      * @return MIME_Message  The new MIME_Message object.
@@ -73,8 +74,8 @@ class Horde_MIME_Message extends Horde_MIME_Part {
     /**
      * Take a set of headers and make sure they are encoded properly.
      *
-     * @param array $headers   The headers to encode.
-     * @param string $charset  The character set to use.
+     * @param array $headers The headers to encode.
+     * @param string $charset The character set to use.
      *
      * @return array  The array of encoded headers.
      */
@@ -103,7 +104,7 @@ class Horde_MIME_Message extends Horde_MIME_Part {
     /**
      * Add the proper set of MIME headers for this message to an array.
      *
-     * @param array $headers  The headers to add the MIME headers to.
+     * @param array $headers The headers to add the MIME headers to.
      *
      * @return array  The full set of headers including MIME headers.
      */
@@ -193,7 +194,7 @@ class Horde_MIME_Message extends Horde_MIME_Part {
     /**
      * Retrieve a specific MIME part.
      *
-     * @param string $id  The MIME_Part ID string.
+     * @param string $id The MIME_Part ID string.
      *
      * @return MIME_Part  The MIME_Part requested, or false if the part
      *                    doesn't exist.

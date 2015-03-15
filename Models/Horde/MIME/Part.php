@@ -48,7 +48,8 @@ define('MIME_DEFAULT_ENCODING', '7bit');
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_MIME
  */
-class Horde_MIME_Part {
+class Horde_MIME_Part
+{
 
     /**
      * The type (ex.: text) of this part.
@@ -199,11 +200,11 @@ class Horde_MIME_Part {
     /**
      * MIME_Part constructor.
      *
-     * @param string $mimetype     The content type of the part.
-     * @param string $contents     The body of the part.
-     * @param string $charset      The character set of the part.
-     * @param string $disposition  The content disposition of the part.
-     * @param string $encoding     The content encoding of the contents.
+     * @param string $mimetype The content type of the part.
+     * @param string $contents The body of the part.
+     * @param string $charset The character set of the part.
+     * @param string $disposition The content disposition of the part.
+     * @param string $encoding The content encoding of the contents.
      */
     public function __construct($mimetype = null, $contents = null,
                                 $charset = MIME_DEFAULT_CHARSET, $disposition = null,
@@ -230,7 +231,7 @@ class Horde_MIME_Part {
     /**
      * Set the content-disposition of this part.
      *
-     * @param string $disposition  The content-disposition to set (inline or
+     * @param string $disposition The content-disposition to set (inline or
      *                             attachment).
      */
     public function setDisposition($disposition)
@@ -257,7 +258,7 @@ class Horde_MIME_Part {
      * TODO: MIME encode here instead of in header() - add a charset
      * parameter.
      *
-     * @param string $name  The name to set.
+     * @param string $name The name to set.
      */
     public function setName($name)
     {
@@ -267,8 +268,8 @@ class Horde_MIME_Part {
     /**
      * Get the name of this part.
      *
-     * @param boolean $decode   MIME decode description?
-     * @param boolean $default  If the name parameter doesn't exist, should we
+     * @param boolean $decode MIME decode description?
+     * @param boolean $default If the name parameter doesn't exist, should we
      *                          use the default name from the description
      *                          parameter?
      *
@@ -292,8 +293,8 @@ class Horde_MIME_Part {
     /**
      * Set the body contents of this part.
      *
-     * @param string $contents  The part body.
-     * @param string $encoding  The current encoding of the contents.
+     * @param string $contents The part body.
+     * @param string $encoding The current encoding of the contents.
      */
     public function setContents($contents, $encoding = null)
     {
@@ -305,9 +306,9 @@ class Horde_MIME_Part {
     /**
      * Add to the body contents of this part.
      *
-     * @param string $contents  The contents to append to the current part
+     * @param string $contents The contents to append to the current part
      *                          body.
-     * @param string $encoding  The current encoding of the contents. If not
+     * @param string $encoding The current encoding of the contents. If not
      *                          specified, will try to auto determine the
      *                          encoding.
      */
@@ -380,7 +381,7 @@ class Horde_MIME_Part {
     /**
      * Set the mimetype of this part.
      *
-     * @param string $mimetype  The mimetype to set (ex.: text/plain).
+     * @param string $mimetype The mimetype to set (ex.: text/plain).
      */
     public function setType($mimetype)
     {
@@ -412,27 +413,27 @@ class Horde_MIME_Part {
         }
     }
 
-     /**
-      * Get the full MIME Content-Type of this part.
-      *
-      * @param boolean $charset  Append character set information to the end of
-      *                          the content type if this is a text/* part.
-      *
-      * @return string  The mimetype of this part
-      *                 (ex.: text/plain; charset=us-ascii).
-      */
-     public function getType($charset = false)
-     {
-         if (!isset($this->_type) || !isset($this->_subtype)) {
-             return false;
-         }
-         $ptype = $this->getPrimaryType();
-         $type = $ptype . '/' . $this->getSubType();
-         if ($charset && ($ptype == 'text')) {
-             $type .= '; charset=' . $this->getCharset();
-         }
-         return $type;
-     }
+    /**
+     * Get the full MIME Content-Type of this part.
+     *
+     * @param boolean $charset Append character set information to the end of
+     *                          the content type if this is a text/* part.
+     *
+     * @return string  The mimetype of this part
+     *                 (ex.: text/plain; charset=us-ascii).
+     */
+    public function getType($charset = false)
+    {
+        if (!isset($this->_type) || !isset($this->_subtype)) {
+            return false;
+        }
+        $ptype = $this->getPrimaryType();
+        $type = $ptype . '/' . $this->getSubType();
+        if ($charset && ($ptype == 'text')) {
+            $type .= '; charset=' . $this->getCharset();
+        }
+        return $type;
+    }
 
     /**
      * If the subtype of a MIME part is unrecognized by an application, the
@@ -444,18 +445,18 @@ class Horde_MIME_Part {
     public function getDefaultType()
     {
         switch ($this->getPrimaryType()) {
-        case 'text':
-            /* RFC 2046 (4.1.4): text parts default to text/plain. */
-            return 'text/plain';
+            case 'text':
+                /* RFC 2046 (4.1.4): text parts default to text/plain. */
+                return 'text/plain';
 
-        case 'multipart':
-            /* RFC 2046 (5.1.3): multipart parts default to multipart/mixed. */
-            return 'multipart/mixed';
+            case 'multipart':
+                /* RFC 2046 (5.1.3): multipart parts default to multipart/mixed. */
+                return 'multipart/mixed';
 
-        default:
-            /* RFC 2046 (4.2, 4.3, 4.4, 4.5.3, 5.2.4): all others default to
-               application/octet-stream. */
-            return 'application/octet-stream';
+            default:
+                /* RFC 2046 (4.2, 4.3, 4.4, 4.5.3, 5.2.4): all others default to
+                   application/octet-stream. */
+                return 'application/octet-stream';
         }
     }
 
@@ -482,7 +483,7 @@ class Horde_MIME_Part {
     /**
      * Set the character set of this part.
      *
-     * @param string $charset  The character set of this part.
+     * @param string $charset The character set of this part.
      */
     public function setCharset($charset)
     {
@@ -506,7 +507,7 @@ class Horde_MIME_Part {
     /**
      * Set the description of this part.
      *
-     * @param string $description  The description of this part.
+     * @param string $description The description of this part.
      */
     public function setDescription($description)
     {
@@ -516,8 +517,8 @@ class Horde_MIME_Part {
     /**
      * Get the description of this part.
      *
-     * @param boolean $decode   MIME decode description?
-     * @param boolean $default  If the name parameter doesn't exist, should we
+     * @param boolean $decode MIME decode description?
+     * @param boolean $default If the name parameter doesn't exist, should we
      *                          use the default name from the description
      *                          parameter?
      *
@@ -544,7 +545,7 @@ class Horde_MIME_Part {
     /**
      * Set the transfer encoding to use for this part.
      *
-     * @param string $encoding  The transfer encoding to use.
+     * @param string $encoding The transfer encoding to use.
      */
     public function setTransferEncoding($encoding)
     {
@@ -562,9 +563,9 @@ class Horde_MIME_Part {
     /**
      * Add a MIME subpart.
      *
-     * @param MIME_Part $mime_part  Add a MIME_Part subpart to the current
+     * @param MIME_Part $mime_part Add a MIME_Part subpart to the current
      *                              MIME_Part.
-     * @param string $index         The index of the added MIME_Part.
+     * @param string $index The index of the added MIME_Part.
      */
     public function addPart($mime_part, $index = null)
     {
@@ -607,7 +608,7 @@ class Horde_MIME_Part {
     /**
      * Retrieve a specific MIME part.
      *
-     * @param string $id  The MIME_Part ID string.
+     * @param string $id The MIME_Part ID string.
      *
      * @return MIME_Part  The MIME_Part requested, or false if the part
      *                    doesn't exist.
@@ -620,7 +621,8 @@ class Horde_MIME_Part {
          * internally stored. */
         $search_id = $id;
         if (($str = strrchr($id, '.')) &&
-            ($str == '.0')) {
+            ($str == '.0')
+        ) {
             $search_id = substr($search_id, 0, -2);
         }
 
@@ -630,7 +632,8 @@ class Horde_MIME_Part {
            2) $id matches this parts MIME ID. */
         if (($search_id == 0) ||
             (($search_id == 1) && !count($this->_parts)) ||
-            (!empty($mimeid) && ($search_id == $mimeid))) {
+            (!empty($mimeid) && ($search_id == $mimeid))
+        ) {
             $part = $this;
         } else {
             $part = $this->_partFind($id, $this->_parts);
@@ -638,7 +641,8 @@ class Horde_MIME_Part {
 
         if ($part &&
             ($search_id != $id) &&
-            ($part->getType() == 'message/rfc822')) {
+            ($part->getType() == 'message/rfc822')
+        ) {
             $ret_part = Horde_Util::cloneObject($part);
             $ret_part->_parts = array();
             return $ret_part;
@@ -650,7 +654,7 @@ class Horde_MIME_Part {
     /**
      * Remove a MIME_Part subpart.
      *
-     * @param string $id  The MIME Part to delete.
+     * @param string $id The MIME Part to delete.
      */
     public function removePart($id)
     {
@@ -663,8 +667,8 @@ class Horde_MIME_Part {
     /**
      * Alter a current MIME subpart.
      *
-     * @param string $id            The MIME Part ID to alter.
-     * @param MIME_Part $mime_part  The MIME Part to store.
+     * @param string $id The MIME Part ID to alter.
+     * @param MIME_Part $mime_part The MIME Part to store.
      */
     public function alterPart($id, $mime_part)
     {
@@ -679,9 +683,9 @@ class Horde_MIME_Part {
      *
      * @access private
      *
-     * @param string $id         The MIME_Part ID string.
-     * @param array &$parts      A list of MIME_Part objects.
-     * @param boolean $retarray  Return a pointer to the array that stores
+     * @param string $id The MIME_Part ID string.
+     * @param array &$parts A list of MIME_Part objects.
+     * @param boolean $retarray Return a pointer to the array that stores
      *                           (would store) the part rather than the part
      *                           itself?
      */
@@ -718,7 +722,7 @@ class Horde_MIME_Part {
      *
      * @access private
      *
-     * @param array &$parts  An array of MIME_Parts to map.
+     * @param array &$parts An array of MIME_Parts to map.
      */
     protected function _generateIdMap(&$parts)
     {
@@ -734,8 +738,8 @@ class Horde_MIME_Part {
     /**
      * Add information about the MIME_Part.
      *
-     * @param string $label  The information label.
-     * @param mixed $data    The information to store.
+     * @param string $label The information label.
+     * @param mixed $data The information to store.
      */
     public function setInformation($label, $data)
     {
@@ -745,7 +749,7 @@ class Horde_MIME_Part {
     /**
      * Retrieve information about the MIME_Part.
      *
-     * @param string $label  The information label.
+     * @param string $label The information label.
      *
      * @return mixed  The information requested.
      *                Returns false if $label is not set.
@@ -758,8 +762,8 @@ class Horde_MIME_Part {
     /**
      * Add a disposition parameter to this part.
      *
-     * @param string $label  The disposition parameter label.
-     * @param string $data   The disposition parameter data.
+     * @param string $label The disposition parameter label.
+     * @param string $data The disposition parameter data.
      */
     public function setDispositionParameter($label, $data)
     {
@@ -769,7 +773,7 @@ class Horde_MIME_Part {
     /**
      * Get a disposition parameter from this part.
      *
-     * @param string $label  The disposition parameter label.
+     * @param string $label The disposition parameter label.
      *
      * @return string  The data requested.
      *                 Returns false if $label is not set.
@@ -793,8 +797,8 @@ class Horde_MIME_Part {
     /**
      * Add a content type parameter to this part.
      *
-     * @param string $label  The disposition parameter label.
-     * @param string $data   The disposition parameter data.
+     * @param string $label The disposition parameter label.
+     * @param string $data The disposition parameter data.
      */
     public function setContentTypeParameter($label, $data)
     {
@@ -804,8 +808,8 @@ class Horde_MIME_Part {
     /**
      * Clears a content type parameter from this part.
      *
-     * @param string $label  The disposition parameter label.
-     * @param string $data   The disposition parameter data.
+     * @param string $label The disposition parameter label.
+     * @param string $data The disposition parameter data.
      */
     public function clearContentTypeParameter($label)
     {
@@ -815,7 +819,7 @@ class Horde_MIME_Part {
     /**
      * Get a content type parameter from this part.
      *
-     * @param string $label  The content type parameter label.
+     * @param string $label The content type parameter label.
      *
      * @return string  The data requested.
      *                 Returns false if $label is not set.
@@ -839,7 +843,7 @@ class Horde_MIME_Part {
     /**
      * Sets a new string to use for EOLs.
      *
-     * @param string $eol  The string to use for EOLs.
+     * @param string $eol The string to use for EOLs.
      */
     public function setEOL($eol)
     {
@@ -859,7 +863,7 @@ class Horde_MIME_Part {
     /**
      * Add the appropriate MIME headers for this part to an existing array.
      *
-     * @param array $headers  An array of any other headers for the part.
+     * @param array $headers An array of any other headers for the part.
      *
      * @return array  The headers, with the MIME headers added.
      */
@@ -938,7 +942,7 @@ class Horde_MIME_Part {
     /**
      * Return the entire part in MIME format. Includes headers on request.
      *
-     * @param boolean $headers  Include the MIME headers?
+     * @param boolean $headers Include the MIME headers?
      *
      * @return string  The MIME string.
      */
@@ -979,7 +983,7 @@ class Horde_MIME_Part {
                 $text .= 'This message is in MIME format.' . $eol;
             }
             reset($this->_parts);
-            while (list(,$part) = each($this->_parts)) {
+            while (list(, $part) = each($this->_parts)) {
                 $text .= $eol . '--' . $boundary . $eol;
                 $oldEOL = $part->getEOL();
                 $part->setEOL($eol);
@@ -996,7 +1000,7 @@ class Horde_MIME_Part {
      * Returns the encoded part in strict RFC 822 & 2045 output - namely, all
      * newlines end with the canonical <CR><LF> sequence.
      *
-     * @param boolean $headers  Include the MIME headers?
+     * @param boolean $headers Include the MIME headers?
      *
      * @return string  The entire MIME part.
      */
@@ -1010,7 +1014,7 @@ class Horde_MIME_Part {
      * Should we make sure the message is encoded via 7-bit (e.g. to adhere
      * to mail delivery standards such as RFC 2821)?
      *
-     * @param boolean $use7bit  Use 7-bit encoding?
+     * @param boolean $use7bit Use 7-bit encoding?
      */
     public function strict7bit($use7bit)
     {
@@ -1036,33 +1040,33 @@ class Horde_MIME_Part {
         }
 
         switch ($ptype) {
-        case 'message':
-            /* RFC 2046 [5.2.1] - message/rfc822 messages only allow 7bit,
-               8bit, and binary encodings. If the current encoding is either
-               base64 or q-p, switch it to 8bit instead.
-               RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other message/* messages
-               only allow 7bit encodings. */
-            $encoding = ($this->getSubType() == 'rfc822') ? '8bit' : '7bit';
-            break;
+            case 'message':
+                /* RFC 2046 [5.2.1] - message/rfc822 messages only allow 7bit,
+                   8bit, and binary encodings. If the current encoding is either
+                   base64 or q-p, switch it to 8bit instead.
+                   RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other message/* messages
+                   only allow 7bit encodings. */
+                $encoding = ($this->getSubType() == 'rfc822') ? '8bit' : '7bit';
+                break;
 
-        case 'text':
-            $eol = $this->getEOL();
-            if (Horde_MIME::is8bit($text)) {
-                $encoding = ($this->_encode7bit) ? 'quoted-printable' : '8bit';
-            } elseif (preg_match("/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/", $this->_contents)) {
-                /* If the text is longer than 998 characters between
-                 * linebreaks, use quoted-printable encoding to ensure the
-                 * text will not be chopped (i.e. by sendmail if being sent
-                 * as mail text). */
-                $encoding = 'quoted-printable';
-            }
-            break;
+            case 'text':
+                $eol = $this->getEOL();
+                if (Horde_MIME::is8bit($text)) {
+                    $encoding = ($this->_encode7bit) ? 'quoted-printable' : '8bit';
+                } elseif (preg_match("/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/", $this->_contents)) {
+                    /* If the text is longer than 998 characters between
+                     * linebreaks, use quoted-printable encoding to ensure the
+                     * text will not be chopped (i.e. by sendmail if being sent
+                     * as mail text). */
+                    $encoding = 'quoted-printable';
+                }
+                break;
 
-        default:
-            if (Horde_MIME::is8bit($text)) {
-                $encoding = ($this->_encode7bit) ? 'base64' : '8bit';
-            }
-            break;
+            default:
+                if (Horde_MIME::is8bit($text)) {
+                    $encoding = ($this->_encode7bit) ? 'base64' : '8bit';
+                }
+                break;
         }
 
         /* Need to do one last check for binary data if encoding is 7bit or
@@ -1070,7 +1074,8 @@ class Horde_MIME_Part {
          * MUST be in binary format. RFC 2046 [2.7, 2.8, 2.9]. Q-P and base64
          * can handle binary data fine so no need to switch those encodings. */
         if ((($encoding == '8bit') || ($encoding == '7bit')) &&
-            preg_match('/\x00/', $text)) {
+            preg_match('/\x00/', $text)
+        ) {
             $encoding = ($this->_encode7bit) ? 'base64' : 'binary';
         }
 
@@ -1104,30 +1109,32 @@ class Horde_MIME_Part {
         /* If contents are empty, or contents are already encoded to the
            correct encoding, return now. */
         if (!strlen($this->_contents) ||
-            ($encoding == $this->_currentEncoding)) {
+            ($encoding == $this->_currentEncoding)
+        ) {
             return $this->_contents;
         }
 
         switch ($encoding) {
-        /* Base64 Encoding: See RFC 2045, section 6.8 */
-        case 'base64':
-            /* Keeping these two lines separate seems to use much less
-               memory than combining them (as of PHP 4.3). */
-            $encoded_contents = base64_encode($this->_contents);
-            return rtrim(chunk_split($encoded_contents, 76, $eol), $eol);
+            /* Base64 Encoding: See RFC 2045, section 6.8 */
+            case 'base64':
+                /* Keeping these two lines separate seems to use much less
+                   memory than combining them (as of PHP 4.3). */
+                $encoded_contents = base64_encode($this->_contents);
+                return rtrim(chunk_split($encoded_contents, 76, $eol), $eol);
 
-        /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
-        case 'quoted-printable':
-            $output = Horde_MIME::quotedPrintableEncode($this->_contents, $eol);
-            if (($eollength = Horde_String::length($eol)) &&
-                (substr($output, $eollength * -1) == $eol)) {
-                return substr($output, 0, $eollength * -1);
-            } else {
-                return $output;
-            }
+            /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
+            case 'quoted-printable':
+                $output = Horde_MIME::quotedPrintableEncode($this->_contents, $eol);
+                if (($eollength = Horde_String::length($eol)) &&
+                    (substr($output, $eollength * -1) == $eol)
+                ) {
+                    return substr($output, 0, $eollength * -1);
+                } else {
+                    return $output;
+                }
 
-        default:
-            return $this->replaceEOL($this->_contents);
+            default:
+                return $this->replaceEOL($this->_contents);
         }
     }
 
@@ -1148,41 +1155,42 @@ class Horde_MIME_Part {
         }
 
         switch ($encoding) {
-        case 'base64':
-            $message = base64_decode($this->_contents);
-            $this->_flags['lastTransferDecode'] = '8bit';
-            break;
+            case 'base64':
+                $message = base64_decode($this->_contents);
+                $this->_flags['lastTransferDecode'] = '8bit';
+                break;
 
-        case 'quoted-printable':
-            $message = preg_replace("/=\r?\n/", '', $this->_contents);
-            $message = $this->replaceEOL($message);
-            $message = quoted_printable_decode($message);
-            $this->_flags['lastTransferDecode'] = (Horde_MIME::is8bit($message)) ? '8bit' : '7bit';
-            break;
+            case 'quoted-printable':
+                $message = preg_replace("/=\r?\n/", '', $this->_contents);
+                $message = $this->replaceEOL($message);
+                $message = quoted_printable_decode($message);
+                $this->_flags['lastTransferDecode'] = (Horde_MIME::is8bit($message)) ? '8bit' : '7bit';
+                break;
 
-        /* Support for uuencoded encoding - although not required by RFCs,
-           some mailers may still encode this way. */
-        case 'uuencode':
-        case 'x-uuencode':
-        case 'x-uue':
-            if (function_exists('convert_uudecode')) {
-                $message = convert_uuencode($this->_contents);
-            } else {
-                $files = &Mail_mimeDecode::uudecode($this->_contents);
-                $message = $files[0]['filedata'];
-            }
-            $this->_flags['lastTransferDecode'] = '8bit';
-            break;
+            /* Support for uuencoded encoding - although not required by RFCs,
+               some mailers may still encode this way. */
+            case 'uuencode':
+            case 'x-uuencode':
+            case 'x-uue':
+                if (function_exists('convert_uudecode')) {
+                    $message = convert_uuencode($this->_contents);
+                } else {
+                    $files = &Mail_mimeDecode::uudecode($this->_contents);
+                    $message = $files[0]['filedata'];
+                }
+                $this->_flags['lastTransferDecode'] = '8bit';
+                break;
 
-        default:
-            if (isset($this->_flags['lastTransferDecode']) &&
-                ($this->_flags['lastTransferDecode'] != $encoding)) {
-                $message = $this->replaceEOL($this->_contents);
-            } else {
-                $message = $this->_contents;
-            }
-            $this->_flags['lastTransferDecode'] = $encoding;
-            break;
+            default:
+                if (isset($this->_flags['lastTransferDecode']) &&
+                    ($this->_flags['lastTransferDecode'] != $encoding)
+                ) {
+                    $message = $this->replaceEOL($this->_contents);
+                } else {
+                    $message = $this->_contents;
+                }
+                $this->_flags['lastTransferDecode'] = $encoding;
+                break;
         }
 
         return $message;
@@ -1252,8 +1260,8 @@ class Horde_MIME_Part {
      * Replace newlines in this part's contents with those specified by either
      * the given newline sequence or the part's current EOL setting.
      *
-     * @param string $text  The text to replace.
-     * @param string $eol   The EOL sequence to use. If not present, uses the
+     * @param string $text The text to replace.
+     * @param string $eol The EOL sequence to use. If not present, uses the
      *                      part's current EOL setting.
      *
      * @return string  The text with the newlines replaced by the desired
@@ -1293,7 +1301,7 @@ class Horde_MIME_Part {
             $bytes = $this->_bytes;
         } elseif ($this->getPrimaryType() == 'multipart') {
             reset($this->_parts);
-            while (list(,$part) = each($this->_parts)) {
+            while (list(, $part) = each($this->_parts)) {
                 /* Skip multipart entries (since this may result in double
                    counting). */
                 if ($part->getPrimaryType() != 'multipart') {
@@ -1319,7 +1327,7 @@ class Horde_MIME_Part {
      * object from IMAP header information without loading the data of the
      * part).
      *
-     * @param integer $bytes  The size of this part in bytes.
+     * @param integer $bytes The size of this part in bytes.
      */
     public function setBytes($bytes)
     {
@@ -1329,7 +1337,7 @@ class Horde_MIME_Part {
     /**
      * Add to the list of CIDs for this part.
      *
-     * @param array $cids  A list of MIME IDs of the part.
+     * @param array $cids A list of MIME IDs of the part.
      *                     Key - MIME ID
      *                     Value - CID for the part
      */
@@ -1352,7 +1360,7 @@ class Horde_MIME_Part {
     /**
      * Sets the Content-ID header for this part.
      *
-     * @param string $cid  Use this CID (if not already set).  Else, generate a
+     * @param string $cid Use this CID (if not already set).  Else, generate a
      *                     random CID.
      */
     public function setContentID($cid = null)
@@ -1376,7 +1384,7 @@ class Horde_MIME_Part {
     /**
      * Alter the MIME ID of this part.
      *
-     * @param string $mimeid  The MIME ID.
+     * @param string $mimeid The MIME ID.
      */
     public function setMIMEId($mimeid)
     {
@@ -1398,7 +1406,7 @@ class Horde_MIME_Part {
      * e.g., if the base part has MIME ID of 2, and you want the first
      * subpart of the base part, the relative MIME ID is 2.1.
      *
-     * @param string $id  The relative part ID.
+     * @param string $id The relative part ID.
      *
      * @return string  The relative MIME ID.
      */

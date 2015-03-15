@@ -20,13 +20,14 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_MIME
  */
-class Horde_MIME_Structure {
+class Horde_MIME_Structure
+{
 
     /**
      * Given the results of imap_fetchstructure(), parse the structure
      * of the message, figuring out correct bodypart numbers, etc.
      *
-     * @param stdClass $body  The result of imap_fetchstructure().
+     * @param stdClass $body The result of imap_fetchstructure().
      *
      * @return &MIME_Message  The message parsed into a MIME_Message object.
      */
@@ -48,8 +49,8 @@ class Horde_MIME_Structure {
      *
      * @access private
      *
-     * @param stdClass $body  The result of imap_fetchstructure().
-     * @param string $ref     The current bodypart.
+     * @param stdClass $body The result of imap_fetchstructure().
+     * @param string $ref The current bodypart.
      *
      * @return MIME_Part  A MIME_Part object.
      */
@@ -66,14 +67,16 @@ class Horde_MIME_Structure {
 
         /* Top multiparts don't get their own line. */
         if (empty($ref) &&
-            (!isset($body->type) || ($body->type != $multipart))) {
+            (!isset($body->type) || ($body->type != $multipart))
+        ) {
             $ref = 1;
         }
 
         Horde_MIME_Structure::_setInfo($body, $mime_part, $ref);
 
         if (isset($body->type) && ($body->type == $message) &&
-            $body->ifsubtype && ($body->subtype == 'RFC822')) {
+            $body->ifsubtype && ($body->subtype == 'RFC822')
+        ) {
             $mime_part->setMIMEId($ref . '.0');
         } else {
             $mime_part->setMIMEId($ref);
@@ -83,10 +86,11 @@ class Horde_MIME_Structure {
         if (isset($body->parts)) {
             $sub_id = 1;
             reset($body->parts);
-            while (list(,$sub_part) = each($body->parts)) {
+            while (list(, $sub_part) = each($body->parts)) {
                 /* Are we dealing with a multipart message? */
                 if (isset($body->type) && ($body->type == $message) &&
-                    isset($sub_part->type) && ($sub_part->type == $multipart)) {
+                    isset($sub_part->type) && ($sub_part->type == $multipart)
+                ) {
                     $sub_ref = $ref;
                 } else {
                     $sub_ref = (empty($ref)) ? $sub_id : $ref . '.' . $sub_id;
@@ -108,9 +112,9 @@ class Horde_MIME_Structure {
      *
      * @access private
      *
-     * @param stdClass $part  The original part info.
-     * @param MIME_Part &$ob  A MIME_Part object.
-     * @param string $ref     The ID of this part.
+     * @param stdClass $part The original part info.
+     * @param MIME_Part &$ob A MIME_Part object.
+     * @param string $ref The ID of this part.
      */
     protected static function _setInfo($part, &$ob, $ref)
     {
@@ -184,8 +188,8 @@ class Horde_MIME_Structure {
      *
      * @access private
      *
-     * @param stdClass $part  The original part info.
-     * @param integer $type   The parameter type to retrieve.
+     * @param stdClass $part The original part info.
+     * @param integer $type The parameter type to retrieve.
      *                        1 = content
      *                        2 = disposition
      *
@@ -240,9 +244,9 @@ class Horde_MIME_Structure {
      *
      * @since Horde 3.2
      *
-     * @param array &$parts  The list of parts contained within the multipart
+     * @param array &$parts The list of parts contained within the multipart
      *                       object.
-     * @param array $info    Information about the multipart structure.
+     * @param array $info Information about the multipart structure.
      */
     public static function addMultipartInfo(&$parts, $info = array())
     {
@@ -269,18 +273,18 @@ class Horde_MIME_Structure {
             }
 
             switch ($ptr->getType()) {
-            case 'multipart/alternative':
-                $new_info['alt'] = $ptr->getMIMEId();
-                break;
+                case 'multipart/alternative':
+                    $new_info['alt'] = $ptr->getMIMEId();
+                    break;
 
-            case 'multipart/related':
-                $new_info['related'] = &$ptr;
-                break;
+                case 'multipart/related':
+                    $new_info['related'] = &$ptr;
+                    break;
 
-            case 'message/rfc822':
-                $new_info['rfc822'] = $ptr->getMIMEId();
-                $ptr->setInformation('header', true);
-                break;
+                case 'message/rfc822':
+                    $new_info['rfc822'] = $ptr->getMIMEId();
+                    $ptr->setInformation('header', true);
+                    break;
             }
 
             Horde_MIME_Structure::addMultipartInfo($ptr->getParts(), $new_info);
@@ -290,7 +294,7 @@ class Horde_MIME_Structure {
     /**
      * Attempts to build a MIME_Message object from a text message.
      *
-     * @param string $text  The text of the MIME message.
+     * @param string $text The text of the MIME message.
      *
      * @return MIME_Message  A MIME_Message object, or false on error.
      */
@@ -321,7 +325,7 @@ class Horde_MIME_Structure {
      *
      * @access private
      *
-     * @param stdClass &$ob  The output from mimeDecode::decode().
+     * @param stdClass &$ob The output from mimeDecode::decode().
      */
     protected static function _convertMimeDecodeData(&$ob)
     {
@@ -347,7 +351,7 @@ class Horde_MIME_Structure {
 
         /* Content-type and Disposition parameters. */
         $param_types = array('ctype_parameters' => 'parameters',
-                             'd_parameters' => 'dparameters');
+            'd_parameters' => 'dparameters');
         foreach ($param_types as $param_key => $param_value) {
             $if_var = 'if' . $param_value;
             if (isset($ob->$param_key)) {
@@ -402,10 +406,10 @@ class Horde_MIME_Structure {
     /**
      * Builds an array consisting of MIME header/value pairs.
      *
-     * @param string $headers     A text string containing the headers (e.g.
+     * @param string $headers A text string containing the headers (e.g.
      *                            output from imap_fetchheader()).
-     * @param boolean $decode     Should the headers be decoded?
-     * @param boolean $lowercase  Should the keys be in lowercase?
+     * @param boolean $decode Should the headers be decoded?
+     * @param boolean $lowercase Should the keys be in lowercase?
      *
      * @return array  An array consisting of the header name as the key and
      *                the header value as the value.

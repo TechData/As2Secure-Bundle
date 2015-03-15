@@ -28,8 +28,8 @@
  * @version 0.9.0
  *
  */
-
-abstract class AS2Abstract {
+abstract class AS2Abstract
+{
     // 
     protected $adapter = null;
 
@@ -39,142 +39,162 @@ abstract class AS2Abstract {
     protected $files = array();
     protected $headers = null;
     protected $message_id = '';
-    
+
     protected $is_signed = false;
     protected $is_crypted = false;
-    
+
     protected $partner_from = null;
     protected $partner_to = null;
-    
-    public function __construct($data, $params = array()) {
+
+    public function __construct($data, $params = array())
+    {
         if (is_null($this->headers))
             $this->headers = new AS2Header();
-        
+
         if (is_array($data)) {
             $this->path = $data;
-        }
-        elseif ($data) {
+        } elseif ($data) {
             // do nothing
             // content : default is file
             if (isset($params['is_file']) && $params['is_file'] === false) {
                 $file = AS2Adapter::getTempFilename();
                 file_put_contents($file, $data);
                 $this->path = $file;
-    
+
                 // filename
                 if (isset($params['filename']))
                     $this->filename = $params['filename'];
-            }
-            else {
+            } else {
                 $this->path = $data;
                 // filename
-                $this->filename = (isset($params['filename'])?$params['filename']:basename($this->path));
+                $this->filename = (isset($params['filename']) ? $params['filename'] : basename($this->path));
             }
-    
+
             // mimetype handle
-            $this->mimetype = (isset($params['mimetype'])?$params['mimetype']:AS2Adapter::detectMimeType($this->path));
+            $this->mimetype = (isset($params['mimetype']) ? $params['mimetype'] : AS2Adapter::detectMimeType($this->path));
         }
-        
+
         // partners
         if (isset($params['partner_from']) && $params['partner_from']) $this->setPartnerFrom($params['partner_from']);
         else throw new AS2Exception('No AS2 From Partner specified.');
-        if (isset($params['partner_to']) && $params['partner_to'])   $this->setPartnerTo($params['partner_to']);
+        if (isset($params['partner_to']) && $params['partner_to']) $this->setPartnerTo($params['partner_to']);
         else throw new AS2Exception('NO AS2 To Partner specified.');
 
         $this->adapter = new AS2Adapter($this->getPartnerFrom(), $this->getPartnerTo());
     }
-    
+
     // partner handle
-    public function setPartnerFrom($partner_from) {
+    public function setPartnerFrom($partner_from)
+    {
         $this->partner_from = AS2Partner::getPartner($partner_from);
     }
-    
-    public function getPartnerFrom() {
+
+    public function getPartnerFrom()
+    {
         return $this->partner_from;
     }
-    
-    public function setPartnerTo($partner_to) {
+
+    public function setPartnerTo($partner_to)
+    {
         $this->partner_to = AS2Partner::getPartner($partner_to);
     }
-    
-    public function getPartnerTo() {
+
+    public function getPartnerTo()
+    {
         return $this->partner_to;
     }
-    
+
     // message properties
-    public function getPath() {
+    public function getPath()
+    {
         return $this->path;
     }
 
-    public function addFile($file) {
+    public function addFile($file)
+    {
         $this->files[] = realpath($file);
     }
 
-    public function getFiles() {
+    public function getFiles()
+    {
         return $this->files;
     }
-    
-    public function getFileName() {
+
+    public function getFileName()
+    {
         return $this->filename;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         return file_get_contents($this->path);
     }
-    
-    public function setHeaders($headers) {
+
+    public function setHeaders($headers)
+    {
         $this->headers = $headers;
     }
 
-    public function getHeaders() {
+    public function getHeaders()
+    {
         return $this->headers;
     }
-    
-    public function getHeader($token) {
+
+    public function getHeader($token)
+    {
         return $this->headers->getHeader($token);
     }
-    
-    public function getAuthentication() {
-        return array('method'   => AS2Partner::METHOD_NONE,
-                     'login'    => '',
-                     'password' => '');
+
+    public function getAuthentication()
+    {
+        return array('method' => AS2Partner::METHOD_NONE,
+            'login' => '',
+            'password' => '');
     }
-    
-    public function setMessageId($id) {
+
+    public function setMessageId($id)
+    {
         $this->message_id = $id;
     }
-    
-    public function getMessageId() {
+
+    public function getMessageId()
+    {
         return $this->message_id;
     }
 
-    public function isCrypted() {
+    public function isCrypted()
+    {
         return $this->is_crypted;
     }
-    
-    public function isSigned() {
+
+    public function isSigned()
+    {
         return $this->is_signed;
     }
-    
-    public function encode() {
+
+    public function encode()
+    {
         // TODO
     }
-    
-    public function decode() {
+
+    public function decode()
+    {
         // TODO
     }
-    
-    public function getUrl() {
+
+    public function getUrl()
+    {
         // TODO
     }
-    
+
     /**
-     * 
-     * 
+     *
+     *
      */
-    protected static function generateMessageID($partner) {
+    protected static function generateMessageID($partner)
+    {
         if ($partner instanceof AS2Partner) $id = $partner->id;
         else $id = 'unknown';
-        return '<'.uniqid('', true).'@'.round(microtime(true)).'_'.str_replace(' ', '', strtolower($id).'_'.php_uname('n')).'>';
+        return '<' . uniqid('', true) . '@' . round(microtime(true)) . '_' . str_replace(' ', '', strtolower($id) . '_' . php_uname('n')) . '>';
     }
 }

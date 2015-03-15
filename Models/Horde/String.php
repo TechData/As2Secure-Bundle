@@ -15,14 +15,15 @@
  * @since   Horde 3.0
  * @package Horde_Util
  */
-class Horde_String {
+class Horde_String
+{
 
     public static $charset = 'UTF-8';
 
     /**
      * Caches the result of extension_loaded() calls.
      *
-     * @param string $ext  The extension name.
+     * @param string $ext The extension name.
      *
      * @return boolean  Is the extension loaded?
      *
@@ -43,13 +44,14 @@ class Horde_String {
      * Sets a default charset that the Horde_String:: methods will use if none is
      * explicitly specified.
      *
-     * @param string $charset  The charset to use as the default one.
+     * @param string $charset The charset to use as the default one.
      */
     public function setDefaultCharset($charset)
     {
         self::$charset = $charset;
         if (Horde_String::extensionExists('mbstring') &&
-            function_exists('mb_regex_encoding')) {
+            function_exists('mb_regex_encoding')
+        ) {
             $old_error = error_reporting(0);
             mb_regex_encoding(Horde_String::_mbstringCharset($charset));
             error_reporting($old_error);
@@ -64,10 +66,10 @@ class Horde_String {
      * The original string is returned if conversion failed or none
      * of the extensions were available.
      *
-     * @param mixed $input  The data to be converted. If $input is an an array,
+     * @param mixed $input The data to be converted. If $input is an an array,
      *                      the array's values get converted recursively.
-     * @param string $from  The string's current charset.
-     * @param string $to    The charset to convert the string to. If not
+     * @param string $from The string's current charset.
+     * @param string $to The charset to convert the string to. If not
      *                      specified, the global variable
      *                      $_HORDE_STRING_CHARSET will be used.
      *
@@ -120,9 +122,9 @@ class Horde_String {
      *
      * @access private
      *
-     * @param string $input  See Horde_String::convertCharset().
-     * @param string $from   See Horde_String::convertCharset().
-     * @param string $to     See Horde_String::convertCharset().
+     * @param string $input See Horde_String::convertCharset().
+     * @param string $from See Horde_String::convertCharset().
+     * @param string $to See Horde_String::convertCharset().
      *
      * @return string  The converted string.
      */
@@ -148,7 +150,8 @@ class Horde_String {
         /* First try iconv with transliteration. */
         if (($from != 'utf7-imap') &&
             ($to != 'utf7-imap') &&
-            Horde_String::extensionExists('iconv')) {
+            Horde_String::extensionExists('iconv')
+        ) {
             /* We need to tack an extra character temporarily because of a bug
              * in iconv() if the last character is not a 7 bit ASCII
              * character. */
@@ -182,10 +185,10 @@ class Horde_String {
     /**
      * Makes a string lowercase.
      *
-     * @param string  $string   The string to be converted.
-     * @param boolean $locale   If true the string will be converted based on a
+     * @param string $string The string to be converted.
+     * @param boolean $locale If true the string will be converted based on a
      *                          given charset, locale independent else.
-     * @param string  $charset  If $locale is true, the charset to use when
+     * @param string $charset If $locale is true, the charset to use when
      *                          converting. If not provided the current charset.
      *
      * @return string  The string with lowercase characters
@@ -197,7 +200,8 @@ class Horde_String {
         if ($locale) {
             /* The existence of mb_strtolower() depends on the platform. */
             if (Horde_String::extensionExists('mbstring') &&
-                function_exists('mb_strtolower')) {
+                function_exists('mb_strtolower')
+            ) {
                 if (is_null($charset)) {
                     $charset = self::$charset;
                 }
@@ -227,10 +231,10 @@ class Horde_String {
     /**
      * Makes a string uppercase.
      *
-     * @param string  $string   The string to be converted.
-     * @param boolean $locale   If true the string will be converted based on a
+     * @param string $string The string to be converted.
+     * @param boolean $locale If true the string will be converted based on a
      *                          given charset, locale independent else.
-     * @param string  $charset  If $locale is true, the charset to use when
+     * @param string $charset If $locale is true, the charset to use when
      *                          converting. If not provided the current charset.
      *
      * @return string  The string with uppercase characters
@@ -273,10 +277,10 @@ class Horde_String {
      * Returns a string with the first letter capitalized if it is
      * alphabetic.
      *
-     * @param string  $string   The string to be capitalized.
-     * @param boolean $locale   If true the string will be converted based on a
+     * @param string $string The string to be capitalized.
+     * @param boolean $locale If true the string will be converted based on a
      *                          given charset, locale independent else.
-     * @param string  $charset  The charset to use, defaults to current charset.
+     * @param string $charset The charset to use, defaults to current charset.
      *
      * @return string  The capitalized string.
      */
@@ -296,10 +300,10 @@ class Horde_String {
     /**
      * Returns part of a string.
      *
-     * @param string $string   The string to be converted.
-     * @param integer $start   The part's start position, zero based.
-     * @param integer $length  The part's length.
-     * @param string $charset  The charset to use when calculating the part's
+     * @param string $string The string to be converted.
+     * @param integer $start The part's start position, zero based.
+     * @param integer $length The part's length.
+     * @param string $charset The charset to use when calculating the part's
      *                         position and length, defaults to current
      *                         charset.
      *
@@ -350,7 +354,7 @@ class Horde_String {
     /**
      * Returns the character (not byte) length of a string.
      *
-     * @param string $string  The string to return the length of.
+     * @param string $string The string to return the length of.
      * @param string $charset The charset to use when calculating the string's
      *                        length.
      *
@@ -380,11 +384,11 @@ class Horde_String {
      * Returns the numeric position of the first occurrence of $needle
      * in the $haystack string.
      *
-     * @param string $haystack  The string to search through.
-     * @param string $needle    The string to search for.
-     * @param integer $offset   Allows to specify which character in haystack
+     * @param string $haystack The string to search through.
+     * @param string $needle The string to search for.
+     * @param integer $offset Allows to specify which character in haystack
      *                          to start searching.
-     * @param string $charset   The charset to use when searching for the
+     * @param string $charset The charset to use when searching for the
      *                          $needle string.
      *
      * @return integer  The position of first occurrence.
@@ -412,19 +416,19 @@ class Horde_String {
      *
      * This method behaves exactly like str_pad but is multibyte safe.
      *
-     * @param string $input    The string to be padded.
-     * @param integer $length  The length of the resulting string.
-     * @param string $pad      The string to pad the input string with. Must
+     * @param string $input The string to be padded.
+     * @param integer $length The length of the resulting string.
+     * @param string $pad The string to pad the input string with. Must
      *                         be in the same charset like the input string.
-     * @param const $type      The padding type. One of STR_PAD_LEFT,
+     * @param const $type The padding type. One of STR_PAD_LEFT,
      *                         STR_PAD_RIGHT, or STR_PAD_BOTH.
-     * @param string $charset  The charset of the input and the padding
+     * @param string $charset The charset of the input and the padding
      *                         strings.
      *
      * @return string  The padded string.
      */
     public function pad($input, $length, $pad = ' ', $type = STR_PAD_RIGHT,
-                 $charset = null)
+                        $charset = null)
     {
         $mb_length = Horde_String::length($input, $charset);
         $sb_length = strlen($input);
@@ -441,21 +445,21 @@ class Horde_String {
         }
 
         switch ($type) {
-        case STR_PAD_LEFT:
-            $left = $length - $mb_length;
-            $output = Horde_String::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) . $input;
-            break;
-        case STR_PAD_BOTH:
-            $left = floor(($length - $mb_length) / 2);
-            $right = ceil(($length - $mb_length) / 2);
-            $output = Horde_String::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) .
-                $input .
-                Horde_String::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
-            break;
-        case STR_PAD_RIGHT:
-            $right = $length - $mb_length;
-            $output = $input . Horde_String::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
-            break;
+            case STR_PAD_LEFT:
+                $left = $length - $mb_length;
+                $output = Horde_String::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) . $input;
+                break;
+            case STR_PAD_BOTH:
+                $left = floor(($length - $mb_length) / 2);
+                $right = ceil(($length - $mb_length) / 2);
+                $output = Horde_String::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) .
+                    $input .
+                    Horde_String::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
+                break;
+            case STR_PAD_RIGHT:
+                $right = $length - $mb_length;
+                $output = $input . Horde_String::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
+                break;
         }
 
         return $output;
@@ -466,14 +470,14 @@ class Horde_String {
      *
      * @since Horde 3.2
      *
-     * @param string $string         Horde_String containing the text to wrap.
-     * @param integer $width         Wrap the string at this number of
+     * @param string $string Horde_String containing the text to wrap.
+     * @param integer $width Wrap the string at this number of
      *                               characters.
-     * @param string $break          Character(s) to use when breaking lines.
-     * @param boolean $cut           Whether to cut inside words if a line
+     * @param string $break Character(s) to use when breaking lines.
+     * @param boolean $cut Whether to cut inside words if a line
      *                               can't be wrapped.
-     * @param string $charset        Character set to use when breaking lines.
-     * @param boolean $line_folding  Whether to apply line folding rules per
+     * @param string $charset Character set to use when breaking lines.
+     * @param boolean $line_folding Whether to apply line folding rules per
      *                               RFC 822 or similar. The correct break
      *                               characters including leading whitespace
      *                               have to be specified too.
@@ -481,7 +485,7 @@ class Horde_String {
      * @return string  Horde_String containing the wrapped text.
      */
     public function wordwrap($string, $width = 75, $break = "\n", $cut = false,
-                      $charset = null, $line_folding = false)
+                             $charset = null, $line_folding = false)
     {
         /* Get the user's default character set if none passed in. */
         if (is_null($charset)) {
@@ -508,7 +512,8 @@ class Horde_String {
             // Wrap at the last colon or semicolon followed by a whitespace if
             // doing line folding.
             if ($line_folding &&
-                preg_match('/^(.*?)(;|:)(\s+.*)$/u', $line, $match)) {
+                preg_match('/^(.*?)(;|:)(\s+.*)$/u', $line, $match)
+            ) {
                 $wrapped .= $match[1] . $match[2] . $break;
                 $string = $match[3] . $string;
                 continue;
@@ -539,11 +544,11 @@ class Horde_String {
     /**
      * Wraps the text of a message.
      *
-     * @param string $text        Horde_String containing the text to wrap.
-     * @param integer $length     Wrap $text at this number of characters.
-     * @param string $break_char  Character(s) to use when breaking lines.
-     * @param string $charset     Character set to use when breaking lines.
-     * @param boolean $quote      Ignore lines that are wrapped with the '>'
+     * @param string $text Horde_String containing the text to wrap.
+     * @param integer $length Wrap $text at this number of characters.
+     * @param string $break_char Character(s) to use when breaking lines.
+     * @param string $charset Character set to use when breaking lines.
+     * @param boolean $quote Ignore lines that are wrapped with the '>'
      *                            character (RFC 2646)? If true, we don't
      *                            remove any padding whitespace at the end of
      *                            the string.
@@ -551,7 +556,7 @@ class Horde_String {
      * @return string  Horde_String containing the wrapped text.
      */
     public function wrap($text, $length = 80, $break_char = "\n", $charset = null,
-                  $quote = false)
+                         $quote = false)
     {
         $paragraphs = array();
 
@@ -618,22 +623,22 @@ class Horde_String {
     public function isLower($string, $charset = null)
     {
         return ((Horde_String::lower($string, true, $charset) === $string) &&
-                Horde_String::isAlpha($string, $charset));
+            Horde_String::isAlpha($string, $charset));
     }
 
     /**
      * Returns true if every character in the parameter is an uppercase letter
      * in the current locale.
      *
-     * @param string $string   The string to test.
-     * @param string $charset  The charset to use when testing the string.
+     * @param string $string The string to test.
+     * @param string $charset The charset to use when testing the string.
      *
      * @return boolean  True if the parameter was uppercase.
      */
     public function isUpper($string, $charset = null)
     {
         return ((Horde_String::upper($string, true, $charset) === $string) &&
-                Horde_String::isAlpha($string, $charset));
+            Horde_String::isAlpha($string, $charset));
     }
 
     /**
@@ -641,10 +646,10 @@ class Horde_String {
      *
      * @since Horde 3.1
      *
-     * @param string $text     The text to search.
-     * @param array $regex     The regular expressions to use, without perl
+     * @param string $text The text to search.
+     * @param array $regex The regular expressions to use, without perl
      *                         regex delimiters (e.g. '/' or '|').
-     * @param string $charset  The character set of the text.
+     * @param string $charset The character set of the text.
      *
      * @return array  The matches array from the first regex that matches.
      */
@@ -674,7 +679,7 @@ class Horde_String {
      *
      * @access private
      *
-     * @param string $charset  The original charset.
+     * @param string $charset The original charset.
      *
      * @return string  The charset to use with mbstring public functions.
      */

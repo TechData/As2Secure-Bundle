@@ -25,16 +25,17 @@ define('HORDE_ERROR_DRIVER_CONFIG', 2);
  * @since   Horde 3.0
  * @package Horde_Horde_Util
  */
-class Horde_Util {
+class Horde_Util
+{
     protected static $files = null;
     protected static $securedel = null;
-    
+
     protected static $cache = array();
 
     /**
      * Returns an object's clone.
      *
-     * @param object &$obj  The object to clone.
+     * @param object &$obj The object to clone.
      *
      * @return object  The cloned object.
      */
@@ -45,7 +46,7 @@ class Horde_Util {
             if (isset($bt[1])) {
                 $caller = $bt[1]['public function'];
                 if (isset($bt[1]['class'])) {
-                    $caller = $bt[1]['class'].$bt[1]['type'].$caller;
+                    $caller = $bt[1]['class'] . $bt[1]['type'] . $caller;
                 }
             } else {
                 $caller = 'main';
@@ -64,11 +65,11 @@ class Horde_Util {
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) register it to be deleted at request shutdown.
      *
-     * @param string $prefix   Prefix to make the temporary name more
+     * @param string $prefix Prefix to make the temporary name more
      *                         recognizable.
-     * @param boolean $delete  Delete the file at the end of the request?
-     * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secure  If deleting file, should we securely delete the
+     * @param boolean $delete Delete the file at the end of the request?
+     * @param string $dir Directory to create the temporary file in.
+     * @param boolean $secure If deleting file, should we securely delete the
      *                         file?
      *
      * @return string   Returns the full path-name to the temporary file.
@@ -116,15 +117,15 @@ class Horde_Util {
      * The second parameter allows the unregistering of previously registered
      * elements.
      *
-     * @param string $filename   The filename to be deleted at the end of the
+     * @param string $filename The filename to be deleted at the end of the
      *                           request.
-     * @param boolean $register  If true, then register the element for
+     * @param boolean $register If true, then register the element for
      *                           deletion, otherwise, unregister it.
-     * @param boolean $secure    If deleting file, should we securely delete
+     * @param boolean $secure If deleting file, should we securely delete
      *                           the file?
      */
     public function deleteAtShutdown($filename = false, $register = true,
-                              $secure = false)
+                                     $secure = false)
     {
         /* Initialization of variables and shutdown public functions. */
         if (is_null(self::$files)) {
@@ -190,7 +191,7 @@ class Horde_Util {
      *
      * @access private
      *
-     * @param string $ext  The extension name.
+     * @param string $ext The extension name.
      *
      * @return boolean  Is the extension loaded?
      */

@@ -1,14 +1,15 @@
 <?php
 
+namespace TechData\AS2SecureBundle\Models;
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
- * 
+ *
  * @author  Sebastien MALOT <contact@as2secure.com>
- * 
+ *
  * @copyright Copyright (c) 2010, Sebastien MALOT
- * 
+ *
  * Last release at : {@link http://www.as2secure.com}
- * 
+ *
  * This file is part of AS2Secure Project.
  *
  * AS2Secure is free software: you can redistribute it and/or modify
@@ -23,13 +24,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with AS2Secure.
- * 
+ *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
  * @version 0.9.0
- * 
+ *
  */
 
-class AS2MDN extends AS2Abstract {
+class AS2MDN extends AS2Abstract
+{
     /**
      * Human readable message
      */
@@ -39,7 +41,7 @@ class AS2MDN extends AS2Abstract {
 
     /**
      * Valid tokens :
-     *    
+     *
      *    action-mode                    : "manual-action" | "automatic-action"
      *    sending-mode                   : "MDN-sent-manually" | "MDN-sent-automatically"
      *    disposition-type               : "processed" | "failed"
@@ -54,135 +56,151 @@ class AS2MDN extends AS2Abstract {
      * Refers to RFC 4130
      * http://rfclibrary.hosting.com/rfc/rfc4130/rfc4130-34.asp
      */
-    const ACTION_AUTO         = 'automatic-action';
-    const ACTION_MANUAL       = 'manual-action';
-    
-    const SENDING_AUTO        = 'MDN-sent-automatically';
-    const SENDING_MANUAL      = 'MDN-sent-manually';
-    
-    const TYPE_PROCESSED      = 'processed';
-    const TYPE_FAILED         = 'failed';
+    const ACTION_AUTO = 'automatic-action';
+    const ACTION_MANUAL = 'manual-action';
 
-    const MODIFIER_ERROR      = 'error';
-    const MODIFIER_WARNING    = 'warning';
+    const SENDING_AUTO = 'MDN-sent-automatically';
+    const SENDING_MANUAL = 'MDN-sent-manually';
+
+    const TYPE_PROCESSED = 'processed';
+    const TYPE_FAILED = 'failed';
+
+    const MODIFIER_ERROR = 'error';
+    const MODIFIER_WARNING = 'warning';
 
 
-    public function __construct($data = null, $params = array()){
-        
-        $this->attributes = new AS2Header(array('action-mode'  => self::ACTION_AUTO,
-                                                'sending-mode' => self::SENDING_AUTO));
-        
+    public function __construct($data = null, $params = array())
+    {
+
+        $this->attributes = new AS2Header(array('action-mode' => self::ACTION_AUTO,
+            'sending-mode' => self::SENDING_AUTO));
+
         // adapter
         if (!($data instanceof AS2Exception) && $data instanceof Exception) $data = new AS2Exception($data->getMessage(), 6);
         // full automatic handling
         if ($data instanceof AS2Exception) {
             $this->setMessage($data->getMessage());
             //$this->setHeaders($data->getHeaders());
-            $this->setAttribute('disposition-type',     $data->getLevel());
+            $this->setAttribute('disposition-type', $data->getLevel());
             $this->setAttribute('disposition-modifier', $data->getMessageShort());
 
-            try {$this->setPartnerFrom($params['partner_from']);}
-            catch(Exception $e){$this->partner_from = false;}
-            try {$this->setPartnerTo($params['partner_to']);}
-            catch(Exception $e){$this->partner_to = false;}
-        }
-        elseif ($data instanceof AS2Request) { // parse response
-            $params = array('is_file'      => false,
-                            'mimetype'     => 'multipart/report',
-                            'partner_from' => $data->getPartnerFrom(),
-                            'partner_to'   => $data->getPartnerTo());
+            try {
+                $this->setPartnerFrom($params['partner_from']);
+            } catch (Exception $e) {
+                $this->partner_from = false;
+            }
+            try {
+                $this->setPartnerTo($params['partner_to']);
+            } catch (Exception $e) {
+                $this->partner_to = false;
+            }
+        } elseif ($data instanceof AS2Request) { // parse response
+            $params = array('is_file' => false,
+                'mimetype' => 'multipart/report',
+                'partner_from' => $data->getPartnerFrom(),
+                'partner_to' => $data->getPartnerTo());
             parent::__construct($data->getContent(), $params);
 
             // check requirements
-            if ($this->partner_from->mdn_signed && !$data->isSigned()){
+            if ($this->partner_from->mdn_signed && !$data->isSigned()) {
                 throw new AS2Exception('MDN from this partner are defined to be signed.', 4);
             }
-        }
-        elseif ($data instanceof AS2Message){ // standard processed message
+        } elseif ($data instanceof AS2Message) { // standard processed message
             $params['partner_from'] = $data->getPartnerTo();
-            $params['partner_to']   = $data->getPartnerFrom();
+            $params['partner_to'] = $data->getPartnerFrom();
 
             parent::__construct(false, $params);
-        }
-        elseif ($data instanceof Horde_MIME_Part){
-            try {$this->setPartnerFrom($params['partner_from']);}
-            catch(Exception $e){$this->partner_from = false;}
-            try {$this->setPartnerTo($params['partner_to']);}
-            catch(Exception $e){$this->partner_to = false;}
+        } elseif ($data instanceof Horde_MIME_Part) {
+            try {
+                $this->setPartnerFrom($params['partner_from']);
+            } catch (Exception $e) {
+                $this->partner_from = false;
+            }
+            try {
+                $this->setPartnerTo($params['partner_to']);
+            } catch (Exception $e) {
+                $this->partner_to = false;
+            }
 
             $this->path = AS2Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
 
             parent::__construct(false, $params);
-        }
-        else {
-           throw new AS2Exception('Not handled case.');
+        } else {
+            throw new AS2Exception('Not handled case.');
         }
     }
 
     /**
      * Return the human readable message
-     * 
+     *
      * @return string
      */
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getMessage();
     }
 
     /**
      * Set the human readable message
-     * 
-     * @param string $message   The message to set
+     *
+     * @param string $message The message to set
      */
-    public function setMessage($message){
+    public function setMessage($message)
+    {
         $this->message = $message;
     }
 
     /**
      * Return the human readable message
-     * 
+     *
      * @return string
      */
-    public function getMessage(){
+    public function getMessage()
+    {
         return $this->message;
     }
 
     /**
      * Set attribute for computer readable message
-     * 
-     * @param string $key    Token
-     * @param string $value  Value
+     *
+     * @param string $key Token
+     * @param string $value Value
      */
-    public function setAttribute($key, $value){
+    public function setAttribute($key, $value)
+    {
         $this->attributes->addHeader($key, $value);
     }
 
     /**
      * Return an attribute fromcomputer readable message
-     * 
-     * @param string  $key    Token
-     * 
+     *
+     * @param string $key Token
+     *
      * @return string
      */
-    public function getAttribute($key){
+    public function getAttribute($key)
+    {
         return $this->attributes->getHeader($key);
     }
 
     /**
      * Return the computer readable message
      *
-     * @return array 
+     * @return array
      */
-    public function getAttributes(){
+    public function getAttributes()
+    {
         return $this->attributes->getHeaders();
     }
 
     /**
      * Encode and generate MDN from attributes and message (if exists)
-     * 
-     * @param object $message    The refering message
+     *
+     * @param object $message The refering message
      */
-    public function encode($message = null){
+    public function encode($message = null)
+    {
         // container
         $container = new Horde_MIME_Part('multipart/report', ' ');
 
@@ -214,39 +232,39 @@ class AS2MDN extends AS2Abstract {
         $this->setMessageId(self::generateMessageID($this->getPartnerFrom()));
 
         // headers setup
-        $this->headers = new AS2Header(array('AS2-Version'  => '1.0',
-                                       'Message-ID'   => $this->getMessageId(),
-                                       'Mime-Version' => '1.0',
-                                       'Server'       => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
-                                       'User-Agent'   => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
-                                 ));
+        $this->headers = new AS2Header(array('AS2-Version' => '1.0',
+            'Message-ID' => $this->getMessageId(),
+            'Mime-Version' => '1.0',
+            'Server' => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
+            'User-Agent' => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
+        ));
         $this->headers->addHeaders($container->header());
 
         if ($this->getPartnerFrom()) {
             $headers_from = array(
-                 'AS2-From'                    => '"' . $this->getPartnerFrom()->id . '"',
-                 'From'                        => $this->getPartnerFrom()->email,
-                 'Subject'                     => $this->getPartnerFrom()->mdn_subject,
-                 'Disposition-Notification-To' => $this->getPartnerFrom()->send_url,
+                'AS2-From' => '"' . $this->getPartnerFrom()->id . '"',
+                'From' => $this->getPartnerFrom()->email,
+                'Subject' => $this->getPartnerFrom()->mdn_subject,
+                'Disposition-Notification-To' => $this->getPartnerFrom()->send_url,
             );
             $this->headers->addHeaders($headers_from);
         }
 
         if ($this->getPartnerTo()) {
             $headers_to = array(
-                 'AS2-To'            => '"' . $this->getPartnerTo()->id . '"',
-                 'Recipient-Address' => $this->getPartnerTo()->send_url,
+                'AS2-To' => '"' . $this->getPartnerTo()->id . '"',
+                'Recipient-Address' => $this->getPartnerTo()->send_url,
             );
             $this->headers->addHeaders($headers_to);
         }
 
-        if ($message && ($url = $message->getHeader('Receipt-Delivery-Option')) && $this->getPartnerFrom()){
+        if ($message && ($url = $message->getHeader('Receipt-Delivery-Option')) && $this->getPartnerFrom()) {
             $this->url = $url;
             $this->headers->addHeader('Recipient-Address', $this->getPartnerFrom()->send_url);
         }
 
         $this->path = AS2Adapter::getTempFilename();
-        
+
         // signing if requested
         if ($message && $message->getHeader('Disposition-Notification-Options')) {
             file_put_contents($this->path, $container->toCanonicalString(true));
@@ -258,45 +276,42 @@ class AS2MDN extends AS2Abstract {
             // TODO : replace with futur AS2MimePart to separate content from header
             if (strpos($content, "\n\n") !== false) $content = substr($content, strpos($content, "\n\n") + 2);
             file_put_contents($this->path, ltrim($content));
-        }
-        else {
+        } else {
             file_put_contents($this->path, $container->toCanonicalString(false));
             $content = $container->toString();
         }
     }
-    
+
     /**
      * Decode MDN stored into path file and set attributes
-     * 
+     *
      */
-    public function decode(){
+    public function decode()
+    {
         // parse mime message
         $params = array('include_bodies' => true,
-                        'decode_headers' => true,
-                        'decode_bodies'  => true,
-                        'input'          => false,
-                        'crlf'           => "\n"
-                        );
+            'decode_headers' => true,
+            'decode_bodies' => true,
+            'input' => false,
+            'crlf' => "\n"
+        );
         $decoder = new Mail_mimeDecode(file_get_contents($this->path));
         $structure = $decoder->decode($params);
-        
+
         // reset values before decoding (for security reasons)
         $this->setMessage('');
         $this->attributes = null;
 
         // should contains 2 parts
-        foreach($structure->parts as $num => $part)
-        {
-            if (strtolower($part->headers['content-type']) == 'message/disposition-notification')
-            {
+        foreach ($structure->parts as $num => $part) {
+            if (strtolower($part->headers['content-type']) == 'message/disposition-notification') {
                 // computer readable message
                 /*preg_match_all('/([^: ]+): (.+?(?:\r\n\s(?:.+?))*)\r\n/m', $part->body, $headers);
                 $headers = array_combine($headers[1], $headers[2]);
                 foreach($headers as $key => $val)
                     $this->setAttribute(trim(strtolower($key)), trim($val));*/
                 $this->attributes = AS2Header::parseText($part->body);
-            }
-            else {
+            } else {
                 // human readable message
                 $this->setMessage(trim($part->body));
             }
@@ -305,10 +320,11 @@ class AS2MDN extends AS2Abstract {
 
     /**
      * Return the url to send message
-     * 
+     *
      * @return string
      */
-    public function getUrl(){
+    public function getUrl()
+    {
         return $this->url;
     }
 }

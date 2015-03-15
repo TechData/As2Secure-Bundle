@@ -58,7 +58,8 @@ define('MIME_STRING', 2);
  * @since   Horde 1.3
  * @package Horde_MIME
  */
-class Horde_MIME {
+class Horde_MIME
+{
 
     /**
      * A listing of the allowed MIME types.
@@ -101,8 +102,8 @@ class Horde_MIME {
     /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
      *
-     * @param string $string   The string to check.
-     * @param string $charset  The charset of the string. Defaults to
+     * @param string $string The string to check.
+     * @param string $charset The charset of the string. Defaults to
      *                         US-ASCII. Since Horde 3.2.2.
      *
      * @return boolean  True if it does, false if it doesn't.
@@ -112,16 +113,16 @@ class Horde_MIME {
         /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
          * it needs to be entirely encoded. */
         return is_string($string) &&
-               ((stristr('iso-2022-jp', $charset) &&
+        ((stristr('iso-2022-jp', $charset) &&
                 (strstr($string, "\x1b\$B"))) ||
-                preg_match('/[\x80-\xff]/', $string));
+            preg_match('/[\x80-\xff]/', $string));
     }
 
     /**
      * Encodes a string containing non-ASCII characters according to RFC 2047.
      *
-     * @param string $text     The text to encode.
-     * @param string $charset  The character set of the text.
+     * @param string $text The text to encode.
+     * @param string $charset The character set of the text.
      *
      * @return string  The text, encoded only if it contains non-ASCII
      *                 characters.
@@ -146,7 +147,8 @@ class Horde_MIME {
         foreach ($matches as $key => $val) {
             if (Horde_MIME::is8bit($val[1], $charset)) {
                 if ((($key + 1) < $size) &&
-                    Horde_MIME::is8bit($matches[$key + 1][1], $charset)) {
+                    Horde_MIME::is8bit($matches[$key + 1][1], $charset)
+                ) {
                     $line .= Horde_MIME::_encode($val[1] . $val[2], $charset) . ' ';
                 } else {
                     $line .= Horde_MIME::_encode($val[1], $charset) . $val[2];
@@ -164,8 +166,8 @@ class Horde_MIME {
      *
      * @access private
      *
-     * @param string $text     The text to encode.
-     * @param string $charset  The character set of the text.
+     * @param string $text The text to encode.
+     * @param string $charset The character set of the text.
      *
      * @return string  The text, encoded only if it contains non-ASCII
      *                 characters.
@@ -200,8 +202,8 @@ class Horde_MIME {
      * Encodes a line via quoted-printable encoding.
      * Wraps lines at 76 characters.
      *
-     * @param string $text  The text to encode.
-     * @param string $eol   The EOL sequence to use.
+     * @param string $text The text to encode.
+     * @param string $eol The EOL sequence to use.
      *
      * @return string  The quoted-printable encoded string.
      */
@@ -231,9 +233,10 @@ class Horde_MIME {
              * ASCII characters below 32 or above 126 AND 61 must be
              * encoded. */
             if ((($ascii === 32) &&
-                 ($i + 1 != $length) &&
-                 (($text[$i + 1] == "\n") || ($text[$i + 1] == "\r"))) ||
-                (($ascii < 32) || ($ascii > 126) || ($ascii === 61))) {
+                    ($i + 1 != $length) &&
+                    (($text[$i + 1] == "\n") || ($text[$i + 1] == "\r"))) ||
+                (($ascii < 32) || ($ascii > 126) || ($ascii === 61))
+            ) {
                 $char_len = 3;
                 $char = '=' . Horde_String::upper(sprintf('%02s', dechex($ascii)));
             }
@@ -256,9 +259,9 @@ class Horde_MIME {
      * This differs from MIME::encode() because it keeps email addresses legal,
      * only encoding the personal information.
      *
-     * @param string $addresses  The email addresses to encode.
-     * @param string $charset    The character set of the text.
-     * @param string $defserver  The default domain to append to mailboxes.
+     * @param string $addresses The email addresses to encode.
+     * @param string $charset The character set of the text.
+     * @param string $defserver The default domain to append to mailboxes.
      *
      * @return string  The text, encoded only if it contains non-ascii
      *                 characters
@@ -289,7 +292,8 @@ class Horde_MIME {
                         $personal = '';
                     } else {
                         if ((substr($addr->personal, 0, 1) == '"') &&
-                            (substr($addr->personal, -1) == '"')) {
+                            (substr($addr->personal, -1) == '"')
+                        ) {
                             $addr->personal = stripslashes(substr($addr->personal, 1, -1));
                         }
                         $personal = Horde_MIME::encode($addr->personal, $charset);
@@ -305,8 +309,8 @@ class Horde_MIME {
     /**
      * Decodes an RFC 2047-encoded string.
      *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
+     * @param string $string The text to decode.
+     * @param string $to_charset The charset that the text should be decoded
      *                            to.
      *
      * @return string  The decoded text.
@@ -353,22 +357,22 @@ class Horde_MIME {
         }
 
         switch ($encoding) {
-        case 'Q':
-        case 'q':
-            $encoded_text = str_replace('_', ' ', $encoded_text);
-            $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', $encoded_text);
-            $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
-            break;
+            case 'Q':
+            case 'q':
+                $encoded_text = str_replace('_', ' ', $encoded_text);
+                $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', $encoded_text);
+                $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
+                break;
 
-        case 'B':
-        case 'b':
-            $decoded = base64_decode($encoded_text);
-            $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
-            break;
+            case 'B':
+            case 'b':
+                $decoded = base64_decode($encoded_text);
+                $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
+                break;
 
-        default:
-            $decoded = '=?' . $charset . '?' . $encoding . '?' . $encoded_text . '?=';
-            break;
+            default:
+                $decoded = '=?' . $charset . '?' . $encoding . '?' . $encoded_text . '?=';
+                break;
         }
 
         return $preceding . $decoded . Horde_MIME::decode($rest, $to_charset);
@@ -377,8 +381,8 @@ class Horde_MIME {
     /**
      * Decodes an RFC 2047-encoded address string.
      *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
+     * @param string $string The text to decode.
+     * @param string $to_charset The charset that the text should be decoded
      *                            to.
      *
      * @return string  The decoded text.
@@ -397,10 +401,10 @@ class Horde_MIME {
     /**
      * Encodes a string pursuant to RFC 2231.
      *
-     * @param string $name     The parameter name.
-     * @param string $string   The string to encode.
-     * @param string $charset  The charset the text should be encoded with.
-     * @param string $lang     The language to use when encoding.
+     * @param string $name The parameter name.
+     * @param string $string The string to encode.
+     * @param string $charset The charset the text should be encoded with.
+     * @param string $lang The language to use when encoding.
      *
      * @return array  The encoded parameter string.
      */
@@ -422,7 +426,7 @@ class Horde_MIME {
                 $pos = min($chunk, strlen($string) - 1);
                 if (($chunk == $pos) && ($pos > 2)) {
                     for ($i = 0; $i <= 2; $i++) {
-                        if ($string[$pos-$i] == '%') {
+                        if ($string[$pos - $i] == '%') {
                             $pos -= $i + 1;
                             break;
                         }
@@ -451,9 +455,9 @@ class Horde_MIME {
     /**
      * Decodes an RFC 2231-encoded string.
      *
-     * @param string $string      The entire string to decode, including the
+     * @param string $string The entire string to decode, including the
      *                            parameter name.
-     * @param string $to_charset  The charset the text should be decoded to.
+     * @param string $to_charset The charset the text should be decoded to.
      *
      * @return array  The decoded text, or the original string if it was not
      *                encoded.
@@ -509,7 +513,7 @@ class Horde_MIME {
      * If an email address has no personal information, get rid of any angle
      * brackets (<>) around it.
      *
-     * @param string $address  The address to trim.
+     * @param string $address The address to trim.
      *
      * @return string  The trimmed address.
      */
@@ -527,9 +531,9 @@ class Horde_MIME {
     /**
      * Builds an RFC 822 compliant email address.
      *
-     * @param string $mailbox   Mailbox name.
-     * @param string $host      Domain name of mailbox's host.
-     * @param string $personal  Personal name phrase.
+     * @param string $mailbox Mailbox name.
+     * @param string $host Domain name of mailbox's host.
+     * @param string $personal Personal name phrase.
      *
      * @return string  The correctly escaped and quoted
      *                 "$personal <$mailbox@$host>" string.
@@ -562,7 +566,7 @@ class Horde_MIME {
      * by a "\" character, or if the delimiter is inside single or
      * double quotes.
      *
-     * @param string $string     The RFC 822 string.
+     * @param string $string The RFC 822 string.
      * @param string $delimiters A string containing valid delimiters.
      *                           Defaults to ','.
      *
@@ -605,7 +609,8 @@ class Horde_MIME {
                 if ($char == ':') {
                     $in_group = true;
                 } elseif (strpos($delimiters, $char) !== false &&
-                          $prev !== '\\') {
+                    $prev !== '\\'
+                ) {
                     $emails[] = substr($string, $pos, $i - $pos);
                     $pos = $i + 1;
                 }
@@ -632,8 +637,8 @@ class Horde_MIME {
      *   $object->host     = The host the mailbox is on ("example.com")
      * </pre>
      *
-     * @param stdClass $ob   The address object to be turned into a string.
-     * @param mixed $filter  A user@example.com style bare address to ignore.
+     * @param stdClass $ob The address object to be turned into a string.
+     * @param mixed $filter A user@example.com style bare address to ignore.
      *                       Either single string or an array of strings.  If
      *                       the address matches $filter, an empty string will
      *                       be returned.
@@ -684,8 +689,8 @@ class Horde_MIME {
      * Takes an array of address objects, as returned by imap_headerinfo(),
      * for example, and passes each of them through MIME::addrObject2String().
      *
-     * @param array $addresses  The array of address objects.
-     * @param mixed $filter     A user@example.com style bare address to
+     * @param array $addresses The array of address objects.
+     * @param mixed $filter A user@example.com style bare address to
      *                          ignore.  If any address matches $filter, it
      *                          will not be included in the final string.
      *
@@ -720,9 +725,9 @@ class Horde_MIME {
     /**
      * Returns the bare address.
      *
-     * @param string $address    The address string.
-     * @param string $defserver  The default domain to append to mailboxes.
-     * @param boolean $multiple  Should we return multiple results?
+     * @param string $address The address string.
+     * @param string $defserver The default domain to append to mailboxes.
+     * @param boolean $multiple Should we return multiple results?
      *
      * @return mixed  If $multiple is false, returns the mailbox@host e-mail
      *                address.  If $multiple is true, returns an array of
@@ -737,7 +742,8 @@ class Horde_MIME {
         foreach ($from as $entry) {
             if (isset($entry->mailbox) &&
                 $entry->mailbox != 'undisclosed-recipients' &&
-                $entry->mailbox != 'UNEXPECTED_DATA_AFTER_ADDRESS') {
+                $entry->mailbox != 'UNEXPECTED_DATA_AFTER_ADDRESS'
+            ) {
                 if (isset($entry->host)) {
                     $addressList[] = $entry->mailbox . '@' . $entry->host;
                 } else {
@@ -758,9 +764,9 @@ class Horde_MIME {
      * @since Horde 3.2
      * @see   http://www.php.net/imap_rfc822_parse_adrlist
      *
-     * @param string $address    The address string.
-     * @param string $defserver  The default domain to append to mailboxes.
-     * @param boolean $validate  Whether to validate the address(es).
+     * @param string $address The address string.
+     * @param string $defserver The default domain to append to mailboxes.
+     * @param boolean $validate Whether to validate the address(es).
      *
      * @return array  A list of objects with the possible properties 'mailbox',
      *                'host', 'personal', 'adl', and 'comment'.
@@ -776,12 +782,13 @@ class Horde_MIME {
          * properly. */
         if (!$validate &&
             strpos($address, ':') === false &&
-            Horde_Util::extensionExists('imap')) {
+            Horde_Util::extensionExists('imap')
+        ) {
             return imap_rfc822_parse_adrlist($address, $defserver);
         } else {
             $parser = new Mail_RFC822();
             $ret = $parser->parseAddressList($address, $defserver, false,
-                                             $validate);
+                $validate);
             return $ret;
         }
     }
@@ -792,8 +799,8 @@ class Horde_MIME {
      *
      * @access private
      *
-     * @param string $str  The string to be quoted and escaped.
-     * @param string $type  Either 'address' or 'personal'.
+     * @param string $str The string to be quoted and escaped.
+     * @param string $type Either 'address' or 'personal'.
      *
      * @return string  The correctly quoted and escaped string.
      */
@@ -804,19 +811,19 @@ class Horde_MIME {
         $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
 
         switch ($type) {
-        case 'address':
-            // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
-            $filter .= "\11\40";
-            break;
+            case 'address':
+                // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+                $filter .= "\11\40";
+                break;
 
-        case 'personal':
-            // RFC 2822 [3.4]: Period not allowed in display name
-            $filter .= '.';
-            break;
+            case 'personal':
+                // RFC 2822 [3.4]: Period not allowed in display name
+                $filter .= '.';
+                break;
 
-        default:
-            // BC: $filter was passed in explicitly
-            $filter = $type;
+            default:
+                // BC: $filter was passed in explicitly
+                $filter = $type;
         }
 
         // Strip double quotes if they are around the string already.
@@ -836,8 +843,8 @@ class Horde_MIME {
     /**
      * Returns the MIME type for the given input.
      *
-     * @param mixed $input     Either the MIME code or type string.
-     * @param integer $format  If MIME_CODE, return code.
+     * @param mixed $input Either the MIME code or type string.
+     * @param integer $format If MIME_CODE, return code.
      *                         If MIME_STRING, returns lowercase string.
      *
      * @return mixed  See above.
@@ -850,8 +857,8 @@ class Horde_MIME {
     /**
      * Returns the MIME encoding for the given input.
      *
-     * @param mixed $input     Either the MIME code or encoding string.
-     * @param integer $format  If MIME_CODE, return code.
+     * @param mixed $input Either the MIME code or encoding string.
+     * @param integer $format If MIME_CODE, return code.
      *                         If MIME_STRING, returns lowercase string.
      *                         If not set, returns the opposite value.
      *
@@ -867,11 +874,11 @@ class Horde_MIME {
      *
      * @access private
      *
-     * @param mixed $input    Either the MIME code or encoding string.
-     * @param string $format  If MIME_CODE, returns code.
+     * @param mixed $input Either the MIME code or encoding string.
+     * @param string $format If MIME_CODE, returns code.
      *                        If MIME_STRING, returns lowercase string.
      *                        If null, returns the oppposite value.
-     * @param string $type    The name of the internal array.
+     * @param string $type The name of the internal array.
      *
      * @return mixed  See above.
      */
@@ -883,13 +890,13 @@ class Horde_MIME {
         }
 
         switch ($format) {
-        case MIME_CODE:
-            if ($numeric) return $input;
-            break;
+            case MIME_CODE:
+                if ($numeric) return $input;
+                break;
 
-        case MIME_STRING:
-            if (!$numeric) return $input;
-            break;
+            case MIME_STRING:
+                if (!$numeric) return $input;
+                break;
         }
 
         $vars = get_class_vars('Horde_MIME');
@@ -916,8 +923,8 @@ class Horde_MIME {
     public function generateMessageID()
     {
         return '<' . date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $_SERVER['SERVER_NAME'] . '>';
+        . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
+        . '@' . $_SERVER['SERVER_NAME'] . '>';
     }
 
     /**
@@ -925,9 +932,9 @@ class Horde_MIME {
      * RFC 2822 says headers SHOULD only be 78 characters a line, but also
      * says that a header line MUST not be more than 998 characters.
      *
-     * @param string $header  The header name.
-     * @param string $text    The text of the header field.
-     * @param string $eol     The EOL string to use.
+     * @param string $header The header name.
+     * @param string $text The text of the header field.
+     * @param string $eol The EOL string to use.
      *
      * @return string  The header text, with linebreaks inserted.
      */
@@ -943,7 +950,8 @@ class Horde_MIME {
         $header_lower = strtolower($header);
 
         if (($header_lower != 'content-type') &&
-            ($header_lower != 'content-disposition')) {
+            ($header_lower != 'content-disposition')
+        ) {
             /* Wrap the line. */
             $line = wordwrap($text, 75, $eol . ' ');
 

@@ -1,14 +1,14 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models;
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
- * 
+ *
  * @author  Sebastien MALOT <contact@as2secure.com>
- * 
+ *
  * @copyright Copyright (c) 2010, Sebastien MALOT
- * 
+ *
  * Last release at : {@link http://www.as2secure.com}
- * 
+ *
  * This file is part of AS2Secure Project.
  *
  * AS2Secure is free software: you can redistribute it and/or modify
@@ -23,13 +23,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with AS2Secure.
- * 
+ *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
  * @version 0.9.0
- * 
+ *
  */
 
-class AS2Exception extends Exception {
+class AS2Exception extends Exception
+{
     /**
      * Refers to RFC 4130
      * http://rfclibrary.hosting.com/rfc/rfc4130/rfc4130-34.asp
@@ -52,7 +53,7 @@ class AS2Exception extends Exception {
         101 => 'unsupported format',          // sha1, md5
         102 => 'unsupported MIC-algorithms',  // 
     );
-    
+
     protected static $level_warning = array(
         201 => 'duplicate-document',          // an identical message already exists at the destination server
         202 => 'sender-equals-receiver',      // the AS2-To name is identical to the AS2-From name
@@ -73,7 +74,7 @@ class AS2Exception extends Exception {
 
     public function getLevel()
     {
-        if (in_array($this->code, array_keys(self::$level_error)))   return self::STATUS_ERROR;
+        if (in_array($this->code, array_keys(self::$level_error))) return self::STATUS_ERROR;
         if (in_array($this->code, array_keys(self::$level_failure))) return self::STATUS_FAILURE;
         if (in_array($this->code, array_keys(self::$level_warning))) return self::STATUS_WARNING;
         else return self::STATUS_ERROR;
@@ -81,7 +82,7 @@ class AS2Exception extends Exception {
 
     public function getMessageShort()
     {
-        if (in_array($this->code, array_keys(self::$level_error)))   return self::$level_error[$this->code];
+        if (in_array($this->code, array_keys(self::$level_error))) return self::$level_error[$this->code];
         if (in_array($this->code, array_keys(self::$level_failure))) return self::$level_failure[$this->code];
         if (in_array($this->code, array_keys(self::$level_warning))) return self::$level_warning[$this->code];
         else return self::$level_error[self::DEFAULT_ERROR];;

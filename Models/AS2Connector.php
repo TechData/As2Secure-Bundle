@@ -1,14 +1,14 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models;
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
- * 
+ *
  * @author  Sebastien MALOT <contact@as2secure.com>
- * 
+ *
  * @copyright Copyright (c) 2010, Sebastien MALOT
- * 
+ *
  * Last release at : {@link http://www.as2secure.com}
- * 
+ *
  * This file is part of AS2Secure Project.
  *
  * AS2Secure is free software: you can redistribute it and/or modify
@@ -23,15 +23,16 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with AS2Secure.
- * 
+ *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
  * @version 0.9.0
- * 
+ *
  */
 
-class AS2Connector {
-    const STATUS_OK     = 'OK';
-    const STATUS_ERROR  = 'ERROR';
+class AS2Connector
+{
+    const STATUS_OK = 'OK';
+    const STATUS_ERROR = 'ERROR';
 
     public static function onReceivedMDN($from, $to, $status, $mdn)
     {
