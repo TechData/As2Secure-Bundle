@@ -133,9 +133,9 @@ class Request extends AbstractBase
                 $input = Adapter::getTempFilename();
                 file_put_contents($input, $mime_part->toString(true));
 
-                AS2Log::info(false, 'AS2 message is encrypted.');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'AS2 message is encrypted.'));
                 $input = $this->adapter->decrypt($input);
-                AS2Log::info(false, 'The data has been decrypted using the key "' . $this->getPartnerTo() . '".');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'The data has been decrypted using the key "' . $this->getPartnerTo() . '".'));
                 $crypted = true;
 
                 // reload extracted content to get mimetype
@@ -152,22 +152,22 @@ class Request extends AbstractBase
         $mic = false;
         if (strtolower($mimetype) == 'multipart/signed') {
             try {
-                AS2Log::info(false, 'AS2 message is signed.');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'AS2 message is signed.'));
 
                 // get MicChecksum from signature
-                $mic = Adapter::getMicChecksum($input);
+                $mic = $this->adapter->getMicChecksum($input);
 
                 $input = $this->adapter->verify($input);
                 $signed = true;
 
-                AS2Log::info(false, 'The sender used the algorithm "' . $structure->ctype_parameters['micalg'] . '" to sign the message.');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'The sender used the algorithm "' . $structure->ctype_parameters['micalg'] . '" to sign the message.'));
 
                 // reload extracted content to get mimetype
                 $decoder = new Mail_mimeDecode(file_get_contents($input));
                 $structure = $decoder->decode($params);
                 $mimetype = $structure->ctype_primary . '/' . $structure->ctype_secondary;
 
-                AS2Log::info(false, 'Using certificate "' . $this->getPartnerFrom() . '" to verify signature.');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'Using certificate "' . $this->getPartnerFrom() . '" to verify signature.'));
             } catch (Exception $e) {
                 throw new AS2Exception($e->getMessage(), 5);
             }

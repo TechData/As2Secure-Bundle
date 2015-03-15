@@ -17,6 +17,14 @@ class Adapter
      * @var PartnerFactory
      */
     private $partnerFactory;
+    private $AS2_DIR_BIN;
+
+    function __construct(PartnerFactory $partnerFactory, $AS2_DIR_BIN)
+    {
+        $this->partnerFactory = $partnerFactory;
+        $this->AS2_DIR_BIN = $AS2_DIR_BIN;
+    }
+
 
     /**
      * @param $partner_from

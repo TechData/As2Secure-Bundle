@@ -195,7 +195,7 @@ class Message extends AbstractBase
                 $this->is_signed = true;
 
                 //echo file_get_contents($file);
-                $this->mic_checksum = Adapter::getMicChecksum($file);
+                $this->mic_checksum = $this->getMicChecksum($file);
             } catch (Exception $e) {
                 throw $e;
                 return false;

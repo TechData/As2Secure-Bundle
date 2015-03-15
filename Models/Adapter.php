@@ -51,10 +51,12 @@ class Adapter
      * @var PartnerFactory
      */
     private $partnerFactory;
+    private $AS2_DIR_BIN;
 
-    function __construct(PartnerFactory $partnerFactory)
+    function __construct(PartnerFactory $partnerFactory, $AS2_DIR_BIN)
     {
         $this->partnerFactory = $partnerFactory;
+        $this->AS2_DIR_BIN = $AS2_DIR_BIN;
     }
 
     /**
@@ -98,10 +100,10 @@ class Adapter
      *
      * @return string                The hash extracted
      */
-    public static function getMicChecksum($input)
+    public function getMicChecksum($input)
     {
         try {
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' checksum' .
                 ' -in ' . escapeshellarg($input) .
                 ' 2>/dev/null';
@@ -361,7 +363,7 @@ class Adapter
             $output = self::getTempFilename();
 
             // execute main operation
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' compose' .
                 $args .
                 ' -out ' . escapeshellarg($output);
@@ -387,7 +389,7 @@ class Adapter
             $output = self::getTempFilename();
 
             // execute main operation
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' extract' .
                 ' -in ' . escapeshellarg($input) .
                 ' -out ' . escapeshellarg($output);
@@ -443,7 +445,7 @@ class Adapter
             $output = self::getTempFilename();
 
             // execute main operation
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' compress' .
                 ' -in ' . escapeshellarg($input) .
                 ' -out ' . escapeshellarg($output);
@@ -469,7 +471,7 @@ class Adapter
             $output = self::getTempFilename();
 
             // execute main operation
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' decompress' .
                 ' -in ' . escapeshellarg($input) .
                 ' -out ' . escapeshellarg($output);
@@ -505,7 +507,7 @@ class Adapter
             $output = self::getTempFilename();
 
             // execute main operation
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' sign' .
                 ' -pkcs12 ' . escapeshellarg($this->partner_from->sec_pkcs12) .
                 $password .
@@ -540,7 +542,7 @@ class Adapter
 
             $output = self::getTempFilename();
 
-            $command = self::$javapath . ' -jar ' . escapeshellarg(AS2_DIR_BIN . self::$ssl_adapter) .
+            $command = self::$javapath . ' -jar ' . escapeshellarg($this->AS2_DIR_BIN . self::$ssl_adapter) .
                 ' verify' .
                 $security .
                 ' -in ' . escapeshellarg($input) .
