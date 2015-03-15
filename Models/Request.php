@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Request extends AS2Abstract
+class Request extends AbstractBase
 {
     protected $request = null;
 
@@ -67,7 +67,7 @@ class AS2Request extends AS2Abstract
                 $content = $this->getHeaders(true) . "\n\n";
                 $content .= file_get_contents($this->getPath());
 
-                $input = AS2Adapter::getTempFilename();
+                $input = Adapter::getTempFilename();
                 $mime_part = Horde_MIME_Structure::parseTextMIMEMessage($content);
                 file_put_contents($input, $mime_part->toString(true));
 
@@ -90,7 +90,7 @@ class AS2Request extends AS2Abstract
         // setup of full message
         $content = $this->getHeaders(true) . "\n\n";
         $content .= file_get_contents($this->getPath());
-        $input = AS2Adapter::getTempFilename();
+        $input = Adapter::getTempFilename();
         file_put_contents($input, $content);
 
         // setup of mailmime decoder
@@ -111,7 +111,7 @@ class AS2Request extends AS2Abstract
                 // rewrite message into base64 encoding
                 $content = file_get_contents($input);
                 $mime_part = Horde_MIME_Structure::parseTextMIMEMessage($content);
-                $input = AS2Adapter::getTempFilename();
+                $input = Adapter::getTempFilename();
                 file_put_contents($input, $mime_part->toString(true));
 
                 AS2Log::info(false, 'AS2 message is encrypted.');
@@ -136,7 +136,7 @@ class AS2Request extends AS2Abstract
                 AS2Log::info(false, 'AS2 message is signed.');
 
                 // get MicChecksum from signature
-                $mic = AS2Adapter::getMicChecksum($input);
+                $mic = Adapter::getMicChecksum($input);
 
                 $input = $this->adapter->verify($input);
                 $signed = true;
@@ -154,35 +154,35 @@ class AS2Request extends AS2Abstract
             }
         } else {
             // check requested algo
-            $mic = AS2Adapter::calculateMicChecksum($input, 'sha1');
+            $mic = Adapter::calculateMicChecksum($input, 'sha1');
         }
 
         // security check
         if (strtolower($mimetype) == 'multipart/report') {
             // check about sign
-            /*if ($this->getPartnerFrom()->sec_signature_algorithm == AS2Partner::SIGN_NONE && !$this->getPartnerFrom()->mdn_signed && $signed){
+            /*if ($this->getPartnerFrom()->sec_signature_algorithm == Partner::SIGN_NONE && !$this->getPartnerFrom()->mdn_signed && $signed){
                 throw new AS2Exception('AS2 message is signed and shouldn\'t be.', 4);
             }
             else*/
-            if ($this->getPartnerFrom()->sec_signature_algorithm != AS2Partner::SIGN_NONE && $this->getPartnerFrom()->mdn_signed && !$signed) {
+            if ($this->getPartnerFrom()->sec_signature_algorithm != Partner::SIGN_NONE && $this->getPartnerFrom()->mdn_signed && !$signed) {
                 throw new AS2Exception('AS2 message is not signed and should be.', 4);
             }
         } else {
             // check about crypt
-            /*if ($this->getPartnerFrom()->sec_encrypt_algorithm == AS2Partner::CRYPT_NONE && $crypted){
+            /*if ($this->getPartnerFrom()->sec_encrypt_algorithm == Partner::CRYPT_NONE && $crypted){
                 throw new AS2Exception('AS2 message is crypted and shouldn\'t be.', 4);
             }
             else*/
-            if ($this->getPartnerFrom()->sec_encrypt_algorithm != AS2Partner::CRYPT_NONE && !$crypted) {
+            if ($this->getPartnerFrom()->sec_encrypt_algorithm != Partner::CRYPT_NONE && !$crypted) {
                 throw new AS2Exception('AS2 message is not crypted and should be.', 4);
             }
 
             // check about sign
-            /*if ($this->getPartnerFrom()->sec_signature_algorithm == AS2Partner::SIGN_NONE && $signed){
+            /*if ($this->getPartnerFrom()->sec_signature_algorithm == Partner::SIGN_NONE && $signed){
                 throw new AS2Exception('AS2 message is signed and shouldn\'t be.', 4);
             }
             else*/
-            if ($this->getPartnerFrom()->sec_signature_algorithm != AS2Partner::SIGN_NONE && !$signed) {
+            if ($this->getPartnerFrom()->sec_signature_algorithm != Partner::SIGN_NONE && !$signed) {
                 throw new AS2Exception('AS2 message is not signed and should be.', 4);
             }
         }
@@ -198,7 +198,7 @@ class AS2Request extends AS2Abstract
                         'partner_to' => $this->getPartnerFrom(),
                         'is_file' => false,
                         'mic' => $mic);
-                    $object = new AS2MDN($mime_part, $params);
+                    $object = new MDN($mime_part, $params);
                     $object->setHeaders($this->getHeaders());
                     return $object;
 
@@ -207,7 +207,7 @@ class AS2Request extends AS2Abstract
                         'partner_to' => $this->getPartnerTo(),
                         'is_file' => false,
                         'mic' => $mic);
-                    $object = new AS2Message($mime_part, $params);
+                    $object = new Message($mime_part, $params);
                     $object->setHeaders($this->getHeaders());
                     return $object;
             }

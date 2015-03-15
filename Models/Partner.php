@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Partner
+class Partner
 {
     // general information
     protected $is_local = false;
@@ -136,7 +136,7 @@ class AS2Partner
     }
 
     /**
-     * Return an AS2Partner object for a specified Partner ID
+     * Return an Partner object for a specified Partner ID
      *
      * @param partner_id   String : Partner ID (case sensitive) corresponds to AS2-To / AS2-From headers
      * @param reload       Boolean : Allow to reload config from file
@@ -145,7 +145,7 @@ class AS2Partner
      */
     public static function getPartner($partner_id, $reload = false)
     {
-        if ($partner_id instanceof AS2Partner)
+        if ($partner_id instanceof Partner)
             return $partner_id;
 
         $partner_id = trim($partner_id, '"');

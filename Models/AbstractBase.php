@@ -28,7 +28,7 @@
  * @version 0.9.0
  *
  */
-abstract class AS2Abstract
+abstract class AbstractBase
 {
     // 
     protected $adapter = null;
@@ -49,7 +49,7 @@ abstract class AS2Abstract
     public function __construct($data, $params = array())
     {
         if (is_null($this->headers))
-            $this->headers = new AS2Header();
+            $this->headers = new Header();
 
         if (is_array($data)) {
             $this->path = $data;
@@ -57,7 +57,7 @@ abstract class AS2Abstract
             // do nothing
             // content : default is file
             if (isset($params['is_file']) && $params['is_file'] === false) {
-                $file = AS2Adapter::getTempFilename();
+                $file = Adapter::getTempFilename();
                 file_put_contents($file, $data);
                 $this->path = $file;
 
@@ -71,7 +71,7 @@ abstract class AS2Abstract
             }
 
             // mimetype handle
-            $this->mimetype = (isset($params['mimetype']) ? $params['mimetype'] : AS2Adapter::detectMimeType($this->path));
+            $this->mimetype = (isset($params['mimetype']) ? $params['mimetype'] : Adapter::detectMimeType($this->path));
         }
 
         // partners
@@ -80,13 +80,13 @@ abstract class AS2Abstract
         if (isset($params['partner_to']) && $params['partner_to']) $this->setPartnerTo($params['partner_to']);
         else throw new AS2Exception('NO AS2 To Partner specified.');
 
-        $this->adapter = new AS2Adapter($this->getPartnerFrom(), $this->getPartnerTo());
+        $this->adapter = new Adapter($this->getPartnerFrom(), $this->getPartnerTo());
     }
 
     // partner handle
     public function setPartnerFrom($partner_from)
     {
-        $this->partner_from = AS2Partner::getPartner($partner_from);
+        $this->partner_from = Partner::getPartner($partner_from);
     }
 
     public function getPartnerFrom()
@@ -96,7 +96,7 @@ abstract class AS2Abstract
 
     public function setPartnerTo($partner_to)
     {
-        $this->partner_to = AS2Partner::getPartner($partner_to);
+        $this->partner_to = Partner::getPartner($partner_to);
     }
 
     public function getPartnerTo()
@@ -147,7 +147,7 @@ abstract class AS2Abstract
 
     public function getAuthentication()
     {
-        return array('method' => AS2Partner::METHOD_NONE,
+        return array('method' => Partner::METHOD_NONE,
             'login' => '',
             'password' => '');
     }
@@ -193,7 +193,7 @@ abstract class AS2Abstract
      */
     protected static function generateMessageID($partner)
     {
-        if ($partner instanceof AS2Partner) $id = $partner->id;
+        if ($partner instanceof Partner) $id = $partner->id;
         else $id = 'unknown';
         return '<' . uniqid('', true) . '@' . round(microtime(true)) . '_' . str_replace(' ', '', strtolower($id) . '_' . php_uname('n')) . '>';
     }

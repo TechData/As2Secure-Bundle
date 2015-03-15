@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Client
+class Client
 {
     protected $response_headers = array();
     protected $response_content = '';
@@ -42,13 +42,13 @@ class AS2Client
     /**
      * Send request to the partner (manage headers, security, ...)
      *
-     * @param AS2Abstract $request The request to send (instanceof : AS2Message | AS2MDN)
+     * @param AbstractBase $request The request to send (instanceof : Message | MDN)
      *
      * @return array
      */
     public function sendRequest($request)
     {
-        if (!$request instanceof AS2Message && !$request instanceof AS2MDN) throw new AS2Exception('Unexpected format');
+        if (!$request instanceof Message && !$request instanceof MDN) throw new AS2Exception('Unexpected format');
 
         // format headers
         $headers = $request->getHeaders()->toFormattedArray();
@@ -77,7 +77,7 @@ class AS2Client
 
         // authentication setup
         $auth = $request->getAuthentication();
-        if ($auth['method'] != AS2Partner::METHOD_NONE) {
+        if ($auth['method'] != Partner::METHOD_NONE) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, $auth['method']);
             curl_setopt($ch, CURLOPT_USERPWD, urlencode($auth['login']) . ':' . urlencode($auth['password']));
         }
@@ -96,8 +96,8 @@ class AS2Client
         if ($error)
             throw new AS2Exception($error);
 
-        if ($request instanceof AS2Message && $request->getPartnerTo()->mdn_request == AS2Partner::ACK_SYNC) {
-            $as2_response = new AS2Request($response, new AS2Header($this->response_headers[count($this->response_headers) - 1]));
+        if ($request instanceof Message && $request->getPartnerTo()->mdn_request == Partner::ACK_SYNC) {
+            $as2_response = new Request($response, new Header($this->response_headers[count($this->response_headers) - 1]));
             $as2_response = $as2_response->getObject();
             $as2_response->decode();
         } else {

@@ -30,7 +30,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2MDN extends AS2Abstract
+class MDN extends AbstractBase
 {
     /**
      * Human readable message
@@ -72,7 +72,7 @@ class AS2MDN extends AS2Abstract
     public function __construct($data = null, $params = array())
     {
 
-        $this->attributes = new AS2Header(array('action-mode' => self::ACTION_AUTO,
+        $this->attributes = new Header(array('action-mode' => self::ACTION_AUTO,
             'sending-mode' => self::SENDING_AUTO));
 
         // adapter
@@ -94,7 +94,7 @@ class AS2MDN extends AS2Abstract
             } catch (Exception $e) {
                 $this->partner_to = false;
             }
-        } elseif ($data instanceof AS2Request) { // parse response
+        } elseif ($data instanceof Request) { // parse response
             $params = array('is_file' => false,
                 'mimetype' => 'multipart/report',
                 'partner_from' => $data->getPartnerFrom(),
@@ -105,7 +105,7 @@ class AS2MDN extends AS2Abstract
             if ($this->partner_from->mdn_signed && !$data->isSigned()) {
                 throw new AS2Exception('MDN from this partner are defined to be signed.', 4);
             }
-        } elseif ($data instanceof AS2Message) { // standard processed message
+        } elseif ($data instanceof Message) { // standard processed message
             $params['partner_from'] = $data->getPartnerTo();
             $params['partner_to'] = $data->getPartnerFrom();
 
@@ -122,7 +122,7 @@ class AS2MDN extends AS2Abstract
                 $this->partner_to = false;
             }
 
-            $this->path = AS2Adapter::getTempFilename();
+            $this->path = Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
 
             parent::__construct(false, $params);
@@ -210,7 +210,7 @@ class AS2MDN extends AS2Abstract
         $container->addPart($text);
 
         // second part
-        $lines = new AS2Header();
+        $lines = new Header();
         $lines->addHeader('Reporting-UA', 'AS2Secure - PHP Lib for AS2 message encoding / decoding');
         if ($this->getPartnerFrom()) {
             $lines->addHeader('Original-Recipient', 'rfc822; "' . $this->getPartnerFrom()->id . '"');
@@ -232,7 +232,7 @@ class AS2MDN extends AS2Abstract
         $this->setMessageId(self::generateMessageID($this->getPartnerFrom()));
 
         // headers setup
-        $this->headers = new AS2Header(array('AS2-Version' => '1.0',
+        $this->headers = new Header(array('AS2-Version' => '1.0',
             'Message-ID' => $this->getMessageId(),
             'Mime-Version' => '1.0',
             'Server' => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
@@ -263,7 +263,7 @@ class AS2MDN extends AS2Abstract
             $this->headers->addHeader('Recipient-Address', $this->getPartnerFrom()->send_url);
         }
 
-        $this->path = AS2Adapter::getTempFilename();
+        $this->path = Adapter::getTempFilename();
 
         // signing if requested
         if ($message && $message->getHeader('Disposition-Notification-Options')) {
@@ -310,7 +310,7 @@ class AS2MDN extends AS2Abstract
                 $headers = array_combine($headers[1], $headers[2]);
                 foreach($headers as $key => $val)
                     $this->setAttribute(trim(strtolower($key)), trim($val));*/
-                $this->attributes = AS2Header::parseText($part->body);
+                $this->attributes = Header::parseText($part->body);
             } else {
                 // human readable message
                 $this->setMessage(trim($part->body));

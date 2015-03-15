@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Adapter
+class Adapter
 {
     /**
      * Allow to specify full path to main applications
@@ -50,13 +50,13 @@ class AS2Adapter
     public function __construct($partner_from, $partner_to)
     {
         try {
-            $this->partner_from = AS2Partner::getPartner($partner_from);
+            $this->partner_from = Partner::getPartner($partner_from);
         } catch (Exception $e) {
             throw new AS2Exception('Sender AS2 id "' . $partner_from . '" is unknown.');
         }
 
         try {
-            $this->partner_to = AS2Partner::getPartner($partner_to);
+            $this->partner_to = Partner::getPartner($partner_to);
         } catch (Exception $e) {
             throw new AS2Exception('Receiver AS2 id "' . $partner_to . '" is unknown.');
         }
@@ -132,7 +132,7 @@ class AS2Adapter
                 $files[] = $file;
 
                 // schedule file deletion
-                AS2Adapter::addTempFileForDelete($file['path']);
+                Adapter::addTempFileForDelete($file['path']);
             }
 
             return $files;
@@ -491,7 +491,7 @@ class AS2Adapter
     {
         if (is_null(self::$tmp_files)) {
             self::$tmp_files = array();
-            register_shutdown_function(array('AS2Adapter', '_deleteTempFiles'));
+            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
         }
 
         $dir = sys_get_temp_dir();
@@ -508,7 +508,7 @@ class AS2Adapter
     {
         if (is_null(self::$tmp_files)) {
             self::$tmp_files = array();
-            register_shutdown_function(array('AS2Adapter', '_deleteTempFiles'));
+            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
         }
         self::$tmp_files[] = $file;
     }

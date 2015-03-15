@@ -45,17 +45,16 @@ require_once '../lib/Horde/MIME/Structure.php';
 
 // AS2Secure framework
 require_once '../lib/AS2Log.php';
-require_once '../lib/AS2Header.php';
-require_once '../lib/AS2Connector.php';
-require_once '../lib/AS2Partner.php';
-require_once '../lib/AS2Abstract.php';
+require_once '../lib/Header.php';
+require_once '../lib/Partner.php';
+require_once '../lib/AbstractBase.php';
 require_once '../lib/AS2Exception.php';
-require_once '../lib/AS2Adapter.php';
-require_once '../lib/AS2Client.php';
-require_once '../lib/AS2Message.php';
-require_once '../lib/AS2MDN.php';
-require_once '../lib/AS2Request.php';
-require_once '../lib/AS2Server.php';
+require_once '../lib/Adapter.php';
+require_once '../lib/Client.php';
+require_once '../lib/Message.php';
+require_once '../lib/MDN.php';
+require_once '../lib/Request.php';
+require_once '../lib/Server.php';
 
 define('AS2_DIR_PARTNERS', '../partners/');
 define('AS2_DIR_LOGS',     '../logs/');

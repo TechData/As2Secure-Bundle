@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Header implements Countable, ArrayAccess, Iterator
+class Header implements Countable, ArrayAccess, Iterator
 {
     protected $headers = array();
 
@@ -39,7 +39,7 @@ class AS2Header implements Countable, ArrayAccess, Iterator
     {
         if (is_array($data)) {
             $this->headers = $data;
-        } elseif ($data instanceof AS2Header) {
+        } elseif ($data instanceof Header) {
             $this->headers = $data->getHeaders();
         }
     }
@@ -234,11 +234,11 @@ class AS2Header implements Countable, ArrayAccess, Iterator
     }
 
     /**
-     * Extract headers from mime message and return a new instance of AS2Header
+     * Extract headers from mime message and return a new instance of Header
      *
      * @param string  The content to parse
      *
-     * @return object  AS2Header instance
+     * @return object  Header instance
      */
     public static function parseText($text)
     {
@@ -260,11 +260,11 @@ class AS2Header implements Countable, ArrayAccess, Iterator
     }
 
     /**
-     * Extract headers from http request and return a new instance of AS2Header
+     * Extract headers from http request and return a new instance of Header
      *
      * @param string  The content to parse
      *
-     * @return object  AS2Header instance
+     * @return object  Header instance
      */
     public static function parseHttpRequest()
     {

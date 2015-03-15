@@ -29,7 +29,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
-class AS2Message extends AS2Abstract
+class Message extends AbstractBase
 {
 
     protected $mic_checksum = false;
@@ -38,10 +38,10 @@ class AS2Message extends AS2Abstract
     {
         parent::__construct($data, $params);
 
-        if ($data instanceof AS2Request) {
+        if ($data instanceof Request) {
             $this->path = $data->getPath();
         } elseif ($data instanceof Horde_MIME_Part) {
-            $this->path = AS2Adapter::getTempFilename();
+            $this->path = Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
         } elseif ($data) {
             if (!isset($params['is_file']) || $params['is_file'])
@@ -68,7 +68,7 @@ class AS2Message extends AS2Abstract
     public function addFile($data, $mimetype = '', $filename = '', $is_file = true, $encoding = 'base64')
     {
         if (!$is_file) {
-            $file = AS2Adapter::getTempFilename();
+            $file = Adapter::getTempFilename();
             file_put_contents($file, $data);
             $data = $file;
             $is_file = true;
@@ -76,7 +76,7 @@ class AS2Message extends AS2Abstract
             if (!$filename) $filename = basename($data);
         }
 
-        if (!$mimetype) $mimetype = AS2Adapter::detectMimeType($data);
+        if (!$mimetype) $mimetype = Adapter::detectMimeType($data);
 
         $this->files[] = array('path' => $data,
             'mimetype' => $mimetype,
@@ -133,7 +133,7 @@ class AS2Message extends AS2Abstract
      */
     public function encode()
     {
-        if (!$this->getPartnerFrom() instanceof AS2Partner || !$this->getPartnerTo() instanceof AS2Partner)
+        if (!$this->getPartnerFrom() instanceof Partner || !$this->getPartnerTo() instanceof Partner)
             throw new AS2Exception('Object not properly initialized');
 
         // initialisation
@@ -167,7 +167,7 @@ class AS2Message extends AS2Abstract
                 $mime_part = $parts[0];
             }
 
-            $file = AS2Adapter::getTempFilename();
+            $file = Adapter::getTempFilename();
             file_put_contents($file, $mime_part->toString());
         } catch (Exception $e) {
             throw $e;
@@ -175,13 +175,13 @@ class AS2Message extends AS2Abstract
         }
 
         // signing file if wanted by Partner_To
-        if ($this->getPartnerTo()->sec_signature_algorithm != AS2Partner::SIGN_NONE) {
+        if ($this->getPartnerTo()->sec_signature_algorithm != Partner::SIGN_NONE) {
             try {
                 $file = $this->adapter->sign($file, $this->getPartnerTo()->send_compress, $this->getPartnerTo()->send_encoding);
                 $this->is_signed = true;
 
                 //echo file_get_contents($file);
-                $this->mic_checksum = AS2Adapter::getMicChecksum($file);
+                $this->mic_checksum = Adapter::getMicChecksum($file);
             } catch (Exception $e) {
                 throw $e;
                 return false;
@@ -189,7 +189,7 @@ class AS2Message extends AS2Abstract
         }
 
         // crypting file if wanted by Partner_To
-        if ($this->getPartnerTo()->sec_encrypt_algorithm != AS2Partner::CRYPT_NONE) {
+        if ($this->getPartnerTo()->sec_encrypt_algorithm != Partner::CRYPT_NONE) {
             try {
                 $file = $this->adapter->encrypt($file);
                 $this->is_crypted = true;
@@ -225,11 +225,11 @@ class AS2Message extends AS2Abstract
             $headers['Disposition-Notification-Options'] = 'signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1';
         }
 
-        if ($this->getPartnerTo()->mdn_request == AS2Partner::ACK_ASYNC) {
+        if ($this->getPartnerTo()->mdn_request == Partner::ACK_ASYNC) {
             $headers['Receipt-Delivery-Option'] = $this->getPartnerFrom()->send_url;
         }
 
-        $this->headers = new AS2Header($headers);
+        $this->headers = new Header($headers);
 
         // look for additionnal headers from message
         // eg : content-type
@@ -262,7 +262,7 @@ class AS2Message extends AS2Abstract
      */
     public function generateMDN($exception = null)
     {
-        $mdn = new AS2MDN($this);
+        $mdn = new MDN($this);
 
         $message_id = $this->getHeader('message-id');
         $partner = $this->getPartnerTo()->id;

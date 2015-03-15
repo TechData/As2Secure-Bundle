@@ -33,7 +33,7 @@ namespace TechData\AS2SecureBundle\Models;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use TechData\AS2SecureBundle\Events\Log;
 
-class AS2Server
+class Server
 {
     const TYPE_MESSAGE = 'Message';
     const TYPE_MDN = 'MDN';
@@ -65,7 +65,7 @@ class AS2Server
         try {
             $error = null;
 
-            if (!$request instanceof AS2Request) {
+            if (!$request instanceof Request) {
                 throw new AS2Exception('Unexpected error occurs while handling AS2 message : bad format');
             }
 
@@ -82,7 +82,7 @@ class AS2Server
         //
         $mdn = null;
 
-        if ($object instanceof AS2Message || (!is_null($error) && !($object instanceof AS2MDN))) {
+        if ($object instanceof Message || (!is_null($error) && !($object instanceof MDN))) {
             $object_type = self::TYPE_MESSAGE;
             AS2Log::info(false, 'Incoming transmission is a Message.');
             $this->eventDispatcher->dispatch('log', new Log)
@@ -106,11 +106,11 @@ class AS2Server
             } catch (Exception $e) {
                 $params = array('partner_from' => $headers->getHeader('as2-from'),
                     'partner_to' => $headers->getHeader('as2-to'));
-                $mdn = new AS2MDN($e, $params);
+                $mdn = new MDN($e, $params);
                 $mdn->setAttribute('original-message-id', $headers->getHeader('message-id'));
                 $mdn->encode();
             }
-        } elseif ($object instanceof AS2MDN) {
+        } elseif ($object instanceof MDN) {
             $object_type = self::TYPE_MDN;
             AS2Log::info(false, 'Incoming transmission is a MDN.');
         } else {
@@ -119,7 +119,7 @@ class AS2Server
 
         // call Connector object to handle specific actions
         try {
-            if ($request instanceof AS2Request) {
+            if ($request instanceof Request) {
                 // build arguments
                 $params = array('from' => $headers->getHeader('as2-from'),
                     'to' => $headers->getHeader('as2-to'),
@@ -136,13 +136,13 @@ class AS2Server
                 }
 
                 // call PartnerTo's connector
-                if ($request->getPartnerTo() instanceof AS2Partner) {
+                if ($request->getPartnerTo() instanceof Partner) {
                     $connector = $request->getPartnerTo()->connector_class;
                     call_user_func_array(array($connector, 'onReceived' . $object_type), $params);
                 }
 
                 // call PartnerFrom's connector
-                if ($request->getPartnerFrom() instanceof AS2Partner) {
+                if ($request->getPartnerFrom() instanceof Partner) {
                     $connector = $request->getPartnerFrom()->connector_class;
                     call_user_func_array(array($connector, 'onSent' . $object_type), $params);
                 }
@@ -155,7 +155,7 @@ class AS2Server
         if (!is_null($error) && $object_type == self::TYPE_MESSAGE) {
             $params = array('partner_from' => $headers->getHeader('as2-from'),
                 'partner_to' => $headers->getHeader('as2-to'));
-            $mdn = new AS2MDN($e, $params);
+            $mdn = new MDN($e, $params);
             $mdn->setAttribute('original-message-id', $headers->getHeader('message-id'));
             $mdn->encode();
         }
@@ -185,7 +185,7 @@ class AS2Server
                 self::closeConnectionAndWait(5);
 
                 // delegate the mdn sending to the client
-                $client = new AS2Client();
+                $client = new Client();
                 $result = $client->sendRequest($mdn);
                 if ($result['info']['http_code'] == '200') {
                     AS2Log::info(false, 'An AS2 MDN has been sent.');
