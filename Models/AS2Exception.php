@@ -69,7 +69,6 @@ class AS2Exception extends Exception
             parent::__construct($message, $code, $previous);
         else
             parent::__construct($message, $code);
-        AS2Log::error(false, $message, $code);
     }
 
     public function getLevel()

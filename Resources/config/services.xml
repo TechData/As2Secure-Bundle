@@ -15,6 +15,7 @@
         <parameter key="tech_data_as2_secure.subscriber.log.class">TechData\AS2SecureBundle\Factories\Request</parameter>
         <parameter key="tech_data_as2_secure.model.server.class">TechData\AS2SecureBundle\Models\Server</parameter>
         <parameter key="tech_data_as2_secure.model.client.class">TechData\AS2SecureBundle\Models\Client</parameter>
+        <parameter key="tech_data_as2_secure.handler.as2.class">TechData\AS2SecureBundle\Services\AS2</parameter>
     </parameters>
 
     <services>
@@ -48,6 +49,13 @@
         </service>
 
         <service id="tech_data_as2_secure.model.client" class="%tech_data_as2_secure.model.client.class%">
+            <argument type="service" id="tech_data_as2_secure.factory.request" />
+        </service>
+
+        <!-- AS2 Handler -->
+        <service id="tech_data_as2_secure.handler.as2" class="%tech_data_as2_secure.handler.as2.class%">
+            <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
+            <argument type="service" id="tech_data_as2_secure.model.server" />
             <argument type="service" id="tech_data_as2_secure.factory.request" />
         </service>
 

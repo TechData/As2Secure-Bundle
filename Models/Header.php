@@ -84,9 +84,9 @@ class Header implements Countable, ArrayAccess, Iterator
      */
     public function addHeadersFromMessage($message)
     {
-        $headers = self::parseText($message);
+        $headers = $this->parseText($message);
         if (count($headers)) {
-            foreach ($headers->getHeaders() as $key => $value)
+            foreach ($headers as $key => $value)
                 $this->addHeader($key, $value);
         }
     }
@@ -238,9 +238,9 @@ class Header implements Countable, ArrayAccess, Iterator
      *
      * @param string  The content to parse
      *
-     * @return object  Header instance
+     * @return array
      */
-    public static function parseText($text)
+    protected function parseText($text)
     {
         if (strpos($text, "\n\n") !== false) $text = substr($text, 0, strpos($text, "\n\n"));
         $text = rtrim($text) . "\n";
@@ -251,41 +251,10 @@ class Header implements Countable, ArrayAccess, Iterator
             foreach ($matches[2] as &$value) $value = trim(str_replace(array("\r", "\n"), ' ', $value));
             unset($value);
             if (count($matches[1]) && count($matches[1]) == count($matches[2])) {
-                $headers = array_combine($matches[1], $matches[2]);
-                return new self($headers);
+                return array_combine($matches[1], $matches[2]);
             }
         }
 
-        return new self();
-    }
-
-    /**
-     * Extract headers from http request and return a new instance of Header
-     *
-     * @param string  The content to parse
-     *
-     * @return object  Header instance
-     */
-    public static function parseHttpRequest()
-    {
-        /**
-         * Fix to get request headers from Apache even on PHP running as a CGI
-         */
-        if (!function_exists('apache_request_headers')) {
-            $headers = array('Content-Type' => $_SERVER['CONTENT_TYPE'],
-                'Content-Length' => $_SERVER['CONTENT_LENGTH']);
-
-            foreach ($_SERVER as $key => $value) {
-                if (strpos($key, 'HTTP_') === 0) {
-                    // 5 is to remove 'HTTP_'
-                    $key = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($key, 5)))));
-                    $headers[$key] = $value;
-                }
-            }
-
-            return new self($headers);
-        } else {
-            return new self(apache_request_headers());
-        }
+        return array();
     }
 }

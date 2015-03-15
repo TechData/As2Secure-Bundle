@@ -7,6 +7,7 @@ use TechData\AS2SecureBundle\Interfaces\PartnerProvider;
 use Symfony\Component\HttpFoundation\Request;
 use TechData\AS2SecureBundle\Events\MessageReceived;
 use TechData\AS2SecureBundle\Models\Server;
+use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
 
 /**
  * Description of AS2
@@ -15,7 +16,7 @@ use TechData\AS2SecureBundle\Models\Server;
  */
 class AS2 {
 
-    CONST EVENT_MESSAGE_RECEIVED = 'techdata.as2secure.message_received';
+    CONST EVENT_MESSAGE_RECEIVED = 'message_received';
 
     /**
      *
@@ -34,18 +35,33 @@ class AS2 {
      */
     private $as2Server;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, PartnerProvider $partnerProvider, Server $server, $as2DirectoryBin) {
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory) {
         $this->eventDispatcher = $eventDispatcher;
-        $this->partnerProvider = $partnerProvider;
         $this->as2Server = $server;
+        $this->requestFactory = $requestFactory;
 
         // Define constants which are leveraged by AS2Secure.
         define('AS2_DIR_BIN', $as2DirectoryBin);
     }
 
+    /**
+     * @param PartnerProvider $partnerProvider
+     */
+    public function setPartnerProvider(PartnerProvider $partnerProvider)
+    {
+        $this->partnerProvider = $partnerProvider;
+    }
+
+
+
     public function handleRequest(Request $request) {
         // Convert the symfony request to a as2s request
-        $as2Request = new \AS2Request($request->getContent(), new \AS2Header($request->headers->all()));
+        $as2Request = $this->requestFactory->build($request->getContent(), new \AS2Header($request->headers->all()));
 
         // Take the request and lets AS2S handle it
         $as2Response = $this->as2Server->handle($as2Request);
@@ -67,7 +83,7 @@ class AS2 {
             // We have an incoming message.  Lets fire the event for it.
             $event = new MessageReceived();
             $event->setMessage(file_get_contents($file['path']));
-            $this->eventDispatcher->dispatch(self::EVENT_MESSAGE_RECEIVED, $event);
+            $this->eventDispatcher->dispatch(MessageReceived::EVENT, $event);
         }
     }
 

@@ -21,5 +21,8 @@ class PartnerProviderCompilerPass
 
         // Add to the abstract factory
         $container->getDefinition('tech_data_as2_secure.factory.abstract')->addMethodCall('setPartnerProvider', array($reference));
+
+        // Add to the AS2 Handler
+        $container->getDefinition('tech_data_as2_secure.handler.as2')->addMethodCall('setPartnerProvider', array($reference));
     }
 }

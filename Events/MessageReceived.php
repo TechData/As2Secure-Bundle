@@ -11,6 +11,8 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class MessageReceived extends Event {
 
+    const EVENT = 'MESSAGE_RECEIVED';
+
     private $message;
     private $messageType;
     private $headers = array();

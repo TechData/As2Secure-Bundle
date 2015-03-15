@@ -310,7 +310,9 @@ class MDN extends AbstractBase
                 $headers = array_combine($headers[1], $headers[2]);
                 foreach($headers as $key => $val)
                     $this->setAttribute(trim(strtolower($key)), trim($val));*/
-                $this->attributes = Header::parseText($part->body);
+                $headers = new Header();
+                $headers->addHeadersFromMessage($part->body);
+                $this->attributes = $headers;
             } else {
                 // human readable message
                 $this->setMessage(trim($part->body));
