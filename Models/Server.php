@@ -32,6 +32,7 @@ namespace TechData\AS2SecureBundle\Models;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use TechData\AS2SecureBundle\Events\Log;
+use TechData\AS2SecureBundle\Events\MessageSent;
 
 class Server
 {
@@ -84,18 +85,17 @@ class Server
 
         if ($object instanceof Message || (!is_null($error) && !($object instanceof MDN))) {
             $object_type = self::TYPE_MESSAGE;
-            AS2Log::info(false, 'Incoming transmission is a Message.');
-            $this->eventDispatcher->dispatch('log', new Log)
-            
+            $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'Incoming transmission is a Message.'));
+
             try {
                 if (is_null($error)) {
                     $object->decode();
                     $files = $object->getFiles();
-                    AS2Log::info(false, count($files) . ' payload(s) found in incoming transmission.');
+                    $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, count($files) . ' payload(s) found in incoming transmission.'));
                     foreach ($files as $key => $file) {
                         $content = file_get_contents($file['path']);
-                        AS2Log::info(false, 'Payload #' . ($key + 1) . ' : ' . round(strlen($content) / 1024, 2) . ' KB / "' . $file['filename'] . '".');
-                        self::saveMessage($content, array(), $filename . '.payload_' . $key, 'payload');
+                        $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'Payload #' . ($key + 1) . ' : ' . round(strlen($content) / 1024, 2) . ' KB / "' . $file['filename'] . '".'));
+                        $this->saveMessage($content, array(), 'payload');
                     }
 
                     $mdn = $object->generateMDN($error);
@@ -112,43 +112,9 @@ class Server
             }
         } elseif ($object instanceof MDN) {
             $object_type = self::TYPE_MDN;
-            AS2Log::info(false, 'Incoming transmission is a MDN.');
+            $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'Incoming transmission is a MDN.'));
         } else {
-            AS2Log::error(false, 'Malformed data.');
-        }
-
-        // call Connector object to handle specific actions
-        try {
-            if ($request instanceof Request) {
-                // build arguments
-                $params = array('from' => $headers->getHeader('as2-from'),
-                    'to' => $headers->getHeader('as2-to'),
-                    'status' => '',
-                    'data' => '');
-                if ($error) {
-                    $params['status'] = AS2Connector::STATUS_ERROR;
-                    $params['data'] = array('object' => $object,
-                        'error' => $error);
-                } else {
-                    $params['status'] = AS2Connector::STATUS_OK;
-                    $params['data'] = array('object' => $object,
-                        'error' => null);
-                }
-
-                // call PartnerTo's connector
-                if ($request->getPartnerTo() instanceof Partner) {
-                    $connector = $request->getPartnerTo()->connector_class;
-                    call_user_func_array(array($connector, 'onReceived' . $object_type), $params);
-                }
-
-                // call PartnerFrom's connector
-                if ($request->getPartnerFrom() instanceof Partner) {
-                    $connector = $request->getPartnerFrom()->connector_class;
-                    call_user_func_array(array($connector, 'onSent' . $object_type), $params);
-                }
-            }
-        } catch (Exception $e) {
-            $error = $e;
+            $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_ERROR, 'Malformed data.'));
         }
 
         // build MDN
@@ -177,20 +143,20 @@ class Server
                 // output MDN
                 echo $mdn->getContent();
 
-                AS2Log::info(false, 'An AS2 MDN has been sent.');
+                $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'An AS2 MDN has been sent.'));
             } else {
                 // ASYNC method
 
                 // cut connection and wait a few seconds
-                self::closeConnectionAndWait(5);
+                $this->closeConnectionAndWait(5);
 
                 // delegate the mdn sending to the client
                 $client = new Client();
                 $result = $client->sendRequest($mdn);
                 if ($result['info']['http_code'] == '200') {
-                    AS2Log::info(false, 'An AS2 MDN has been sent.');
+                    $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'An AS2 MDN has been sent.'));
                 } else {
-                    AS2Log::error(false, 'An error occurs while sending MDN message : ' . $result['info']['http_code']);
+                    $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_ERROR, 'An error occurs while sending MDN message : ' . $result['info']['http_code']));
                 }
             }
         }
@@ -203,42 +169,19 @@ class Server
      *
      * @param content       The content to save (mandatory)
      * @param headers       The headers to save (optional)
-     * @param filename      The filename to use if known (optional)
      * @param type          Values : raw | decrypted | payload (mandatory)
      *
      * @return       String  : The main filename
      */
-    protected function saveMessage($content, $headers, $filename = '', $type = 'raw')
+    protected function saveMessage($content, $headers, $type = 'raw')
     {
-        umask(000);
 
-        $dir = AS2_DIR_MESSAGES . '_rawincoming';
-        $dir = realpath($dir);
-        @mkdir($dir, 0777, true);
+        $message = new MessageSent();
+        $message->setMessage($content);
+        $message->setHeaders($headers);
+        $message->setMessageType($type);
+        $this->eventDispatcher->dispatch('messageSent', $message);
 
-        if (!$filename) {
-            list($micro,) = explode(' ', microtime());
-            $micro = str_pad(round($micro * 1000), 3, '0');
-            $host = ($_SERVER['REMOTE_ADDR'] ? $_SERVER['REMOTE_ADDR'] : 'unknownhost');
-            $filename = date('YmdHis') . $micro . '_' . $host . '.as2';
-        }
-
-
-        switch ($type) {
-            case 'raw':
-                file_put_contents($dir . '/' . $filename, $content);
-                if (count($headers)) {
-                    file_put_contents($dir . '/' . $filename . '.header', $headers);
-                }
-                break;
-
-            case 'decrypted':
-            case 'payload':
-                file_put_contents($dir . '/' . $filename, $content);
-                break;
-        }
-
-        return $filename;
     }
 
     /**

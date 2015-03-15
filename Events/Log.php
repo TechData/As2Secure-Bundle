@@ -9,18 +9,48 @@ use Symfony\Component\EventDispatcher\Event;
  *
  * @author wpigott
  */
-class Log extends Event {
+class Log extends Event
+{
+
+    const TYPE_INFO = 'INFO';
+    const TYPE_WARN = 'WARN';
+    const TYPE_ERROR = 'ERROR';
 
     private $message;
-    
-    __cons
+    private $type;
 
-    public function getMessage() {
+    function __construct($type, $message)
+    {
+        $this->type = $type;
+        $this->message = $message;
+    }
+
+
+    public function getMessage()
+    {
         return $this->message;
     }
 
-    public function setMessage($message) {
+    public function setMessage($message)
+    {
         $this->message = $message;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
 
 }

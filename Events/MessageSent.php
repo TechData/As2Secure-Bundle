@@ -10,5 +10,31 @@ use Symfony\Component\EventDispatcher\Event;
  * @author wpigott
  */
 class MessageSent extends Event {
-    //put your code here
+    private $message;
+    private $messageType;
+    private $headers = array();
+
+    public function getMessage() {
+        return $this->message;
+    }
+
+    public function setMessage($message) {
+        $this->message = $message;
+    }
+
+    public function getMessageType() {
+        return $this->messageType;
+    }
+
+    public function getHeaders() {
+        return $this->headers;
+    }
+
+    public function setMessageType($messageType) {
+        $this->messageType = $messageType;
+    }
+
+    public function setHeaders($headers) {
+        $this->headers = $headers;
+    }
 }
