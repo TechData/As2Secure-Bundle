@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde;
 /**
  * The Horde_String:: class provides static methods for charset and locale safe
  * string manipulation.

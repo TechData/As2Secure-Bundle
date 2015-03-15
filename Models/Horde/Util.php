@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde;
 /**
  * Error code for a missing driver configuration.
  */

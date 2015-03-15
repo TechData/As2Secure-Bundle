@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde\MIME;
 /**
  * $Horde: framework/MIME/MIME/Structure.php,v 1.87.10.31 2009/01/06 15:23:20 jan Exp $
  *

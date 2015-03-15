@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde\MIME;
 /**
  * The character(s) used internally for EOLs.
  */

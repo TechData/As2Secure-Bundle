@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde;
 /* We need to (unfortunately) hard code these constants because they reside in
  * the imap module, which is not required for Horde.
  * These constants are found in the UW-imap c-client distribution:

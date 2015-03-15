@@ -1,5 +1,5 @@
 <?php
-
+namespace TechData\AS2SecureBundle\Models\Horde\MIME;
 /**
  * The MIME_Message:: class provides methods for creating and manipulating
  * MIME email messages.
