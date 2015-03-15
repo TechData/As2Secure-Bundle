@@ -36,7 +36,7 @@ class Message extends AbstractBase
 
     public function __construct($data, $params = array())
     {
-        parent::__construct($data, $params);
+        $this->initialize($data, $params);
 
         if ($data instanceof Request) {
             $this->path = $data->getPath();

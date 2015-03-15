@@ -3,11 +3,12 @@
 namespace TechData\AS2SecureBundle\Services;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use TechData\AS2SecureBundle\Interfaces\PartnerProvider;
+use TechData\AS2SecureBundle\Factories\Partner as PartnerFactory;
 use Symfony\Component\HttpFoundation\Request;
 use TechData\AS2SecureBundle\Events\MessageReceived;
 use TechData\AS2SecureBundle\Models\Server;
 use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
+use TechData\AS2SecureBundle\Models\Header;
 
 /**
  * Description of AS2
@@ -26,9 +27,9 @@ class AS2 {
 
     /**
      *
-     * @var PartnerProvider 
+     * @var PartnerFactory
      */
-    private $partnerProvider;
+    private $partnerFactory;
 
     /**
      * @var Server
@@ -40,28 +41,19 @@ class AS2 {
      */
     private $requestFactory;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory) {
+    public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory, PartnerFactory $partnerFactory) {
         $this->eventDispatcher = $eventDispatcher;
         $this->as2Server = $server;
         $this->requestFactory = $requestFactory;
+        $this->partnerFactory = $partnerFactory;
 
         // Define constants which are leveraged by AS2Secure.
         define('AS2_DIR_BIN', $as2DirectoryBin);
     }
 
-    /**
-     * @param PartnerProvider $partnerProvider
-     */
-    public function setPartnerProvider(PartnerProvider $partnerProvider)
-    {
-        $this->partnerProvider = $partnerProvider;
-    }
-
-
-
     public function handleRequest(Request $request) {
         // Convert the symfony request to a as2s request
-        $as2Request = $this->requestFactory->build($request->getContent(), new \AS2Header($request->headers->all()));
+        $as2Request = $this->requestFactory->build($request->getContent(), new Header($request->headers->all()));
 
         // Take the request and lets AS2S handle it
         $as2Response = $this->as2Server->handle($as2Request);

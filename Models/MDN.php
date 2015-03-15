@@ -99,7 +99,7 @@ class MDN extends AbstractBase
                 'mimetype' => 'multipart/report',
                 'partner_from' => $data->getPartnerFrom(),
                 'partner_to' => $data->getPartnerTo());
-            parent::__construct($data->getContent(), $params);
+            $this->initialize($data->getContent(), $params);
 
             // check requirements
             if ($this->partner_from->mdn_signed && !$data->isSigned()) {
@@ -109,7 +109,7 @@ class MDN extends AbstractBase
             $params['partner_from'] = $data->getPartnerTo();
             $params['partner_to'] = $data->getPartnerFrom();
 
-            parent::__construct(false, $params);
+            $this->initialize(false, $params);
         } elseif ($data instanceof Horde_MIME_Part) {
             try {
                 $this->setPartnerFrom($params['partner_from']);
@@ -125,7 +125,7 @@ class MDN extends AbstractBase
             $this->path = Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
 
-            parent::__construct(false, $params);
+            $this->initialize(false, $params);
         } else {
             throw new AS2Exception('Not handled case.');
         }

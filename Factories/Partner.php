@@ -21,6 +21,11 @@ class Partner
         $this->partnerProvider = $partnerProvider;
     }
 
+    /**
+     * @param $partnerId
+     * @param bool $reload
+     * @return PartnerModel
+     */
     public function getPartner($partnerId, $reload=FALSE)
     {
         if($reload || !array_key_exists(trim($partnerId))) {

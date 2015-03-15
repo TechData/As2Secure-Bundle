@@ -19,10 +19,7 @@ class PartnerProviderCompilerPass
         // Get the reference for the service
         $reference = new Reference($container->getParameter('tech_data_as2_secure.partner_provider.service_id'));
 
-        // Add to the abstract factory
-        $container->getDefinition('tech_data_as2_secure.factory.abstract')->addMethodCall('setPartnerProvider', array($reference));
-
-        // Add to the AS2 Handler
-        $container->getDefinition('tech_data_as2_secure.handler.as2')->addMethodCall('setPartnerProvider', array($reference));
+        // Add to the partner factory
+        $container->getDefinition('tech_data_as2_secure.factory.partner')->addMethodCall('setPartnerProvider', array($reference));
     }
 }

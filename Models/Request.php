@@ -46,7 +46,7 @@ class Request extends AbstractBase
             'is_file' => false);
 
         // content is stored into new file
-        parent::__construct($content, $params);
+        $this->initialize($content, $params);
 
         $message_id = $this->getHeader('message-id');
         $message_id = str_replace(array('<', '>'), '', $message_id);

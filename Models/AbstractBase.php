@@ -28,9 +28,16 @@ namespace TechData\AS2SecureBundle\Models;
  * @version 0.9.0
  *
  */
+use TechData\AS2SecureBundle\Factories\Partner as PartnerFacotry;
 abstract class AbstractBase
 {
-    // 
+    // Injected Services
+    /**
+     * @var PartnerFacotry
+     */
+    private $partnerFactory;
+
+    // Properties
     protected $adapter = null;
 
     protected $filename = null;
@@ -46,7 +53,7 @@ abstract class AbstractBase
     protected $partner_from = null;
     protected $partner_to = null;
 
-    public function __construct($data, $params = array())
+    final protected function initialize($data, $params = array())
     {
         if (is_null($this->headers))
             $this->headers = new Header();
@@ -83,6 +90,24 @@ abstract class AbstractBase
         $this->adapter = new Adapter($this->getPartnerFrom(), $this->getPartnerTo());
     }
 
+    /**
+     * @return PartnerFacotry
+     */
+    protrected function getPartnerFactory()
+    {
+        return $this->partnerFactory;
+    }
+
+    /**
+     * @param PartnerFacotry $partnerFactory
+     */
+    public function setPartnerFactory(PartnerFacotry $partnerFactory)
+    {
+        $this->partnerFactory = $partnerFactory;
+    }
+
+
+
     // partner handle
 
     public function getPartnerFrom()
@@ -92,7 +117,7 @@ abstract class AbstractBase
 
     public function setPartnerFrom($partner_from)
     {
-        $this->partner_from = Partner::getPartner($partner_from);
+        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_from);
     }
 
     public function getPartnerTo()
@@ -102,7 +127,7 @@ abstract class AbstractBase
 
     public function setPartnerTo($partner_to)
     {
-        $this->partner_to = Partner::getPartner($partner_to);
+        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_to);
     }
 
     // message properties
