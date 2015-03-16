@@ -5,8 +5,13 @@ namespace TechData\AS2SecureBundle\Services;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use TechData\AS2SecureBundle\Events\MessageReceived;
+use TechData\AS2SecureBundle\Events\MessageSent;
+use TechData\AS2SecureBundle\Factories\Adapter as AdapterFactory;
+use TechData\AS2SecureBundle\Factories\Client as ClientFactory;
+use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
 use TechData\AS2SecureBundle\Factories\Partner as PartnerFactory;
 use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
+use TechData\AS2SecureBundle\Interfaces\MessageSender;
 use TechData\AS2SecureBundle\Models\Header;
 use TechData\AS2SecureBundle\Models\Server;
 
@@ -15,7 +20,7 @@ use TechData\AS2SecureBundle\Models\Server;
  *
  * @author wpigott
  */
-class AS2
+class AS2 implements MessageSender
 {
 
     CONST EVENT_MESSAGE_RECEIVED = 'message_received';
@@ -41,14 +46,29 @@ class AS2
      * @var RequestFactory
      */
     private $requestFactory;
+    /**
+     * @var MessageFactory
+     */
+    private $messageFactory;
+    /**
+     * @var AdapterFactory
+     */
+    private $adapterFactory;
+    /**
+     * @var ClientFactory
+     */
+    private $clientFactory;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory, PartnerFactory $partnerFactory)
+    public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory,
+                                PartnerFactory $partnerFactory, MessageFactory $messageFactory, AdapterFactory $adapterFactory, ClientFactory $clientFactory)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->as2Server = $server;
         $this->requestFactory = $requestFactory;
         $this->partnerFactory = $partnerFactory;
-
+        $this->messageFactory = $messageFactory;
+        $this->adapterFactory = $adapterFactory;
+        $this->clientFactory = $clientFactory;
     }
 
     public function handleRequest(Request $request)
@@ -80,61 +100,42 @@ class AS2
         }
     }
 
-    public function sendMessage()
+    /**
+     * @param $toPartner
+     * @param $fromPartner
+     * @param $messageContent
+     * @throws \Exception
+     * @throws \TechData\AS2SecureBundle\Models\AS2Exception
+     * @throws \TechData\AS2SecureBundle\Models\Exception
+     */
+    public function sendMessage($toPartner, $fromPartner, $messageContent)
     {
+        // process request to build outbound AS2 message to VAR
+
+        // initialize outbound AS2Message object
+        $message = $this->messageFactory->build(false, array(
+            'partner_from' => $fromPartner,
+            'partner_to' => $toPartner,
+        ));
+
+        // initialize AS2Adapter for public key encryption between StreamOne and the receiving VAR
+        $adapter = $this->adapterFactory->build($fromPartner, $toPartner);
+
+        // write the EDI message that will be sent to a temp file, then use the AS2 adapter to encrypt it
+        $tmp_file = $adapter->getTempFilename();
+        file_put_contents($tmp_file, $messageContent);
+        $message->addFile($tmp_file, 'application/edi-x12');
+        $message->encode();
+
+        // initialize outbound AS2 client
+        $client = $this->clientFactory->build();
+
+        // send AS2 message
+        $result = $client->sendRequest($message);
+        $messageSent = new MessageSent();
+        $messageSent->setMessage(print_r($result, true));
+        $this->eventDispatcher->dispatch(MessageSent::EVENT, $messageSent);
 
     }
-
 }
 
-/*
-
-
-
-
-    public function sendMessage() {
-        // process request to build outbound AS2 message to VAR
-        if (trim($_REQUEST['message']) != '') {
-            // query for requested receiving VAR's profile information
-            $query = "	SELECT instance_id, edi_incoming_auth, edi_as2_id_prod, company_name
-				FROM bih1241 AS var
-				WHERE instance_id=$1	";
-            $result = eas_query_params($query, array($_REQUEST['var_id']));
-            $var = pg_fetch_assoc($result->recordset);
-            if ($var && (trim($_REQUEST['auth']) == trim($var['edi_incoming_auth']))) {
-                // initialize outbound AS2Message object
-                $params = array('partner_from' => '081940553STM1',
-                    'partner_to' => $var['edi_as2_id_prod']);
-                $message = new AS2Message(false, $params);
-
-                // initialize AS2Adapter for public key encryption between StreamOne and the receiving VAR
-                $adapter = new AS2Adapter('081940553STM1', $var['edi_as2_id_prod']);
-
-                // write the EDI message that will be sent to a temp file, then use the AS2 adapter to encrypt it
-                $tmp_file = $adapter->getTempFilename();
-                file_put_contents($tmp_file, $_REQUEST['message']);
-                $message->addFile($tmp_file, 'application/edi-x12');
-                $message->encode();
-
-                // initialize outbound AS2 client
-                $client = new AS2Client();
-
-                // send AS2 message
-                $result = $client->sendRequest($message);
-                $result_text = print_r($result, true);
-                @mail('mike.kristopeit@etelos-inc.com', 'AS2/EDI-X12 message sent', "{$_SERVER['SERVER_NAME']}\n\nVAR: {$var['company_name']} (ID: {$var['instance_id']}, XID: {$var['var_xid']})\n\nmessage: \n{$_REQUEST['message']}\n\nresponse: \n$result_text");
-                echo 'sent';
-            } else {
-                // bad request - either the requested receiving VAR does not exist, or an invalid auth code was provided
-                header('HTTP/1.1 400 Bad Request', true, 400);
-                echo 'Bad Request';
-                exit;
-            }
-        } else {
-            // bad request - blank message
-            header('HTTP/1.1 400 Bad Request', true, 400);
-            echo 'Bad Request';
-            exit;
-        }
-    }
- *
