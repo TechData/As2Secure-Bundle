@@ -29,6 +29,10 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
+use Countable;
+use ArrayAccess;
+use Iterator;
+
 class Header implements Countable, ArrayAccess, Iterator
 {
     protected $headers = array();

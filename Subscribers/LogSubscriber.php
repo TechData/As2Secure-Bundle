@@ -36,10 +36,10 @@ class LogSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            array(Log::EVENT => 'log'),
-            array(Error::EVENT => 'error'),
-            array(MessageReceived::EVENT => 'messageReceived'),
-            array(MessageSent::EVENT => 'messageSent'),
+            Log::EVENT => array('log'),
+            Error::EVENT => array('error'),
+            MessageReceived::EVENT => array('messageReceived'),
+            MessageSent::EVENT => array('messageSent'),
         );
     }
 

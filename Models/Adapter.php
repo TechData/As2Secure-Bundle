@@ -196,7 +196,7 @@ class Adapter
     {
         if (is_null(self::$tmp_files)) {
             self::$tmp_files = array();
-            register_shutdown_function(array('Adapter', '_deleteTempFiles'));
+            register_shutdown_function(array('TechData\AS2SecureBundle\Models\Adapter', '_deleteTempFiles'));
         }
 
         $dir = sys_get_temp_dir();

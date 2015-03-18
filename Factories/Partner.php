@@ -28,9 +28,9 @@ class Partner
      */
     public function getPartner($partnerId, $reload=FALSE)
     {
-        if($reload || !array_key_exists(trim($partnerId))) {
+        if($reload || !array_key_exists(trim($partnerId), $this->loadedPartners)) {
             $partnerData = $this->partnerProvider->getPartner($partnerId);
-            $as2partner = new AS2Partner((array)$partnerData);
+            $as2partner = $this->makeNewPartner($partnerData);
             $this->loadedPartners[trim($partnerId)] = $as2partner;
         }
         return $this->loadedPartners[trim($partnerId)];

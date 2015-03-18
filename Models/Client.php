@@ -29,14 +29,21 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 
+use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
+
 class Client
 {
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
     protected $response_headers = array();
     protected $response_content = '';
     protected $response_indice = 0;
 
-    public function __construct()
+    public function __construct(RequestFactory $requestFactory)
     {
+        $this->requestFactory = $requestFactory;
     }
 
     /**
@@ -48,7 +55,7 @@ class Client
      */
     public function sendRequest($request)
     {
-        if (!$request instanceof AS2Message && !$request instanceof AS2MDN) throw new AS2Exception('Unexpected format');
+        if (!$request instanceof Message && !$request instanceof MDN) throw new AS2Exception('Unexpected format');
 
         // format headers
         $headers = $request->getHeaders()->toFormattedArray();
@@ -77,7 +84,7 @@ class Client
 
         // authentication setup
         $auth = $request->getAuthentication();
-        if ($auth['method'] != AS2Partner::METHOD_NONE) {
+        if ($auth['method'] != Partner::METHOD_NONE) {
             curl_setopt($ch, CURLOPT_HTTPAUTH, $auth['method']);
             curl_setopt($ch, CURLOPT_USERPWD, urlencode($auth['login']) . ':' . urlencode($auth['password']));
         }
@@ -96,9 +103,9 @@ class Client
         if ($error)
             throw new AS2Exception($error);
 
-        if ($request instanceof AS2Message && $request->getPartnerTo()->mdn_request == AS2Partner::ACK_SYNC) {
-            $as2_response = new AS2Request($response, new AS2Header($this->response_headers[count($this->response_headers) - 1]));
-            $as2_response = $as2_response->getObject();
+        if ($request instanceof Message && $request->getPartnerTo()->mdn_request == Partner::ACK_SYNC) {
+            $temp_response = $this->requestFactory->build($response, new Header($this->response_headers[count($this->response_headers) - 1]));
+            $as2_response = $temp_response->getObject();
             $as2_response->decode();
         } else {
             $as2_response = null;

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use TechData\AS2SecureBundle\Events\MessageReceived;
 use TechData\AS2SecureBundle\Events\MessageSent;
 use TechData\AS2SecureBundle\Factories\Adapter as AdapterFactory;
-use TechData\AS2SecureBundle\Factories\Client as ClientFactory;
+use TechData\AS2SecureBundle\Models\Client;
 use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
 use TechData\AS2SecureBundle\Factories\Partner as PartnerFactory;
 use TechData\AS2SecureBundle\Factories\Request as RequestFactory;
@@ -55,12 +55,12 @@ class AS2 implements MessageSender
      */
     private $adapterFactory;
     /**
-     * @var ClientFactory
+     * @var Client
      */
-    private $clientFactory;
+    private $client;
 
     public function __construct(EventDispatcherInterface $eventDispatcher, Server $server, RequestFactory $requestFactory,
-                                PartnerFactory $partnerFactory, MessageFactory $messageFactory, AdapterFactory $adapterFactory, ClientFactory $clientFactory)
+                                PartnerFactory $partnerFactory, MessageFactory $messageFactory, AdapterFactory $adapterFactory, Client $client)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->as2Server = $server;
@@ -68,13 +68,13 @@ class AS2 implements MessageSender
         $this->partnerFactory = $partnerFactory;
         $this->messageFactory = $messageFactory;
         $this->adapterFactory = $adapterFactory;
-        $this->clientFactory = $clientFactory;
+        $this->client = $client;
     }
 
     public function handleRequest(Request $request)
     {
         // Convert the symfony request to a as2s request
-        $as2Request = $this->requestFactory->build($request->getContent(), new Header($request->headers->all()));
+        $as2Request = $this->requestToAS2Request($request);
 
         // Take the request and lets AS2S handle it
         $as2Response = $this->as2Server->handle($as2Request);
@@ -100,6 +100,14 @@ class AS2 implements MessageSender
         }
     }
 
+    private function requestToAS2Request(Request $request) {
+        $flattenedHeaders = array();
+        foreach($request->headers as $key => $header) {
+            $flattenedHeaders[$key] = reset($header);
+        }        
+        return $this->requestFactory->build($request->getContent(), new Header($flattenedHeaders));
+    }
+    
     /**
      * @param $toPartner
      * @param $fromPartner
@@ -127,11 +135,8 @@ class AS2 implements MessageSender
         $message->addFile($tmp_file, 'application/edi-x12');
         $message->encode();
 
-        // initialize outbound AS2 client
-        $client = $this->clientFactory->build();
-
         // send AS2 message
-        $result = $client->sendRequest($message);
+        $result = $this->client->sendRequest($message);
         $messageSent = new MessageSent();
         $messageSent->setMessage(print_r($result, true));
         $this->eventDispatcher->dispatch(MessageSent::EVENT, $messageSent);

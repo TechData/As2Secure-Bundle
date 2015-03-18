@@ -8,10 +8,11 @@
 
 namespace TechData\AS2SecureBundle\Factories;
 
+use TechData\AS2SecureBundle\Factories\AbstractFactory;
 use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
 use TechData\AS2SecureBundle\Models\Message as MessageModel;
 
-class Message
+class Message extends AbstractFactory
 {
     /**
      * @var MDNFactory
@@ -31,6 +32,8 @@ class Message
     public function build($data = null, $params = array())
     {
         $message = new MessageModel($this->mdnFactory);
+        $message->setPartnerFactory($this->getPartnerFactory());
+        $message->setAdapterFactory($this->getAdapterFactory());
         $message->initialize($data, $params);
         return $message;
 

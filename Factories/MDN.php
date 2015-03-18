@@ -28,6 +28,8 @@ class MDN extends AbstractFactory
     public function build($data = null, $params = array())
     {
         $mdn = new MDNModel();
+        $mdn->setPartnerFactory($this->getPartnerFactory());
+        $mdn->setAdapterFactory($this->getAdapterFactory());
         $mdn->initialize($data, $params);
         return $mdn;
 

@@ -8,11 +8,12 @@
 
 namespace TechData\AS2SecureBundle\Factories;
 
+use TechData\AS2SecureBundle\Factories\AbstractFactory;
 use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
 use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
 use TechData\AS2SecureBundle\Models\Request as RequestModel;
 
-class Request
+class Request extends AbstractFactory
 {
     protected $request = null;
     /**
@@ -38,7 +39,9 @@ class Request
     public function build($content, $headers)
     {
         $request = new RequestModel($this->mdnFactory, $this->messageFactory);
-        $request->initialize($data, $params);
+        $request->setPartnerFactory($this->getPartnerFactory());
+        $request->setAdapterFactory($this->getAdapterFactory());
+        $request->initialize($content, $headers);
         return $request;
 
     }

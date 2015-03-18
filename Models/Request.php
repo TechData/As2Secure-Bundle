@@ -31,6 +31,7 @@ namespace TechData\AS2SecureBundle\Models;
  */
 use TechData\AS2SecureBundle\Factories\MDN as MDNFactory;
 use TechData\AS2SecureBundle\Factories\Message as MessageFactory;
+use Mail_mimeDecode;
 
 class Request extends AbstractBase
 {
@@ -58,7 +59,9 @@ class Request extends AbstractBase
         // build params to match parent::__construct
         $this->headers = $headers;
         $mimetype = $this->getHeader('content-type');
-        if (($pos = strpos($mimetype, ';')) !== false) $mimetype = substr($mimetype, 0, $pos);
+        if (($pos = strpos($mimetype, ';')) !== false) {
+            $mimetype = substr($mimetype, 0, $pos);
+        }
         $params = array('partner_from' => $this->getHeader('as2-from'),
             'partner_to' => $this->getHeader('as2-to'),
             'mimetype' => $mimetype,

@@ -33,7 +33,7 @@ namespace TechData\AS2SecureBundle\Models;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use TechData\AS2SecureBundle\Events\Log;
 use TechData\AS2SecureBundle\Events\MessageSent;
-use TechData\AS2SecureBundle\Factories\Client as ClientFactory;
+use TechData\AS2SecureBundle\Models\Client;
 use TechData\AS2SecureBundle\Factories\MDN as MdnFactory;
 
 class Server
@@ -52,15 +52,15 @@ class Server
      */
     private $mdnFactory;
     /**
-     * @var ClientFactory
+     * @var Client
      */
-    private $clientFactory;
+    private $client;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, MdnFactory $mdnFactory, ClientFactory $clientFactory)
+    public function __construct(EventDispatcherInterface $eventDispatcher, MdnFactory $mdnFactory, Client $client)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->mdnFactory = $mdnFactory;
-        $this->clientFactory = $clientFactory;
+        $this->client = $client;
     }
 
     /**
@@ -156,8 +156,7 @@ class Server
                 $this->closeConnectionAndWait(5);
 
                 // delegate the mdn sending to the client
-                $client = $this->clientFactory->build();
-                $result = $client->sendRequest($mdn);
+                $result = $this->client->sendRequest($mdn);
                 if ($result['info']['http_code'] == '200') {
                     $this->eventDispatcher->dispatch('log', new Log(Log::TYPE_INFO, 'An AS2 MDN has been sent.'));
                 } else {

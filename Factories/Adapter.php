@@ -34,7 +34,7 @@ class Adapter
      */
     public function build($partner_from, $partner_to)
     {
-        $adapter = new AdapterModel($this->partnerFactory);
+        $adapter = new AdapterModel($this->partnerFactory, $this->AS2_DIR_BIN);
         $adapter->initialize($partner_from, $partner_to);
         return $adapter;
     }

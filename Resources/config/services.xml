@@ -6,7 +6,7 @@
 
 
     <parameters>
-        <parameter key="tech_data_as2_secure.partner_provider.service_id">NULL</parameter>
+        <!--<parameter key="tech_data_as2_secure.partner_provider.service_id">NULL</parameter>-->
         <parameter key="tech_data_as2_secure.event_dispatcher.class">Symfony\Component\EventDispatcher\EventDispatcher</parameter>
         <parameter key="tech_data_as2_secure.factory.abstract.class">TechData\AS2SecureBundle\Factories\AbstractFactory</parameter>
         <parameter key="tech_data_as2_secure.factory.mdn.class">TechData\AS2SecureBundle\Factories\MDN</parameter>
@@ -15,7 +15,7 @@
         <parameter key="tech_data_as2_secure.factory.partner.class">TechData\AS2SecureBundle\Factories\Partner</parameter>
         <parameter key="tech_data_as2_secure.factory.adapter.class">TechData\AS2SecureBundle\Factories\Adapter</parameter>
         <parameter key="tech_data_as2_secure.factory.adapter.bin_location">NULL</parameter>
-        <parameter key="tech_data_as2_secure.subscriber.log.class">TechData\AS2SecureBundle\Factories\Request</parameter>
+        <parameter key="tech_data_as2_secure.subscriber.log.class">TechData\AS2SecureBundle\Subscribers\LogSubscriber</parameter>
         <parameter key="tech_data_as2_secure.model.server.class">TechData\AS2SecureBundle\Models\Server</parameter>
         <parameter key="tech_data_as2_secure.model.client.class">TechData\AS2SecureBundle\Models\Client</parameter>
         <parameter key="tech_data_as2_secure.handler.as2.class">TechData\AS2SecureBundle\Services\AS2</parameter>
@@ -25,11 +25,14 @@
     <services>
         <!-- Factories -->
         <service id="tech_data_as2_secure.factory.abstract" class="%tech_data_as2_secure.factory.abstract.class%" abstract="true" public="false">
-            <call method="setEventDispatcher">
+            <!--<call method="setEventDispatcher">
                 <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
-            </call>
+            </call>-->
             <call method="setPartnerFactory">
                 <argument type="service" id="tech_data_as2_secure.factory.partner" />
+            </call>
+            <call method="setAdapterFactory">
+                <argument type="service" id="tech_data_as2_secure.factory.adapter" />
             </call>
         </service>
         <service id="tech_data_as2_secure.factory.mdn" class="%tech_data_as2_secure.factory.mdn.class%" parent="tech_data_as2_secure.factory.abstract" public="false"/>
@@ -45,9 +48,7 @@
             <argument type="service" id="tech_data_as2_secure.factory.partner" />
             <argument>%tech_data_as2_secure.factory.adapter.bin_location%</argument>
         </service>
-        <service id="tech_data_as2_secure.factory.client" class="%tech_data_as2_secure.factory.client.class%" public="false">
-            <argument type="service" id="tech_data_as2_secure.factory.request" />
-        </service>
+        
 
         <!-- Event Dispatcher -->
         <service id="tech_data_as2_secure.event_dispatcher" class="%tech_data_as2_secure.event_dispatcher.class%" public="false">
@@ -65,6 +66,7 @@
         <service id="tech_data_as2_secure.model.server" class="%tech_data_as2_secure.model.server.class%">
             <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
             <argument type="service" id="tech_data_as2_secure.factory.mdn" />
+            <argument type="service" id="tech_data_as2_secure.model.client" />
         </service>
 
         <service id="tech_data_as2_secure.model.client" class="%tech_data_as2_secure.model.client.class%">
@@ -76,15 +78,16 @@
             <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
             <argument type="service" id="tech_data_as2_secure.model.server" />
             <argument type="service" id="tech_data_as2_secure.factory.request" />
-            <argument type="service" id="tech_data_as2_secure.factory.request" />
+            <argument type="service" id="tech_data_as2_secure.factory.partner" />
+            <argument type="service" id="tech_data_as2_secure.factory.message" />
+            <argument type="service" id="tech_data_as2_secure.factory.adapter" />
+            <argument type="service" id="tech_data_as2_secure.model.client" />
         </service>
 
         <!-- Controllers -->
-        <services>
-            <service id="tech_data_as2_secure.controller.as2" class="%tech_data_as2_secure.controller.as2.class%" >
-                <argument type="service" id="tech_data_as2_secure.handler.as2" />
-            </service>
-        </services>
+        <service id="tech_data_as2_secure.controller.as2" class="%tech_data_as2_secure.controller.as2.class%" >
+            <argument type="service" id="tech_data_as2_secure.handler.as2" />
+        </service>       
 
     </services>
 

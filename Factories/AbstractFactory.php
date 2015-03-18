@@ -9,29 +9,68 @@
 namespace TechData\AS2SecureBundle\Factories;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use TechData\AS2SecureBundle\Factories\Partner as PartnerFactory;
+use TechData\AS2SecureBundle\Factories\Adapter as AdapterFactory;
 
 abstract class AbstractFactory
 {
     /**
      * @var EventDispatcherInterface
      */
-    private $EventDispatcher;
+    private $eventDispatcher;
+    
+    /**
+     * @var PartnerFactory
+     */
+    private $partnerFactory;
+    
+    /**
+     * @var AdapterFactory
+     */
+    private $adapterFactory;
 
     /**
      * @return EventDispatcherInterface
      */
     protected function getEventDispatcher()
     {
-        return $this->EventDispatcher;
+        return $this->eventDispatcher;
     }
 
     /**
      * @param EventDispatcherInterface $EventDispatcher
      */
-    public function setEventDispatcher($EventDispatcher)
+    public function setEventDispatcher(EventDispatcherInterface $EventDispatcher)
     {
-        $this->EventDispatcher = $EventDispatcher;
+        $this->eventDispatcher = $EventDispatcher;
     }
+
+    /**
+     * 
+     * @return PartnerFactory
+     */
+    public function getPartnerFactory() 
+    {
+        return $this->partnerFactory;
+    }
+
+    public function setPartnerFactory(PartnerFactory $partnerFactory) 
+    {
+        $this->partnerFactory = $partnerFactory;
+    }
+
+    /**
+     * @return AdapterFactory
+     */
+    public function getAdapterFactory() {
+        return $this->adapterFactory;
+    }
+
+    public function setAdapterFactory(AdapterFactory $adapterFactory) {
+        $this->adapterFactory = $adapterFactory;
+    }
+
+
 
 
 }

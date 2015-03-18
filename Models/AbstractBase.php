@@ -30,6 +30,7 @@ namespace TechData\AS2SecureBundle\Models;
  *
  */
 use TechData\AS2SecureBundle\Factories\Partner as PartnerFacotry;
+use TechData\AS2SecureBundle\Factories\Adapter as AdapterFactory;
 
 abstract class AbstractBase
 {
@@ -47,15 +48,17 @@ abstract class AbstractBase
     protected $is_crypted = false;
     protected $partner_from = null;
     protected $partner_to = null;
+    
     /**
      * @var PartnerFacotry
      */
     private $partnerFactory;
-
+    
     /**
-     *
-     *
+     * @var AdapterFactory
      */
+    private $adapterFactory;
+    
     protected static function generateMessageID($partner)
     {
         if ($partner instanceof Partner) $id = $partner->id;
@@ -166,8 +169,20 @@ abstract class AbstractBase
     {
         $this->partnerFactory = $partnerFactory;
     }
+    
+    /**
+     * 
+     * @return AdapterFactory
+     */
+    public function getAdapterFactory() {
+        return $this->adapterFactory;
+    }
 
-    final protected function initializeBase($data, $params = array())
+    public function setAdapterFactory(AdapterFactory $adapterFactory) {
+        $this->adapterFactory = $adapterFactory;
+    }
+
+        final protected function initializeBase($data, $params = array())
     {
         if (is_null($this->headers))
             $this->headers = new Header();
@@ -196,12 +211,16 @@ abstract class AbstractBase
         }
 
         // partners
-        if (isset($params['partner_from']) && $params['partner_from']) $this->setPartnerFrom($params['partner_from']);
+        if (isset($params['partner_from']) && $params['partner_from']) {
+            $this->setPartnerFrom($params['partner_from']);
+        }
         else throw new AS2Exception('No AS2 From Partner specified.');
-        if (isset($params['partner_to']) && $params['partner_to']) $this->setPartnerTo($params['partner_to']);
+        if (isset($params['partner_to']) && $params['partner_to']) {
+            $this->setPartnerTo($params['partner_to']);
+        }
         else throw new AS2Exception('NO AS2 To Partner specified.');
 
-        $this->adapter = new Adapter($this->getPartnerFrom(), $this->getPartnerTo());
+        $this->adapter = $this->getAdapterFactory()->build($this->getPartnerFrom(), $this->getPartnerTo());
     }
 
     public function getPartnerFrom()
