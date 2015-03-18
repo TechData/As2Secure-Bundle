@@ -15,22 +15,16 @@
       "email": "westin.pigott@techdata.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "pear",
-      "url": "http://pear.php.net"
-    }
-  ],
   "require": {
     "php": ">=5.3.2",
-    "symfony/symfony": ">=2.3.0",
-    "pear-pear/Mail": "*"
+    "symfony/symfony": ">=2.3.0"
   },
   "autoload": {
     "psr-0": {"TechData\\AS2SecureBundle": ""},
     "classmap": [
       "Models/Horde/",
-      "Models/Horde/MIME"
+      "Models/Horde/MIME",
+      "Models/Mail"
     ]
   },
   "minimum-stability": "dev",
