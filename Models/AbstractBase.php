@@ -240,6 +240,6 @@ abstract class AbstractBase
 
     public function setPartnerTo($partner_to)
     {
-        $this->partner_from = $this->getPartnerFactory()->getPartner($partner_to);
+        $this->partner_to = $this->getPartnerFactory()->getPartner($partner_to);
     }
 }
