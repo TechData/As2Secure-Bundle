@@ -11,32 +11,62 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class Log extends Event
 {
-
-    const EVENT = 'LOG';
+    
+    /**
+     *
+     */
+    const EVENT = 'as2.log';
+    /**
+     *
+     */
     const TYPE_INFO = 'INFO';
+    /**
+     *
+     */
     const TYPE_WARN = 'WARN';
+    /**
+     *
+     */
     const TYPE_ERROR = 'ERROR';
-
+    
+    /**
+     * @var
+     */
     private $message;
+    /**
+     * @var
+     */
     private $type;
-
+    
+    /**
+     * Log constructor.
+     *
+     * @param $type
+     * @param $message
+     */
     function __construct($type, $message)
     {
-        $this->type = $type;
+        $this->type    = $type;
         $this->message = $message;
     }
-
-
+    
+    
+    /**
+     * @return mixed
+     */
     public function getMessage()
     {
         return $this->message;
     }
-
+    
+    /**
+     * @param $message
+     */
     public function setMessage($message)
     {
         $this->message = $message;
     }
-
+    
     /**
      * @return mixed
      */
@@ -44,7 +74,7 @@ class Log extends Event
     {
         return $this->type;
     }
-
+    
     /**
      * @param mixed $type
      */
@@ -52,6 +82,6 @@ class Log extends Event
     {
         $this->type = $type;
     }
-
-
+    
+    
 }

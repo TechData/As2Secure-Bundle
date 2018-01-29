@@ -1,4 +1,5 @@
 <?php
+
 namespace TechData\AS2SecureBundle\Models\Horde\MIME;
 /**
  * The MIME_Message:: class provides methods for creating and manipulating
@@ -15,45 +16,51 @@ namespace TechData\AS2SecureBundle\Models\Horde\MIME;
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_MIME
  */
+/**
+ * Class Horde_MIME_Message
+ *
+ * @package TechData\AS2SecureBundle\Models\Horde\MIME
+ */
 class Horde_MIME_Message extends Horde_MIME_Part
 {
-
+    
     /**
      * Has the message been parsed via buildMessage()?
      *
      * @var boolean
      */
     protected $_build = false;
-
+    
     /**
      * The server to default unqualified addresses to.
      *
      * @var string
      */
     protected $_defaultServer = null;
-
+    
     /**
      * Constructor - creates a new MIME email message.
      *
-     * @param string $defaultServer The server to default unqualified
+     * @param string $defaultServer  The server to default unqualified
      *                               addresses to.
      */
     public function __construct($defaultServer = null)
     {
         if (is_null($defaultServer) && isset($_SERVER['SERVER_NAME'])) {
             $this->_defaultServer = $_SERVER['SERVER_NAME'];
-        } else {
+        }
+        else {
             $this->_defaultServer = $defaultServer;
         }
     }
-
+    
     /**
      * Create a MIME_Message object from a MIME_Part object.
      * This public function can be called statically via:
      *    MIME_Message::convertMIMEPart();
      *
-     * @param MIME_Part &$mime_part The MIME_Part object.
-     * @param string $server The server to default unqualified
+     * @param MIME_Part &$mime_part  The MIME_Part object.
+     * @param string    $server      The server to default unqualified
      *                               addresses to.
      *
      * @return MIME_Message  The new MIME_Message object.
@@ -63,44 +70,61 @@ class Horde_MIME_Message extends Horde_MIME_Part
         if (!$mime_part->getMIMEId()) {
             $mime_part->setMIMEId(1);
         }
-
-        $mime_message = &new Horde_MIME_Message($server);
+        
+        $mime_message = new Horde_MIME_Message($server);
         $mime_message->addPart($mime_part);
         $mime_message->buildMessage();
-
+        
         return $mime_message;
     }
-
+    
     /**
      * Take a set of headers and make sure they are encoded properly.
      *
-     * @param array $headers The headers to encode.
+     * @param array  $headers The headers to encode.
      * @param string $charset The character set to use.
      *
      * @return array  The array of encoded headers.
      */
     public function encode($headers, $charset)
     {
-        $addressKeys = array('To', 'Cc', 'Bcc', 'From');
-        $asciikeys = array('MIME-Version', 'Received', 'Message-ID', 'Date', 'Content-Disposition', 'Content-Transfer-Encoding', 'Content-ID', 'Content-Type', 'Content-Description');
+        $addressKeys = [
+            'To',
+            'Cc',
+            'Bcc',
+            'From'
+        ];
+        $asciikeys   = [
+            'MIME-Version',
+            'Received',
+            'Message-ID',
+            'Date',
+            'Content-Disposition',
+            'Content-Transfer-Encoding',
+            'Content-ID',
+            'Content-Type',
+            'Content-Description'
+        ];
         foreach ($headers as $key => $val) {
             if (is_array($val)) {
                 foreach ($val as $key2 => $val2) {
                     $headers[$key][$key2] = Horde_MIME::wrapHeaders($key, $val2, $this->getEOL());
                 }
-            } else {
+            }
+            else {
                 if (in_array($key, $addressKeys)) {
                     $text = Horde_MIME::encodeAddress($val, $charset, $this->_defaultServer);
-                } else {
+                }
+                else {
                     $text = Horde_MIME::encode($val, in_array($key, $asciikeys) ? 'US-ASCII' : $charset);
                 }
                 $headers[$key] = Horde_MIME::wrapHeaders($key, $text, $this->getEOL());
             }
         }
-
+        
         return $headers;
     }
-
+    
     /**
      * Add the proper set of MIME headers for this message to an array.
      *
@@ -108,19 +132,21 @@ class Horde_MIME_Message extends Horde_MIME_Part
      *
      * @return array  The full set of headers including MIME headers.
      */
-    public function header($headers = array())
+    public function header($headers = [])
     {
         /* Per RFC 2045 [4], this MUST appear in the message headers. */
         $headers['MIME-Version'] = '1.0';
-
+        
         if ($this->_build) {
             return parent::header($headers);
-        } else {
+        }
+        else {
             $this->buildMessage();
+            
             return $this->encode($this->header($headers), $this->getCharset());
         }
     }
-
+    
     /**
      * Return the entire message contents, including headers, as a string.
      *
@@ -130,12 +156,14 @@ class Horde_MIME_Message extends Horde_MIME_Part
     {
         if ($this->_build) {
             return parent::toString($headers);
-        } else {
+        }
+        else {
             $this->buildMessage();
+            
             return $this->toString($headers);
         }
     }
-
+    
     /**
      * Build message from current contents.
      */
@@ -144,11 +172,12 @@ class Horde_MIME_Message extends Horde_MIME_Part
         if ($this->_build) {
             return;
         }
-
+        
         if (empty($this->_flags['setType'])) {
             if (count($this->_parts) > 1) {
                 $this->setType('multipart/mixed');
-            } else {
+            }
+            else {
                 /* Copy the information from the single part to the current
                    base part. */
                 if (($obVars = get_object_vars(reset($this->_parts)))) {
@@ -158,11 +187,11 @@ class Horde_MIME_Message extends Horde_MIME_Part
                 }
             }
         }
-
+        
         /* Set the build flag now. */
         $this->_build = true;
     }
-
+    
     /**
      * Get a list of all MIME subparts.
      *
@@ -172,12 +201,14 @@ class Horde_MIME_Message extends Horde_MIME_Part
     {
         if ($this->_build) {
             return parent::getParts();
-        } else {
+        }
+        else {
             $this->buildMessage();
+            
             return $this->getParts();
         }
     }
-
+    
     /**
      * Return the base part of the message. This public function does NOT
      * return a reference to make sure that the whole MIME_Message
@@ -188,9 +219,10 @@ class Horde_MIME_Message extends Horde_MIME_Part
     public function getBasePart()
     {
         $this->buildMessage();
+        
         return $this;
     }
-
+    
     /**
      * Retrieve a specific MIME part.
      *
@@ -203,13 +235,17 @@ class Horde_MIME_Message extends Horde_MIME_Part
     {
         if ($this->_build) {
             $part = parent::getPart($id);
-        } else {
+        }
+        else {
             $this->buildMessage();
             $part = $this->getPart($id);
         }
         if (is_a($part, 'Horde_MIME_Message')) {
-            $newpart = &new Horde_MIME_Part();
-            $skip = array('_build', '_defaultServer');
+            $newpart = new Horde_MIME_Part();
+            $skip    = [
+                '_build',
+                '_defaultServer'
+            ];
             foreach (array_keys(get_object_vars($part)) as $key) {
                 /* Ignore local variables that aren't a part of the original
                  * class. */
@@ -217,10 +253,12 @@ class Horde_MIME_Message extends Horde_MIME_Part
                     $newpart->$key = &$part->$key;
                 }
             }
+            
             return $newpart;
-        } else {
+        }
+        else {
             return $part;
         }
     }
-
+    
 }
