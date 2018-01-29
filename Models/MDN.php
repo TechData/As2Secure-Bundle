@@ -1,10 +1,13 @@
 <?php
 
 namespace TechData\AS2SecureBundle\Models;
+
+use TechData\AS2SecureBundle\Models\Horde\MIME\Horde_MIME_Part;
+
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
- * @author  Sebastien MALOT <contact@as2secure.com>
+ * @author    Sebastien MALOT <contact@as2secure.com>
  *
  * @copyright Copyright (c) 2010, Sebastien MALOT
  *
@@ -25,11 +28,10 @@ namespace TechData\AS2SecureBundle\Models;
  * You should have received a copy of the GNU General Public License
  * along with AS2Secure.
  *
- * @license http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
- * @version 0.9.0
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
+ * @version   0.9.0
  *
  */
-
 class MDN extends AbstractBase
 {
     /**
@@ -37,17 +39,41 @@ class MDN extends AbstractBase
      * http://rfclibrary.hosting.com/rfc/rfc4130/rfc4130-34.asp
      */
     const ACTION_AUTO = 'automatic-action';
+    /**
+     *
+     */
     const ACTION_MANUAL = 'manual-action';
+    /**
+     *
+     */
     const SENDING_AUTO = 'MDN-sent-automatically';
+    /**
+     *
+     */
     const SENDING_MANUAL = 'MDN-sent-manually';
+    /**
+     *
+     */
     const TYPE_PROCESSED = 'processed';
+    /**
+     *
+     */
     const TYPE_FAILED = 'failed';
+    /**
+     *
+     */
     const MODIFIER_ERROR = 'error';
+    /**
+     *
+     */
     const MODIFIER_WARNING = 'warning';
     /**
      * Human readable message
      */
     protected $message = '';
+    /**
+     * @var string
+     */
     protected $url = '';
     /**
      * Valid tokens :
@@ -61,86 +87,104 @@ class MDN extends AbstractBase
      *    reporting-ua                   : user-agent
      */
     protected $attributes = null;
-
+    
+    /**
+     * MDN constructor.
+     */
     function __construct()
     {
-
+    
     }
-
-
-    public function initialize($data = null, $params = array())
+    
+    
+    /**
+     * @param null  $data
+     * @param array $params
+     *
+     * @throws AS2Exception
+     */
+    public function initialize($data = null, $params = [])
     {
-
-        $this->attributes = new Header(array('action-mode' => self::ACTION_AUTO,
-            'sending-mode' => self::SENDING_AUTO));
-
+        
+        $this->attributes = new Header([
+            'action-mode'  => self::ACTION_AUTO,
+            'sending-mode' => self::SENDING_AUTO
+        ]);
+        
         // adapter
-        if (!($data instanceof AS2Exception) && $data instanceof Exception) $data = new AS2Exception($data->getMessage(), 6);
+        if (!($data instanceof AS2Exception) && $data instanceof Exception)
+            $data = new AS2Exception($data->getMessage(), 6);
         // full automatic handling
         if ($data instanceof AS2Exception) {
             $this->setMessage($data->getMessage());
             //$this->setHeaders($data->getHeaders());
             $this->setAttribute('disposition-type', $data->getLevel());
             $this->setAttribute('disposition-modifier', $data->getMessageShort());
-
+            
             try {
                 $this->setPartnerFrom($params['partner_from']);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->partner_from = false;
             }
             try {
                 $this->setPartnerTo($params['partner_to']);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->partner_to = false;
             }
-        } elseif ($data instanceof Request) { // parse response
-            $params = array('is_file' => false,
-                'mimetype' => 'multipart/report',
+        }
+        elseif ($data instanceof Request) { // parse response
+            $params = [
+                'is_file'      => false,
+                'mimetype'     => 'multipart/report',
                 'partner_from' => $data->getPartnerFrom(),
-                'partner_to' => $data->getPartnerTo());
+                'partner_to'   => $data->getPartnerTo()
+            ];
             $this->initializeBase($data->getContent(), $params);
-
+            
             // check requirements
             if ($this->partner_from->mdn_signed && !$data->isSigned()) {
                 throw new AS2Exception('MDN from this partner are defined to be signed.', 4);
             }
-        } elseif ($data instanceof Message) { // standard processed message
+        }
+        elseif ($data instanceof Message) { // standard processed message
             $params['partner_from'] = $data->getPartnerTo();
-            $params['partner_to'] = $data->getPartnerFrom();
-
+            $params['partner_to']   = $data->getPartnerFrom();
+            
             $this->initializeBase(false, $params);
-        } elseif ($data instanceof Horde_MIME_Part) {
+        }
+        elseif ($data instanceof Horde_MIME_Part) {
             try {
                 $this->setPartnerFrom($params['partner_from']);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->partner_from = false;
             }
             try {
                 $this->setPartnerTo($params['partner_to']);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->partner_to = false;
             }
-
+            
             $this->path = Adapter::getTempFilename();
             file_put_contents($this->path, $data->toString(true));
-
+            
             $this->initializeBase(false, $params);
-        } else {
+        }
+        else {
             throw new AS2Exception('Not handled case.');
         }
     }
-
+    
     /**
      * Set attribute for computer readable message
      *
-     * @param string $key Token
+     * @param string $key   Token
      * @param string $value Value
      */
     public function setAttribute($key, $value)
     {
         $this->attributes->addHeader($key, $value);
     }
-
+    
     /**
      * Return the human readable message
      *
@@ -150,7 +194,7 @@ class MDN extends AbstractBase
     {
         return $this->getMessage();
     }
-
+    
     /**
      * Return the human readable message
      *
@@ -160,7 +204,7 @@ class MDN extends AbstractBase
     {
         return $this->message;
     }
-
+    
     /**
      * Set the human readable message
      *
@@ -170,7 +214,7 @@ class MDN extends AbstractBase
     {
         $this->message = $message;
     }
-
+    
     /**
      * Return the computer readable message
      *
@@ -180,7 +224,7 @@ class MDN extends AbstractBase
     {
         return $this->attributes->getHeaders();
     }
-
+    
     /**
      * Encode and generate MDN from attributes and message (if exists)
      *
@@ -190,15 +234,15 @@ class MDN extends AbstractBase
     {
         // container
         $container = new Horde_MIME_Part('multipart/report', ' ');
-
+        
         // first part
         $text = new Horde_MIME_Part('text/plain', $this->getMessage(), MIME_DEFAULT_CHARSET, null, '7bit');
         // add human readable message
         $container->addPart($text);
-
+        
         // second part
         $lines = new Header();
-        $lines->addHeader('Reporting-UA', 'AS2Secure - PHP Lib for AS2 message encoding / decoding');
+        $lines->addHeader('Reporting-UA', 'ETP_EETP');
         if ($this->getPartnerFrom()) {
             $lines->addHeader('Original-Recipient', 'rfc822; "' . $this->getPartnerFrom()->id . '"');
             $lines->addHeader('Final-Recipient', 'rfc822; "' . $this->getPartnerFrom()->id . '"');
@@ -211,64 +255,67 @@ class MDN extends AbstractBase
         if ($this->getAttribute('received-content-mic')) {
             $lines->addHeader('Received-Content-MIC', $this->getAttribute('received-content-mic'));
         }
-
+        
         // build computer readable message
         $mdn = new Horde_MIME_Part('message/disposition-notification', $lines, MIME_DEFAULT_CHARSET, null, '7bit');
         $container->addPart($mdn);
-
+        
         $this->setMessageId(self::generateMessageID($this->getPartnerFrom()));
-
+        
         // headers setup
-        $this->headers = new Header(array('AS2-Version' => '1.0',
-            'Message-ID' => $this->getMessageId(),
+        $this->headers = new Header([
+            'AS2-Version'  => '1.0',
+            'Message-ID'   => $this->getMessageId(),
             'Mime-Version' => '1.0',
-            'Server' => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
-            'User-Agent' => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
-        ));
+            'Server'       => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
+            'User-Agent'   => 'AS2Secure - PHP Lib for AS2 message encoding / decoding',
+        ]);
         $this->headers->addHeaders($container->header());
-
+        
         if ($this->getPartnerFrom()) {
-            $headers_from = array(
-                'AS2-From' => '"' . $this->getPartnerFrom()->id . '"',
-                'From' => $this->getPartnerFrom()->email,
-                'Subject' => $this->getPartnerFrom()->mdn_subject,
+            $headers_from = [
+                'AS2-From'                    => $this->getPartnerFrom()->id,
+                'From'                        => $this->getPartnerFrom()->email,
+                'Subject'                     => $this->getPartnerFrom()->mdn_subject,
                 'Disposition-Notification-To' => $this->getPartnerFrom()->send_url,
-            );
+            ];
             $this->headers->addHeaders($headers_from);
         }
-
+        
         if ($this->getPartnerTo()) {
-            $headers_to = array(
-                'AS2-To' => '"' . $this->getPartnerTo()->id . '"',
+            $headers_to = [
+                'AS2-To'            => $this->getPartnerTo()->id,
                 'Recipient-Address' => $this->getPartnerTo()->send_url,
-            );
+            ];
             $this->headers->addHeaders($headers_to);
         }
-
+        
         if ($message && ($url = $message->getHeader('Receipt-Delivery-Option')) && $this->getPartnerFrom()) {
             $this->url = $url;
             $this->headers->addHeader('Recipient-Address', $this->getPartnerFrom()->send_url);
         }
-
+        
         $this->path = Adapter::getTempFilename();
-
+        
         // signing if requested
         if ($message && $message->getHeader('Disposition-Notification-Options')) {
             file_put_contents($this->path, $container->toCanonicalString(true));
             $this->path = $this->adapter->sign($this->path);
-
+            
             $content = file_get_contents($this->path);
             $this->headers->addHeadersFromMessage($content);
-
+            
             // TODO : replace with futur AS2MimePart to separate content from header
-            if (strpos($content, "\n\n") !== false) $content = substr($content, strpos($content, "\n\n") + 2);
+            if (strpos($content, "\n\n") !== false)
+                $content = substr($content, strpos($content, "\n\n") + 2);
             file_put_contents($this->path, ltrim($content));
-        } else {
+        }
+        else {
             file_put_contents($this->path, $container->toCanonicalString(false));
             $content = $container->toString();
         }
     }
-
+    
     /**
      * Return an attribute fromcomputer readable message
      *
@@ -280,7 +327,7 @@ class MDN extends AbstractBase
     {
         return $this->attributes->getHeader($key);
     }
-
+    
     /**
      * Decode MDN stored into path file and set attributes
      *
@@ -288,19 +335,19 @@ class MDN extends AbstractBase
     public function decode()
     {
         // parse mime message
-        $params = array('include_bodies' => true,
+        $params    = [
+            'include_bodies' => true,
             'decode_headers' => true,
-            'decode_bodies' => true,
-            'input' => false,
-            'crlf' => "\n"
-        );
-        $decoder = new Mail_mimeDecode(file_get_contents($this->path));
+            'decode_bodies'  => true,
+            'input'          => false,
+            'crlf'           => "\n"
+        ];
+        $decoder   = new \Mail_mimeDecode(file_get_contents($this->path));
         $structure = $decoder->decode($params);
-
         // reset values before decoding (for security reasons)
         $this->setMessage('');
         $this->attributes = null;
-
+        
         // should contains 2 parts
         foreach ($structure->parts as $num => $part) {
             if (strtolower($part->headers['content-type']) == 'message/disposition-notification') {
@@ -312,13 +359,15 @@ class MDN extends AbstractBase
                 $headers = new Header();
                 $headers->addHeadersFromMessage($part->body);
                 $this->attributes = $headers;
-            } else {
+            }
+            else {
                 // human readable message
                 $this->setMessage(trim($part->body));
             }
         }
+        $this->setMessageId($this->getHeader('message-id'));
     }
-
+    
     /**
      * Return the url to send message
      *

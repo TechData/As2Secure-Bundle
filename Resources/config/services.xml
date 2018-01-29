@@ -42,6 +42,7 @@
         <service id="tech_data_as2_secure.factory.request" class="%tech_data_as2_secure.factory.request.class%" parent="tech_data_as2_secure.factory.abstract" public="false">
             <argument type="service" id="tech_data_as2_secure.factory.mdn" />
             <argument type="service" id="tech_data_as2_secure.factory.message" />
+            <argument type="service" id="tech_data_as2_secure.event_dispatcher" />
         </service>
         <service id="tech_data_as2_secure.factory.partner" class="%tech_data_as2_secure.factory.partner.class%" public="false"/>
         <service id="tech_data_as2_secure.factory.adapter" class="%tech_data_as2_secure.factory.adapter.class%" public="false">

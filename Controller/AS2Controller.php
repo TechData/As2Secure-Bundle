@@ -4,6 +4,8 @@ namespace TechData\AS2SecureBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use TechData\AS2SecureBundle\Services\AS2;
 
 /**
@@ -11,7 +13,7 @@ use TechData\AS2SecureBundle\Services\AS2;
  *
  * @author wpigott
  */
-class AS2Controller
+class AS2Controller extends Controller
 {
 
     /**
@@ -27,6 +29,12 @@ class AS2Controller
 
     public function inboundAction(Request $request)
     {
-        $this->as2Service->handleRequest($request);
+        try {
+            $this->as2Service->handleRequest($request);
+            return new Response('',200);
+        }
+        catch (\Exception $exception ) {
+            return new Response('',500);
+        }
     }
 }
