@@ -109,13 +109,10 @@ class Message extends AbstractBase
             $file = Adapter::getTempFilename();
             file_put_contents($file, $data);
             $data    = $file;
-            $is_file = true;
         }
-        else {
-            if (!$filename)
-                $filename = basename($data);
+        if (!$filename){
+            $filename = basename($data);
         }
-        
         if (!$mimetype)
             $mimetype = Adapter::detectMimeType($data);
         
@@ -339,5 +336,13 @@ class Message extends AbstractBase
         }
         
         return $mdn;
+    }
+    
+    /**
+     * @return bool|string
+     */
+    public function getContent()
+    {
+        return base64_decode(parent::getContent());
     }
 }

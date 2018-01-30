@@ -147,7 +147,7 @@ class AS2 implements MessageSender
      * @throws \TechData\AS2SecureBundle\Models\AS2Exception
      * @throws \TechData\AS2SecureBundle\Models\Exception
      */
-    public function sendMessage($toPartner, $fromPartner, $messageContent,$mimeType = "text/xml", $encoding = "")
+    public function sendMessage($toPartner, $fromPartner, $messageContent,$mimeType = "application/xml", $encoding = "")
     {
         // process request to build outbound AS2 message to VAR
         
@@ -161,7 +161,7 @@ class AS2 implements MessageSender
         $adapter = $this->adapterFactory->build($fromPartner, $toPartner);
         
         // write the EDI message that will be sent to a temp file, then use the AS2 adapter to encrypt it
-        $message->addFile($messageContent, $mimeType, "", "", $encoding);
+        $message->addFile($messageContent, $mimeType, "", false, $encoding);
         $message->encode();
         
         // send AS2 message
