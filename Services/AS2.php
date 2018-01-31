@@ -174,6 +174,11 @@ class AS2 implements MessageSender
         $messageSent->setMessage($messageContent);
         $this->eventDispatcher->dispatch(MessageSent::EVENT, $messageSent);
         
+        //clean sended files
+        foreach ($message->getFiles() as $file)
+        {
+            unlink($file['path']);
+        }
         return $result;
     }
 }
