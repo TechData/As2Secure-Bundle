@@ -122,7 +122,7 @@ class myCompanyAS2Partner implements PartnerInterface
 
 }
 ```
-####Service
+#### Service
 ```yml
     app.partner.mendelson:
         class: AppBundle\Partner\MendelsonPartner
