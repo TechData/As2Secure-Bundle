@@ -89,7 +89,7 @@ class Client
         $log = "Header: " . implode(',', $headers) . PHP_EOL;
         // send as2 message with headers
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $request->getUrl().'?XDEBUG_SESSION_START=123456');
+        curl_setopt($ch, CURLOPT_URL, $request->getUrl());
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

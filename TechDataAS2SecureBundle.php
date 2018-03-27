@@ -13,6 +13,5 @@ class TechDataAS2SecureBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new PartnerProviderCompilerPass());
-
     }
 }
