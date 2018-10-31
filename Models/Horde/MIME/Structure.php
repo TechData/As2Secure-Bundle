@@ -1,5 +1,8 @@
 <?php
 namespace TechData\AS2SecureBundle\Models\Horde\MIME;
+use TechData\AS2SecureBundle\Models\Horde\Horde_MIME;
+use TechData\AS2SecureBundle\Models\Horde\Horde_String;
+
 /**
  * $Horde: framework/MIME/MIME/Structure.php,v 1.87.10.31 2009/01/06 15:23:20 jan Exp $
  *
@@ -33,7 +36,7 @@ class Horde_MIME_Structure
      */
     public static function &parse($body)
     {
-        $msgOb = &new Horde_MIME_Message();
+        $msgOb = new Horde_MIME_Message();
         $msgOb->addPart(Horde_MIME_Structure::_parse($body));
         $msgOb->buildMessage();
 
@@ -63,7 +66,7 @@ class Horde_MIME_Structure
             $multipart = Horde_MIME::type('multipart');
         }
 
-        $mime_part = &new Horde_MIME_Part();
+        $mime_part = new Horde_MIME_Part();
 
         /* Top multiparts don't get their own line. */
         if (empty($ref) &&
@@ -287,7 +290,8 @@ class Horde_MIME_Structure
                     break;
             }
 
-            Horde_MIME_Structure::addMultipartInfo($ptr->getParts(), $new_info);
+            $parts = $ptr->getParts();
+            Horde_MIME_Structure::addMultipartInfo($parts, $new_info);
         }
     }
 
@@ -307,7 +311,7 @@ class Horde_MIME_Structure
             'decode_headers' => false
         );
 
-        $mimeDecode = &new Mail_mimeDecode($text, MIME_PART_EOL);
+        $mimeDecode = new \Mail_mimeDecode($text);
         if (!($structure = $mimeDecode->decode($decode_args))) {
             $message = false;
         } else {
@@ -358,7 +362,7 @@ class Horde_MIME_Structure
                 $ob->$if_var = 1;
                 $ob->$param_value = array();
                 foreach ($ob->$param_key as $key => $val) {
-                    $newOb = &new stdClass;
+                    $newOb = new \stdClass();
                     $newOb->attribute = $key;
                     $newOb->value = $val;
                     array_push($ob->$param_value, $newOb);

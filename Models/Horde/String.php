@@ -29,7 +29,7 @@ class Horde_String
      *
      * @see Util::extensionExists()
      */
-    public function extensionExists($ext)
+    public static function extensionExists($ext)
     {
         static $cache = array();
 
@@ -46,7 +46,7 @@ class Horde_String
      *
      * @param string $charset The charset to use as the default one.
      */
-    public function setDefaultCharset($charset)
+    public static function setDefaultCharset($charset)
     {
         self::$charset = $charset;
         if (Horde_String::extensionExists('mbstring') &&
@@ -75,7 +75,7 @@ class Horde_String
      *
      * @return mixed  The converted input data.
      */
-    public function convertCharset($input, $from, $to = null)
+    public static function convertCharset($input, $from, $to = null)
     {
         /* Don't bother converting numbers. */
         if (is_numeric($input)) {
@@ -128,7 +128,7 @@ class Horde_String
      *
      * @return string  The converted string.
      */
-    protected function _convertCharset($input, $from, $to)
+    protected static function _convertCharset($input, $from, $to)
     {
         $output = '';
         $from_check = (($from == 'iso-8859-1') || ($from == 'us-ascii'));
@@ -193,7 +193,7 @@ class Horde_String
      *
      * @return string  The string with lowercase characters
      */
-    public function lower($string, $locale = false, $charset = null)
+    public static function lower($string, $locale = false, $charset = null)
     {
         static $lowers;
 
@@ -239,7 +239,7 @@ class Horde_String
      *
      * @return string  The string with uppercase characters
      */
-    public function upper($string, $locale = false, $charset = null)
+    public static function upper($string, $locale = false, $charset = null)
     {
         static $uppers;
 
@@ -284,7 +284,7 @@ class Horde_String
      *
      * @return string  The capitalized string.
      */
-    public function ucfirst($string, $locale = false, $charset = null)
+    public static function ucfirst($string, $locale = false, $charset = null)
     {
         if ($locale) {
             $first = Horde_String::substr($string, 0, 1, $charset);
@@ -309,7 +309,7 @@ class Horde_String
      *
      * @return string  The string's part.
      */
-    public function substr($string, $start, $length = null, $charset = null)
+    public static function substr($string, $start, $length = null, $charset = null)
     {
         if (is_null($length)) {
             $length = Horde_String::length($string, $charset) - $start;
@@ -360,7 +360,7 @@ class Horde_String
      *
      * @return string  The string's part.
      */
-    public function length($string, $charset = null)
+    public static function length($string, $charset = null)
     {
         if (is_null($charset)) {
             $charset = self::$charset;
@@ -393,7 +393,7 @@ class Horde_String
      *
      * @return integer  The position of first occurrence.
      */
-    public function pos($haystack, $needle, $offset = 0, $charset = null)
+    public static function pos($haystack, $needle, $offset = 0, $charset = null)
     {
         if (Horde_String::extensionExists('mbstring')) {
             if (is_null($charset)) {
@@ -427,7 +427,7 @@ class Horde_String
      *
      * @return string  The padded string.
      */
-    public function pad($input, $length, $pad = ' ', $type = STR_PAD_RIGHT,
+    public static function pad($input, $length, $pad = ' ', $type = STR_PAD_RIGHT,
                         $charset = null)
     {
         $mb_length = Horde_String::length($input, $charset);
@@ -484,7 +484,7 @@ class Horde_String
      *
      * @return string  Horde_String containing the wrapped text.
      */
-    public function wordwrap($string, $width = 75, $break = "\n", $cut = false,
+    public static function wordwrap($string, $width = 75, $break = "\n", $cut = false,
                              $charset = null, $line_folding = false)
     {
         /* Get the user's default character set if none passed in. */
@@ -555,7 +555,7 @@ class Horde_String
      *
      * @return string  Horde_String containing the wrapped text.
      */
-    public function wrap($text, $length = 80, $break_char = "\n", $charset = null,
+    public static function wrap($text, $length = 80, $break_char = "\n", $charset = null,
                          $quote = false)
     {
         $paragraphs = array();
@@ -588,7 +588,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was alphabetic only.
      */
-    public function isAlpha($string, $charset = null)
+    public static function isAlpha($string, $charset = null)
     {
         if (!Horde_String::extensionExists('mbstring')) {
             return ctype_alpha($string);
@@ -620,7 +620,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was lowercase.
      */
-    public function isLower($string, $charset = null)
+    public static function isLower($string, $charset = null)
     {
         return ((Horde_String::lower($string, true, $charset) === $string) &&
             Horde_String::isAlpha($string, $charset));
@@ -635,7 +635,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was uppercase.
      */
-    public function isUpper($string, $charset = null)
+    public static function isUpper($string, $charset = null)
     {
         return ((Horde_String::upper($string, true, $charset) === $string) &&
             Horde_String::isAlpha($string, $charset));
@@ -653,7 +653,7 @@ class Horde_String
      *
      * @return array  The matches array from the first regex that matches.
      */
-    public function regexMatch($text, $regex, $charset = null)
+    public static function regexMatch($text, $regex, $charset = null)
     {
         if (!empty($charset)) {
             $regex = Horde_String::convertCharset($regex, $charset, 'utf-8');
@@ -683,7 +683,7 @@ class Horde_String
      *
      * @return string  The charset to use with mbstring public functions.
      */
-    protected function _mbstringCharset($charset)
+    protected static function _mbstringCharset($charset)
     {
         /* mbstring public functions do not handle the 'ks_c_5601-1987' &
          * 'ks_c_5601-1989' charsets. However, these charsets are used, for

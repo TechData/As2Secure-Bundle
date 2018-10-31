@@ -1,9 +1,10 @@
 <?php
+
 namespace TechData\AS2SecureBundle\Models;
 /**
  * AS2Secure - PHP Lib for AS2 message encoding / decoding
  *
- * @author  Sebastien MALOT <contact@as2secure.com>
+ * @author    Sebastien MALOT <contact@as2secure.com>
  *
  * @copyright Copyright (c) 2010, Sebastien MALOT
  *
@@ -24,84 +25,236 @@ namespace TechData\AS2SecureBundle\Models;
  * You should have received a copy of the GNU General Public License
  * along with AS2Secure.
  *
- * @license http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
- * @version 0.9.0
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.html GNU General Public License
+ * @version   0.9.0
  *
  */
 
+/**
+ * Class Partner
+ *
+ * @package TechData\AS2SecureBundle\Models
+ */
 class Partner
 {
     // general information
+    /**
+     *
+     */
     const METHOD_NONE = 'NONE';
+    /**
+     *
+     */
     const METHOD_AUTO = CURLAUTH_ANY;
+    /**
+     *
+     */
     const METHOD_BASIC = CURLAUTH_BASIC;
+    /**
+     *
+     */
     const METHOD_DIGECT = CURLAUTH_DIGEST;
+    /**
+     *
+     */
     const METHOD_NTLM = CURLAUTH_NTLM;
-
+    
     // security
+    /**
+     *
+     */
     const METHOD_GSS = CURLAUTH_GSSNEGOTIATE; // must contain private/certificate/ca chain
+    /**
+     *
+     */
     const ENCODING_BASE64 = 'base64';
+    /**
+     *
+     */
     const ENCODING_BINARY = 'binary'; // must contain certificate/ca chain
+    /**
+     *
+     */
     const ACK_SYNC = 'SYNC';
+    /**
+     *
+     */
     const ACK_ASYNC = 'ASYNC';
-
+    
     // sending data
+    /**
+     *
+     */
     const SIGN_NONE = 'none';
+    /**
+     *
+     */
     const SIGN_SHA1 = 'sha1'; // full url including "http://" or "https://"
+    /**
+     *
+     */
     const SIGN_MD5 = 'md5';
+    /**
+     *
+     */
     const CRYPT_NONE = 'none';
+    /**
+     *
+     */
     const CRYPT_RC2_40 = 'rc2-40';
+    /**
+     *
+     */
     const CRYPT_RC2_64 = 'rc2-64';
+    /**
+     *
+     */
     const CRYPT_RC2_128 = 'rc2-128';
+    /**
+     *
+     */
     const CRYPT_DES = 'des';
-
+    
     // notification process
+    /**
+     *
+     */
     const CRYPT_3DES = 'des3';
+    /**
+     *
+     */
     const CRYPT_AES_128 = 'aes128';
+    /**
+     *
+     */
     const CRYPT_AES_192 = 'aes192';
+    /**
+     *
+     */
     const CRYPT_AES_256 = 'aes256';
-    protected static $stack = array();
+    /**
+     * @var array
+     */
+    protected static $stack = [];
+    /**
+     * @var bool
+     */
     protected $is_local = false;
+    /**
+     * @var string
+     */
     protected $name = '';
-
+    
     // event trigger connector
+    /**
+     * @var string
+     */
     protected $id = '';
-
+    
     // 
+    /**
+     * @var string
+     */
     protected $email = '';
-
+    
     // security methods
+    /**
+     * @var string
+     */
     protected $comment = '';
+    /**
+     * @var string
+     */
     protected $sec_pkcs12 = '';
+    /**
+     * @var string
+     */
     protected $sec_pkcs12_password = '';
+    /**
+     * @var string
+     */
     protected $sec_certificate = '';
+    /**
+     * @var string
+     */
     protected $sec_signature_algorithm = self::SIGN_SHA1;
+    /**
+     * @var string
+     */
     protected $sec_encrypt_algorithm = self::CRYPT_3DES;
-
+    
     // transfert content encoding
+    /**
+     * @var bool
+     */
     protected $send_compress = false;
+    /**
+     * @var string
+     */
     protected $send_url = '';
-
+    
     // ack methods
+    /**
+     * @var string
+     */
     protected $send_subject = 'AS2 Message Subject';
+    /**
+     * @var string
+     */
     protected $send_content_type = 'application/EDI-Consent';
-
+    
     // 
+    /**
+     * @var string
+     */
     protected $send_credencial_method = self::METHOD_NONE;
+    /**
+     * @var string
+     */
     protected $send_credencial_login = '';
+    /**
+     * @var string
+     */
     protected $send_credencial_password = '';
-
+    
     // http://www.openssl.org/docs/apps/enc.html#SUPPORTED_CIPHERS
+    /**
+     * @var string
+     */
     protected $send_encoding = self::ENCODING_BASE64;
+    /**
+     * @var string
+     */
     protected $mdn_url = ''; // default
+    /**
+     * @var string
+     */
     protected $mdn_subject = 'AS2 MDN Subject';
+    /**
+     * @var string
+     */
     protected $mdn_request = self::ACK_SYNC;
+    /**
+     * @var bool
+     */
     protected $mdn_signed = true;
+    /**
+     * @var string
+     */
     protected $mdn_credencial_method = self::METHOD_NONE;
+    /**
+     * @var string
+     */
     protected $mdn_credencial_login = '';
+    /**
+     * @var string
+     */
     protected $mdn_credencial_password = '';
+    /**
+     * @var string
+     */
     protected $connector_class = 'AS2Connector';
-
+    
     /**
      * Restricted constructor
      *
@@ -113,12 +266,12 @@ class Partner
         foreach ($data as $key => $value) {
             if (!property_exists($this, $key) || is_null($value))
                 continue;
-
+            
             $this->$key = $value;
         }
     }
-
-
+    
+    
     /**
      * Return the list of available signatures
      *
@@ -126,11 +279,12 @@ class Partner
      */
     public static function getAvailablesSignatures()
     {
-        return array('NONE' => self::SIGN_NONE,
+        return [
+            'NONE' => self::SIGN_NONE,
             'SHA1' => self::SIGN_SHA1,
-        );
+        ];
     }
-
+    
     /**
      * Return the list of available cypher
      *
@@ -138,18 +292,19 @@ class Partner
      */
     public static function getAvailablesEncryptions()
     {
-        return array('NONE' => self::CRYPT_NONE,
-            'RC2_40' => self::CRYPT_RC2_40,
-            'RC2_64' => self::CRYPT_RC2_64,
+        return [
+            'NONE'    => self::CRYPT_NONE,
+            'RC2_40'  => self::CRYPT_RC2_40,
+            'RC2_64'  => self::CRYPT_RC2_64,
             'RC2_128' => self::CRYPT_RC2_128,
-            'DES' => self::CRYPT_DES,
-            '3DES' => self::CRYPT_3DES,
+            'DES'     => self::CRYPT_DES,
+            '3DES'    => self::CRYPT_3DES,
             'AES_128' => self::CRYPT_AES_128,
             'AES_192' => self::CRYPT_AES_192,
             'AES_256' => self::CRYPT_AES_256,
-        );
+        ];
     }
-
+    
     /**
      * Magic getter
      *
@@ -164,7 +319,7 @@ class Partner
         else
             return null; // for strict processes : throw new Exception
     }
-
+    
     /**
      * Magic setter
      *
@@ -178,7 +333,7 @@ class Partner
             $this->$key = $value;
         // for strict processes : throw new Exception if property doesn't exists
     }
-
+    
     /**
      * Magic method
      *
